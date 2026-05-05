@@ -38,6 +38,10 @@ site/node_modules/
 site/dist/
 site/.astro/
 
+# Python `lib/` gitignore above is unanchored and would swallow
+# site/src/lib/ — re-include it explicitly.
+!site/src/lib/
+
 # IDE
 .vscode/
 .idea/
