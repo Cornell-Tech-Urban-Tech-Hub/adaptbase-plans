@@ -1,0 +1,443 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import { supabase } from '../lib/supabase';
+
+// Fetch stats for Hero. RPC may not exist during local dev before migration; tolerate null.
+const { data: statsData } = await supabase.rpc('get_document_stats');
+const stats = statsData ? {
+  totalDocuments: statsData.total_documents || 0,
+  indexedDocuments: statsData.indexed_documents || 0,
+  totalChunks: statsData.total_chunks || 0
+} : undefined;
+
+// Full-text search requires chunks + embeddings. Until that pipeline is built,
+// the search page falls back to matching document titles/metadata.
+const hasFullTextSearch = (stats?.totalChunks ?? 0) > 0;
+---
+
+<BaseLayout title="Search" description="Search planning documents by title or content">
+  <Hero stats={stats} />
+
+  <div class="container">
+    <div class="search-header">
+      <h2>Search Documents</h2>
+      <p class="subtitle">Type your search and press Enter</p>
+    </div>
+
+    {!hasFullTextSearch && (
+      <div class="search-notice" role="status">
+        <strong>Limited search active.</strong>
+        Full-text search across document contents is coming soon. For now, searches match document titles.
+      </div>
+    )}
+
+    <div class="search-interface">
+      <div class="search-form">
+        <div class="search-input-wrapper">
+          <input
+            type="search"
+            id="search-input"
+            placeholder="e.g., zoning regulations for coastal areas"
+            autocomplete="off"
+            data-full-text-search={hasFullTextSearch ? 'true' : 'false'}
+          />
+        </div>
+      </div>
+
+      <div id="search-status" class="search-status"></div>
+      <div id="search-results" class="search-results"></div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .search-header {
+    margin-bottom: var(--space-6);
+  }
+
+  .search-header h2 {
+    margin: 0;
+  }
+
+  .subtitle {
+    color: var(--gray-600);
+    margin: 0;
+  }
+
+  .search-notice {
+    max-width: 800px;
+    margin: 0 auto var(--space-6);
+    padding: var(--space-3) var(--space-4);
+    background: var(--brand-light);
+    border-left: 3px solid var(--brand);
+    border-radius: var(--radius-sm);
+    color: var(--gray-800);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+
+  .search-notice strong {
+    color: var(--brand-dark);
+    margin-right: var(--space-2);
+  }
+
+  .search-interface {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .search-form {
+    margin-bottom: var(--space-6);
+  }
+
+  .search-input-wrapper {
+    width: 100%;
+  }
+
+  #search-input {
+    width: 100%;
+    padding: var(--space-4);
+    font-size: 1.125rem;
+  }
+
+  .search-status {
+    text-align: center;
+    padding: var(--space-4);
+    color: var(--gray-600);
+    min-height: 2rem;
+  }
+
+  .search-results {
+    margin-top: var(--space-6);
+  }
+
+  .result-item {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    padding: var(--space-6);
+    margin-bottom: var(--space-4);
+    display: flex;
+    gap: var(--space-4);
+    transition: box-shadow 0.2s;
+  }
+
+  .result-item:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  .result-thumbnail {
+    flex-shrink: 0;
+    width: 80px;
+    height: 104px;
+    background: var(--gray-100);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .result-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .result-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .result-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0 0 var(--space-2);
+  }
+
+  .result-title a {
+    color: var(--gray-900);
+    text-decoration: none;
+  }
+
+  .result-title a:hover {
+    color: var(--brand);
+  }
+
+  .result-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    margin-bottom: var(--space-2);
+  }
+
+  .result-snippet {
+    color: var(--gray-700);
+    line-height: 1.6;
+    padding: var(--space-3);
+    background: var(--gray-50);
+    border-left: 3px solid var(--brand-light);
+    border-radius: var(--radius-sm);
+    margin-top: var(--space-3);
+  }
+
+  .result-snippet mark {
+    background: var(--brand-light);
+    color: var(--brand-dark);
+    padding: 0 0.25em;
+    border-radius: 2px;
+  }
+
+  .empty-results {
+    text-align: center;
+    padding: var(--space-12) var(--space-6);
+    color: var(--gray-600);
+  }
+
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+  }
+
+  @media (max-width: 768px) {
+    .result-item {
+      flex-direction: column;
+    }
+    .result-thumbnail {
+      width: 100%;
+      height: 200px;
+    }
+  }
+</style>
+
+<script>
+  import { supabase, getPublicUrl, type SearchResult, type Document } from '../lib/supabase';
+
+  const input = document.getElementById('search-input') as HTMLInputElement;
+  const status = document.getElementById('search-status') as HTMLDivElement;
+  const results = document.getElementById('search-results') as HTMLDivElement;
+
+  const fullTextSearchEnabled = input.dataset.fullTextSearch === 'true';
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const initialQuery = urlParams.get('q');
+  if (initialQuery) {
+    input.value = initialQuery;
+    performSearch(initialQuery);
+  }
+
+  input.addEventListener('keydown', async (e) => {
+    if (e.key === 'Enter') {
+      const query = input.value.trim();
+      if (!query) return;
+
+      const url = new URL(window.location.href);
+      url.searchParams.set('q', query);
+      window.history.pushState({}, '', url);
+
+      await performSearch(query);
+    }
+  });
+
+  async function performSearch(query: string) {
+    status.innerHTML = '<div class="loading"><span class="spinner"></span> Searching...</div>';
+    results.innerHTML = '';
+    input.disabled = true;
+
+    try {
+      if (fullTextSearchEnabled) {
+        await performFullTextSearch(query);
+      } else {
+        await performTitleSearch(query);
+      }
+    } catch (error) {
+      console.error('Search error:', error);
+      status.innerHTML = '';
+      results.innerHTML = `
+        <div class="empty-results">
+          <p>Error performing search. Please try again.</p>
+        </div>
+      `;
+    } finally {
+      input.disabled = false;
+    }
+  }
+
+  async function performTitleSearch(query: string) {
+    // Fallback: match title OR country/city metadata. Works without chunks or
+    // embeddings. PostgREST `or=` takes a comma-separated list of predicates;
+    // quoting %value% inside ilike allows spaces.
+    const escaped = query.replace(/[,()]/g, '');
+    const pattern = `%${escaped}%`;
+    const orFilter = [
+      `title.ilike.${pattern}`,
+      `metadata->>country_iso3.ilike.${pattern}`,
+      `metadata->>country_iso2.ilike.${pattern}`,
+      `metadata->>country_name.ilike.${pattern}`,
+      `metadata->>city_name.ilike.${pattern}`,
+    ].join(',');
+
+    const { data: documents, error } = await supabase
+      .from('documents')
+      .select('*')
+      .eq('source', 'plans')
+      .or(orFilter)
+      .order('created_at', { ascending: false })
+      .limit(50);
+
+    if (error) throw error;
+
+    renderDocumentResults(query, (documents || []) as Document[]);
+  }
+
+  async function performFullTextSearch(query: string) {
+    const { data: searchResults, error } = await supabase.rpc('match_hybrid', {
+      query_embedding: null, // TODO: Get from embed-query Edge Function
+      query_text: query,
+      match_count: 20,
+      filter_source: 'plans',
+    }) as { data: SearchResult[] | null; error: any };
+
+    if (error) throw error;
+
+    const documentIds = [...new Set(searchResults?.map((r) => r.document_id) || [])];
+
+    const { data: documents, error: docError } = await supabase
+      .from('documents')
+      .select('*')
+      .eq('source', 'plans')
+      .in('id', documentIds);
+
+    if (docError) throw docError;
+
+    const docMap = new Map<string, Document>();
+    (documents || []).forEach((doc) => docMap.set(doc.id, doc));
+
+    renderChunkResults(query, searchResults || [], docMap);
+  }
+
+  function renderDocumentResults(query: string, documents: Document[]) {
+    if (documents.length === 0) {
+      status.innerHTML = '';
+      results.innerHTML = `
+        <div class="empty-results">
+          <p>No documents matched "<strong>${escapeHtml(query)}</strong>".</p>
+          <p>Try different keywords or browse the <a href="/">gallery</a>.</p>
+        </div>
+      `;
+      return;
+    }
+
+    status.innerHTML = `${documents.length} document${documents.length === 1 ? '' : 's'} matched`;
+
+    results.innerHTML = documents.map((doc) => {
+      const pdfUrl = doc.storage_path
+        ? getPublicUrl('plans', doc.storage_path.replace('plans/', ''))
+        : '#';
+      const thumbUrl = doc.thumbnail_path
+        ? getPublicUrl('thumbnails', doc.thumbnail_path.replace('thumbnails/', ''))
+        : '';
+      const locationParts = [doc.metadata?.city_name, doc.metadata?.country_name].filter(Boolean);
+      const location = locationParts.length
+        ? `<span>${highlightText(locationParts.join(', '), query)}</span>`
+        : '';
+
+      return `
+        <article class="result-item">
+          ${thumbUrl ? `<a href="${pdfUrl}" target="_blank" rel="noopener noreferrer" class="result-thumbnail"><img src="${thumbUrl}" alt="" loading="lazy"/></a>` : ''}
+          <div class="result-body">
+            <h3 class="result-title">
+              <a href="${pdfUrl}" target="_blank" rel="noopener noreferrer">${highlightText(doc.title, query)}</a>
+            </h3>
+            <div class="result-meta">
+              ${location}
+              ${doc.page_count ? `<span>${doc.page_count} pages</span>` : ''}
+              ${doc.file_size ? `<span>${formatSize(doc.file_size)}</span>` : ''}
+              ${doc.indexed_at ? '<span>✓ Indexed</span>' : ''}
+            </div>
+          </div>
+        </article>
+      `;
+    }).join('');
+  }
+
+  function renderChunkResults(query: string, searchResults: SearchResult[], docMap: Map<string, Document>) {
+    if (searchResults.length === 0) {
+      status.innerHTML = '';
+      results.innerHTML = `
+        <div class="empty-results">
+          <p>No results found for "<strong>${escapeHtml(query)}</strong>".</p>
+          <p>Try different keywords or a more general query.</p>
+        </div>
+      `;
+      return;
+    }
+
+    status.innerHTML = `Found ${searchResults.length} result${searchResults.length === 1 ? '' : 's'}`;
+
+    results.innerHTML = searchResults.map((result) => {
+      const doc = docMap.get(result.document_id);
+      if (!doc) return '';
+
+      const pdfUrl = doc.storage_path
+        ? getPublicUrl('plans', doc.storage_path.replace('plans/', ''))
+        : '#';
+      const pageUrl = result.page_number ? `${pdfUrl}#page=${result.page_number}` : pdfUrl;
+      const thumbUrl = doc.thumbnail_path
+        ? getPublicUrl('thumbnails', doc.thumbnail_path.replace('thumbnails/', ''))
+        : '';
+      const snippet = highlightText(result.content, query);
+
+      return `
+        <article class="result-item">
+          ${thumbUrl ? `<a href="${pageUrl}" target="_blank" rel="noopener noreferrer" class="result-thumbnail"><img src="${thumbUrl}" alt="" loading="lazy"/></a>` : ''}
+          <div class="result-body">
+            <h3 class="result-title">
+              <a href="${pageUrl}" target="_blank" rel="noopener noreferrer">${escapeHtml(doc.title)}</a>
+            </h3>
+            <div class="result-meta">
+              ${result.page_number ? `<span>Page ${result.page_number}</span>` : ''}
+              ${doc.page_count ? `<span>${doc.page_count} pages total</span>` : ''}
+            </div>
+            <div class="result-snippet">${snippet}</div>
+          </div>
+        </article>
+      `;
+    }).join('');
+  }
+
+  function escapeHtml(text: string): string {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  function highlightText(text: string, query: string): string {
+    const words = query.toLowerCase().split(/\s+/).filter((w) => w.length > 2);
+    let highlighted = escapeHtml(text);
+
+    words.forEach((word) => {
+      const regex = new RegExp(`(${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+      highlighted = highlighted.replace(regex, '<mark>$1</mark>');
+    });
+
+    if (highlighted.length > 400) {
+      highlighted = highlighted.substring(0, 400) + '...';
+    }
+
+    return highlighted;
+  }
+
+  function formatSize(bytes: number): string {
+    const units = ['B', 'KB', 'MB', 'GB'];
+    let size = bytes;
+    let i = 0;
+    while (size >= 1024 && i < units.length - 1) {
+      size /= 1024;
+      i++;
+    }
+    return `${size.toFixed(1)} ${units[i]}`;
+  }
+</script>

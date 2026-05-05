@@ -1,0 +1,24 @@
+{
+  "name": "adaptbase-plans-site",
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "format": "prettier --write .",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.0",
+    "@supabase/supabase-js": "^2.48.0",
+    "astro": "^5.0.0",
+    "typescript": "^5.7.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.4.0",
+    "prettier-plugin-astro": "^0.14.0"
+  }
+}

@@ -1,0 +1,121 @@
+---
+---
+
+<div id="about-modal" class="modal" aria-hidden="true">
+  <div class="modal-overlay"></div>
+  <div class="modal-content">
+    <button class="modal-close" aria-label="Close">&times;</button>
+
+    <h2>About Adaptbase Plans</h2>
+
+    <div class="about-text">
+      <p>
+        This collection provides open access to planning documents, zoning regulations, and policy frameworks
+        from cities around the world, supporting climate adaptation research and urban resilience planning.
+      </p>
+
+      <h3>Technology</h3>
+      <p>
+        The archive uses hybrid search combining semantic embeddings and keyword matching to help researchers
+        find relevant passages across thousands of planning documents. All PDFs are chunked and indexed using
+        vector embeddings for semantic search.
+      </p>
+
+      <h3>Part of Adaptbase</h3>
+      <p>
+        This archive is part of the <a href="https://adaptbase.us" target="_blank" rel="noopener noreferrer">Adaptbase</a> project,
+        a knowledge base for climate adaptation research and urban resilience planning.
+      </p>
+
+      <h3>Open Source</h3>
+      <p>
+        Built with <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a>,
+        <a href="https://supabase.com" target="_blank" rel="noopener noreferrer">Supabase</a>, and
+        <a href="https://github.com/pgvector/pgvector" target="_blank" rel="noopener noreferrer">pgvector</a>.
+      </p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal.active {
+    display: flex;
+  }
+
+  .modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-content {
+    position: relative;
+    background: white;
+    border-radius: var(--radius-md);
+    padding: var(--space-8);
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    margin: var(--space-4);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--gray-600);
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-close:hover {
+    color: var(--gray-900);
+  }
+
+  .modal-content h2 {
+    margin-top: 0;
+    margin-bottom: var(--space-6);
+    color: var(--brand);
+  }
+
+  .modal-content h3 {
+    font-size: 1.125rem;
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-3);
+  }
+
+  .about-text p {
+    color: var(--gray-700);
+    line-height: 1.7;
+  }
+
+  .about-text a {
+    color: var(--brand);
+    font-weight: 500;
+  }
+
+  .about-text a:hover {
+    color: var(--brand-dark);
+  }
+</style>

@@ -1,0 +1,3922 @@
+{
+  "492": {
+    "name": "Herat",
+    "country_code_iso3": "AFG"
+  },
+  "506": {
+    "name": "Kabul",
+    "country_code_iso3": "AFG"
+  },
+  "502": {
+    "name": "Kandahar",
+    "country_code_iso3": "AFG"
+  },
+  "292": {
+    "name": "Cabinda",
+    "country_code_iso3": "AGO"
+  },
+  "312": {
+    "name": "Huambo",
+    "country_code_iso3": "AGO"
+  },
+  "298": {
+    "name": "Luanda",
+    "country_code_iso3": "AGO"
+  },
+  "300": {
+    "name": "Lubango",
+    "country_code_iso3": "AGO"
+  },
+  "317": {
+    "name": "Tirana",
+    "country_code_iso3": "ALB"
+  },
+  "485": {
+    "name": "Abu Dhabi",
+    "country_code_iso3": "ARE"
+  },
+  "490": {
+    "name": "Al Ain",
+    "country_code_iso3": "ARE"
+  },
+  "487": {
+    "name": "Dubai",
+    "country_code_iso3": "ARE"
+  },
+  "138": {
+    "name": "Buenos Aires",
+    "country_code_iso3": "ARG"
+  },
+  "132": {
+    "name": "Cordoba",
+    "country_code_iso3": "ARG"
+  },
+  "139": {
+    "name": "La Plata",
+    "country_code_iso3": "ARG"
+  },
+  "142": {
+    "name": "Mar del Plata",
+    "country_code_iso3": "ARG"
+  },
+  "122": {
+    "name": "Mendoza",
+    "country_code_iso3": "ARG"
+  },
+  "135": {
+    "name": "Rosario",
+    "country_code_iso3": "ARG"
+  },
+  "123": {
+    "name": "Salta",
+    "country_code_iso3": "ARG"
+  },
+  "127": {
+    "name": "San Miguel de Tucumán",
+    "country_code_iso3": "ARG"
+  },
+  "1021": {
+    "name": "Santa Fe",
+    "country_code_iso3": "ARG"
+  },
+  "988": {
+    "name": "Adelaide",
+    "country_code_iso3": "AUS"
+  },
+  "994": {
+    "name": "Brisbane",
+    "country_code_iso3": "AUS"
+  },
+  "991": {
+    "name": "Melbourne",
+    "country_code_iso3": "AUS"
+  },
+  "848": {
+    "name": "Perth",
+    "country_code_iso3": "AUS"
+  },
+  "993": {
+    "name": "Sydney",
+    "country_code_iso3": "AUS"
+  },
+  "294": {
+    "name": "Vienna",
+    "country_code_iso3": "AUT"
+  },
+  "458": {
+    "name": "Baku",
+    "country_code_iso3": "AZE"
+  },
+  "379": {
+    "name": "Bujumbura",
+    "country_code_iso3": "BDI"
+  },
+  "229": {
+    "name": "Antwerp",
+    "country_code_iso3": "BEL"
+  },
+  "230": {
+    "name": "Brussels",
+    "country_code_iso3": "BEL"
+  },
+  "222": {
+    "name": "Cotonou",
+    "country_code_iso3": "BEN"
+  },
+  "226": {
+    "name": "Porto-Novo",
+    "country_code_iso3": "BEN"
+  },
+  "193": {
+    "name": "Bobo-Dioulasso",
+    "country_code_iso3": "BFA"
+  },
+  "205": {
+    "name": "Ouagadougou",
+    "country_code_iso3": "BFA"
+  },
+  "717": {
+    "name": "Bogura",
+    "country_code_iso3": "BGD"
+  },
+  "727": {
+    "name": "Brahmanbaria",
+    "country_code_iso3": "BGD"
+  },
+  "708": {
+    "name": "Chapainawabganj",
+    "country_code_iso3": "BGD"
+  },
+  "735": {
+    "name": "Chattogram",
+    "country_code_iso3": "BGD"
+  },
+  "729": {
+    "name": "Comilla",
+    "country_code_iso3": "BGD"
+  },
+  "734": {
+    "name": "Daganbhuiyan",
+    "country_code_iso3": "BGD"
+  },
+  "724": {
+    "name": "Dhaka",
+    "country_code_iso3": "BGD"
+  },
+  "728": {
+    "name": "Homna",
+    "country_code_iso3": "BGD"
+  },
+  "720": {
+    "name": "Jessore",
+    "country_code_iso3": "BGD"
+  },
+  "722": {
+    "name": "Khulna",
+    "country_code_iso3": "BGD"
+  },
+  "725": {
+    "name": "Kishoreganj",
+    "country_code_iso3": "BGD"
+  },
+  "730": {
+    "name": "Lakshmipur",
+    "country_code_iso3": "BGD"
+  },
+  "723": {
+    "name": "Mymensingh",
+    "country_code_iso3": "BGD"
+  },
+  "733": {
+    "name": "Noakhali",
+    "country_code_iso3": "BGD"
+  },
+  "712": {
+    "name": "Rajshahi",
+    "country_code_iso3": "BGD"
+  },
+  "714": {
+    "name": "Rangpur",
+    "country_code_iso3": "BGD"
+  },
+  "719": {
+    "name": "Sirajganj",
+    "country_code_iso3": "BGD"
+  },
+  "732": {
+    "name": "Sylhet",
+    "country_code_iso3": "BGD"
+  },
+  "721": {
+    "name": "Tangail",
+    "country_code_iso3": "BGD"
+  },
+  "320": {
+    "name": "Sofia",
+    "country_code_iso3": "BGR"
+  },
+  "480": {
+    "name": "Manama",
+    "country_code_iso3": "BHR"
+  },
+  "323": {
+    "name": "Minsk",
+    "country_code_iso3": "BLR"
+  },
+  "112": {
+    "name": "Cochabamba",
+    "country_code_iso3": "BOL"
+  },
+  "106": {
+    "name": "El Alto [La Paz]",
+    "country_code_iso3": "BOL"
+  },
+  "125": {
+    "name": "Santa Cruz de la Sierra",
+    "country_code_iso3": "BOL"
+  },
+  "167": {
+    "name": "Aracaju",
+    "country_code_iso3": "BRA"
+  },
+  "144": {
+    "name": "Belém",
+    "country_code_iso3": "BRA"
+  },
+  "160": {
+    "name": "Belo Horizonte",
+    "country_code_iso3": "BRA"
+  },
+  "154": {
+    "name": "Campinas",
+    "country_code_iso3": "BRA"
+  },
+  "137": {
+    "name": "Campo Grande",
+    "country_code_iso3": "BRA"
+  },
+  "146": {
+    "name": "Ceilândia",
+    "country_code_iso3": "BRA"
+  },
+  "134": {
+    "name": "Cuiab ",
+    "country_code_iso3": "BRA"
+  },
+  "150": {
+    "name": "Curitiba",
+    "country_code_iso3": "BRA"
+  },
+  "165": {
+    "name": "Feira de Santana",
+    "country_code_iso3": "BRA"
+  },
+  "152": {
+    "name": "Florianópolis",
+    "country_code_iso3": "BRA"
+  },
+  "164": {
+    "name": "Fortaleza",
+    "country_code_iso3": "BRA"
+  },
+  "145": {
+    "name": "Goiânia",
+    "country_code_iso3": "BRA"
+  },
+  "171": {
+    "name": "João Pessoa",
+    "country_code_iso3": "BRA"
+  },
+  "143": {
+    "name": "Londrina",
+    "country_code_iso3": "BRA"
+  },
+  "168": {
+    "name": "Maceió",
+    "country_code_iso3": "BRA"
+  },
+  "128": {
+    "name": "Manaus",
+    "country_code_iso3": "BRA"
+  },
+  "169": {
+    "name": "Natal",
+    "country_code_iso3": "BRA"
+  },
+  "147": {
+    "name": "Novo Hamburgo",
+    "country_code_iso3": "BRA"
+  },
+  "148": {
+    "name": "Porto Alegre",
+    "country_code_iso3": "BRA"
+  },
+  "170": {
+    "name": "Recife",
+    "country_code_iso3": "BRA"
+  },
+  "151": {
+    "name": "Ribeirao Preto",
+    "country_code_iso3": "BRA"
+  },
+  "161": {
+    "name": "Rio de Janeiro",
+    "country_code_iso3": "BRA"
+  },
+  "166": {
+    "name": "Salvador",
+    "country_code_iso3": "BRA"
+  },
+  "157": {
+    "name": "Santos",
+    "country_code_iso3": "BRA"
+  },
+  "162": {
+    "name": "São Gonçalo",
+    "country_code_iso3": "BRA"
+  },
+  "158": {
+    "name": "São José dos Campos",
+    "country_code_iso3": "BRA"
+  },
+  "156": {
+    "name": "São Luís",
+    "country_code_iso3": "BRA"
+  },
+  "155": {
+    "name": "São Paulo",
+    "country_code_iso3": "BRA"
+  },
+  "153": {
+    "name": "Sorocaba",
+    "country_code_iso3": "BRA"
+  },
+  "159": {
+    "name": "Teresina",
+    "country_code_iso3": "BRA"
+  },
+  "149": {
+    "name": "Uberlândia",
+    "country_code_iso3": "BRA"
+  },
+  "163": {
+    "name": "Vila Velha",
+    "country_code_iso3": "BRA"
+  },
+  "319": {
+    "name": "Bangui",
+    "country_code_iso3": "CAF"
+  },
+  "55": {
+    "name": "Calgary",
+    "country_code_iso3": "CAN"
+  },
+  "60": {
+    "name": "Edmonton",
+    "country_code_iso3": "CAN"
+  },
+  "130": {
+    "name": "Montreal",
+    "country_code_iso3": "CAN"
+  },
+  "1014": {
+    "name": "Montréal",
+    "country_code_iso3": "CAN"
+  },
+  "126": {
+    "name": "Ottawa",
+    "country_code_iso3": "CAN"
+  },
+  "133": {
+    "name": "Quebec",
+    "country_code_iso3": "CAN"
+  },
+  "109": {
+    "name": "Toronto",
+    "country_code_iso3": "CAN"
+  },
+  "32": {
+    "name": "Vancouver",
+    "country_code_iso3": "CAN"
+  },
+  "85": {
+    "name": "Winnipeg",
+    "country_code_iso3": "CAN"
+  },
+  "253": {
+    "name": "Zurich",
+    "country_code_iso3": "CHE"
+  },
+  "117": {
+    "name": "Concepción",
+    "country_code_iso3": "CHL"
+  },
+  "118": {
+    "name": "Santiago",
+    "country_code_iso3": "CHL"
+  },
+  "114": {
+    "name": "Valparaíso",
+    "country_code_iso3": "CHL"
+  },
+  "879": {
+    "name": "Anqing",
+    "country_code_iso3": "CHN"
+  },
+  "823": {
+    "name": "Anshan",
+    "country_code_iso3": "CHN"
+  },
+  "778": {
+    "name": "Anyang",
+    "country_code_iso3": "CHN"
+  },
+  "768": {
+    "name": "Baoding",
+    "country_code_iso3": "CHN"
+  },
+  "748": {
+    "name": "Baoji",
+    "country_code_iso3": "CHN"
+  },
+  "743": {
+    "name": "Baotou",
+    "country_code_iso3": "CHN"
+  },
+  "845": {
+    "name": "Beihai",
+    "country_code_iso3": "CHN"
+  },
+  "763": {
+    "name": "Beijing",
+    "country_code_iso3": "CHN"
+  },
+  "862": {
+    "name": "Bengbu",
+    "country_code_iso3": "CHN"
+  },
+  "830": {
+    "name": "Benxi",
+    "country_code_iso3": "CHN"
+  },
+  "787": {
+    "name": "Binhai",
+    "country_code_iso3": "CHN"
+  },
+  "785": {
+    "name": "Cangzhou",
+    "country_code_iso3": "CHN"
+  },
+  "808": {
+    "name": "Changchun",
+    "country_code_iso3": "CHN"
+  },
+  "818": {
+    "name": "Changde",
+    "country_code_iso3": "CHN"
+  },
+  "847": {
+    "name": "Changsha",
+    "country_code_iso3": "CHN"
+  },
+  "917": {
+    "name": "Changshu",
+    "country_code_iso3": "CHN"
+  },
+  "769": {
+    "name": "Changzhi",
+    "country_code_iso3": "CHN"
+  },
+  "903": {
+    "name": "Changzhou",
+    "country_code_iso3": "CHN"
+  },
+  "746": {
+    "name": "Chengdu",
+    "country_code_iso3": "CHN"
+  },
+  "767": {
+    "name": "Chifeng",
+    "country_code_iso3": "CHN"
+  },
+  "761": {
+    "name": "Chongqing",
+    "country_code_iso3": "CHN"
+  },
+  "930": {
+    "name": "Cixi",
+    "country_code_iso3": "CHN"
+  },
+  "838": {
+    "name": "Dalian",
+    "country_code_iso3": "CHN"
+  },
+  "861": {
+    "name": "Dandong",
+    "country_code_iso3": "CHN"
+  },
+  "749": {
+    "name": "Datong",
+    "country_code_iso3": "CHN"
+  },
+  "760": {
+    "name": "Dazhou",
+    "country_code_iso3": "CHN"
+  },
+  "1007": {
+    "name": "Deyang",
+    "country_code_iso3": "CHN"
+  },
+  "788": {
+    "name": "Dezhou",
+    "country_code_iso3": "CHN"
+  },
+  "815": {
+    "name": "Dongying",
+    "country_code_iso3": "CHN"
+  },
+  "796": {
+    "name": "Fancheng",
+    "country_code_iso3": "CHN"
+  },
+  "822": {
+    "name": "Fushun",
+    "country_code_iso3": "CHN"
+  },
+  "793": {
+    "name": "Fuxin",
+    "country_code_iso3": "CHN"
+  },
+  "836": {
+    "name": "Fuyang",
+    "country_code_iso3": "CHN"
+  },
+  "938": {
+    "name": "Fuzhou",
+    "country_code_iso3": "CHN"
+  },
+  "895": {
+    "name": "Ganzhou",
+    "country_code_iso3": "CHN"
+  },
+  "887": {
+    "name": "Guangzhou",
+    "country_code_iso3": "CHN"
+  },
+  "829": {
+    "name": "Guilin",
+    "country_code_iso3": "CHN"
+  },
+  "771": {
+    "name": "Guiyang",
+    "country_code_iso3": "CHN"
+  },
+  "876": {
+    "name": "Haikou",
+    "country_code_iso3": "CHN"
+  },
+  "776": {
+    "name": "Handan",
+    "country_code_iso3": "CHN"
+  },
+  "920": {
+    "name": "Hangzhou",
+    "country_code_iso3": "CHN"
+  },
+  "795": {
+    "name": "Harbin",
+    "country_code_iso3": "CHN"
+  },
+  "874": {
+    "name": "Hefei",
+    "country_code_iso3": "CHN"
+  },
+  "810": {
+    "name": "Hegang",
+    "country_code_iso3": "CHN"
+  },
+  "854": {
+    "name": "Hengyang",
+    "country_code_iso3": "CHN"
+  },
+  "745": {
+    "name": "Hohhot",
+    "country_code_iso3": "CHN"
+  },
+  "907": {
+    "name": "Hong Kong",
+    "country_code_iso3": "CHN"
+  },
+  "890": {
+    "name": "Huadu",
+    "country_code_iso3": "CHN"
+  },
+  "877": {
+    "name": "Huai'an",
+    "country_code_iso3": "CHN"
+  },
+  "842": {
+    "name": "Huaibei",
+    "country_code_iso3": "CHN"
+  },
+  "865": {
+    "name": "Huangdao",
+    "country_code_iso3": "CHN"
+  },
+  "859": {
+    "name": "Huangshi",
+    "country_code_iso3": "CHN"
+  },
+  "914": {
+    "name": "Huiyang",
+    "country_code_iso3": "CHN"
+  },
+  "909": {
+    "name": "Huizhou",
+    "country_code_iso3": "CHN"
+  },
+  "805": {
+    "name": "Huludao",
+    "country_code_iso3": "CHN"
+  },
+  "820": {
+    "name": "Jiamusi",
+    "country_code_iso3": "CHN"
+  },
+  "908": {
+    "name": "Jiangyin",
+    "country_code_iso3": "CHN"
+  },
+  "775": {
+    "name": "Jiaozuo",
+    "country_code_iso3": "CHN"
+  },
+  "925": {
+    "name": "Jiaxing",
+    "country_code_iso3": "CHN"
+  },
+  "927": {
+    "name": "Jieyang",
+    "country_code_iso3": "CHN"
+  },
+  "825": {
+    "name": "Jilin",
+    "country_code_iso3": "CHN"
+  },
+  "807": {
+    "name": "Jinan",
+    "country_code_iso3": "CHN"
+  },
+  "812": {
+    "name": "Jingzhou",
+    "country_code_iso3": "CHN"
+  },
+  "926": {
+    "name": "Jinhua",
+    "country_code_iso3": "CHN"
+  },
+  "817": {
+    "name": "Jining",
+    "country_code_iso3": "CHN"
+  },
+  "804": {
+    "name": "Jinzhou",
+    "country_code_iso3": "CHN"
+  },
+  "878": {
+    "name": "Jiujiang",
+    "country_code_iso3": "CHN"
+  },
+  "794": {
+    "name": "Kaifeng",
+    "country_code_iso3": "CHN"
+  },
+  "754": {
+    "name": "Kunming",
+    "country_code_iso3": "CHN"
+  },
+  "740": {
+    "name": "Lanzhou",
+    "country_code_iso3": "CHN"
+  },
+  "870": {
+    "name": "Lianyungang",
+    "country_code_iso3": "CHN"
+  },
+  "798": {
+    "name": "Liaocheng",
+    "country_code_iso3": "CHN"
+  },
+  "824": {
+    "name": "Liaoyang",
+    "country_code_iso3": "CHN"
+  },
+  "762": {
+    "name": "Linfen",
+    "country_code_iso3": "CHN"
+  },
+  "844": {
+    "name": "Linyi",
+    "country_code_iso3": "CHN"
+  },
+  "826": {
+    "name": "Liuzhou",
+    "country_code_iso3": "CHN"
+  },
+  "944": {
+    "name": "Longgang",
+    "country_code_iso3": "CHN"
+  },
+  "806": {
+    "name": "Luohe",
+    "country_code_iso3": "CHN"
+  },
+  "773": {
+    "name": "Luoyang",
+    "country_code_iso3": "CHN"
+  },
+  "758": {
+    "name": "Luzhou",
+    "country_code_iso3": "CHN"
+  },
+  "886": {
+    "name": "Ma'anshan",
+    "country_code_iso3": "CHN"
+  },
+  "875": {
+    "name": "Maoming",
+    "country_code_iso3": "CHN"
+  },
+  "747": {
+    "name": "Mianyang",
+    "country_code_iso3": "CHN"
+  },
+  "856": {
+    "name": "Mudanjiang",
+    "country_code_iso3": "CHN"
+  },
+  "880": {
+    "name": "Nanchang",
+    "country_code_iso3": "CHN"
+  },
+  "753": {
+    "name": "Nanchong",
+    "country_code_iso3": "CHN"
+  },
+  "885": {
+    "name": "Nanjing",
+    "country_code_iso3": "CHN"
+  },
+  "821": {
+    "name": "Nanning",
+    "country_code_iso3": "CHN"
+  },
+  "915": {
+    "name": "Nantong",
+    "country_code_iso3": "CHN"
+  },
+  "789": {
+    "name": "Nanyang",
+    "country_code_iso3": "CHN"
+  },
+  "934": {
+    "name": "Ningbo",
+    "country_code_iso3": "CHN"
+  },
+  "811": {
+    "name": "Panjin",
+    "country_code_iso3": "CHN"
+  },
+  "791": {
+    "name": "Pingdingshan",
+    "country_code_iso3": "CHN"
+  },
+  "868": {
+    "name": "Pingxiang",
+    "country_code_iso3": "CHN"
+  },
+  "884": {
+    "name": "Pukou",
+    "country_code_iso3": "CHN"
+  },
+  "943": {
+    "name": "Putian",
+    "country_code_iso3": "CHN"
+  },
+  "792": {
+    "name": "Puyang",
+    "country_code_iso3": "CHN"
+  },
+  "864": {
+    "name": "Qingdao",
+    "country_code_iso3": "CHN"
+  },
+  "882": {
+    "name": "Qingyuan",
+    "country_code_iso3": "CHN"
+  },
+  "802": {
+    "name": "Qinhuangdao",
+    "country_code_iso3": "CHN"
+  },
+  "759": {
+    "name": "Qiqihar",
+    "country_code_iso3": "CHN"
+  },
+  "939": {
+    "name": "Quanzhou",
+    "country_code_iso3": "CHN"
+  },
+  "860": {
+    "name": "Rizhao",
+    "country_code_iso3": "CHN"
+  },
+  "911": {
+    "name": "Sha Tin",
+    "country_code_iso3": "CHN"
+  },
+  "924": {
+    "name": "Shanghai",
+    "country_code_iso3": "CHN"
+  },
+  "814": {
+    "name": "Shangqiu",
+    "country_code_iso3": "CHN"
+  },
+  "834": {
+    "name": "Shaoyang",
+    "country_code_iso3": "CHN"
+  },
+  "816": {
+    "name": "Shenyang",
+    "country_code_iso3": "CHN"
+  },
+  "1022": {
+    "name": "Shenzhen",
+    "country_code_iso3": "CHN"
+  },
+  "766": {
+    "name": "Shijiazhuang",
+    "country_code_iso3": "CHN"
+  },
+  "774": {
+    "name": "Shiyan",
+    "country_code_iso3": "CHN"
+  },
+  "912": {
+    "name": "Suzhou",
+    "country_code_iso3": "CHN"
+  },
+  "813": {
+    "name": "Tai'an",
+    "country_code_iso3": "CHN"
+  },
+  "757": {
+    "name": "Taiyuan",
+    "country_code_iso3": "CHN"
+  },
+  "949": {
+    "name": "Taizhou",
+    "country_code_iso3": "CHN"
+  },
+  "784": {
+    "name": "Tangshan",
+    "country_code_iso3": "CHN"
+  },
+  "858": {
+    "name": "Tianjia'an",
+    "country_code_iso3": "CHN"
+  },
+  "777": {
+    "name": "Tianjin",
+    "country_code_iso3": "CHN"
+  },
+  "779": {
+    "name": "Tongliao",
+    "country_code_iso3": "CHN"
+  },
+  "559": {
+    "name": "Ürümqi",
+    "country_code_iso3": "CHN"
+  },
+  "835": {
+    "name": "Weifang",
+    "country_code_iso3": "CHN"
+  },
+  "872": {
+    "name": "Weihai",
+    "country_code_iso3": "CHN"
+  },
+  "942": {
+    "name": "Wenzhou",
+    "country_code_iso3": "CHN"
+  },
+  "841": {
+    "name": "Wuhan",
+    "country_code_iso3": "CHN"
+  },
+  "888": {
+    "name": "Wuhu",
+    "country_code_iso3": "CHN"
+  },
+  "756": {
+    "name": "Xi'an",
+    "country_code_iso3": "CHN"
+  },
+  "935": {
+    "name": "Xiamen",
+    "country_code_iso3": "CHN"
+  },
+  "850": {
+    "name": "Xiangtan",
+    "country_code_iso3": "CHN"
+  },
+  "752": {
+    "name": "Xiangyang",
+    "country_code_iso3": "CHN"
+  },
+  "831": {
+    "name": "Xiaogan",
+    "country_code_iso3": "CHN"
+  },
+  "772": {
+    "name": "Xingtai",
+    "country_code_iso3": "CHN"
+  },
+  "739": {
+    "name": "Xining",
+    "country_code_iso3": "CHN"
+  },
+  "783": {
+    "name": "Xinxiang",
+    "country_code_iso3": "CHN"
+  },
+  "797": {
+    "name": "Xuchang",
+    "country_code_iso3": "CHN"
+  },
+  "843": {
+    "name": "Xuzhou",
+    "country_code_iso3": "CHN"
+  },
+  "891": {
+    "name": "Yancheng",
+    "country_code_iso3": "CHN"
+  },
+  "893": {
+    "name": "Yangzhou",
+    "country_code_iso3": "CHN"
+  },
+  "855": {
+    "name": "Yantai",
+    "country_code_iso3": "CHN"
+  },
+  "751": {
+    "name": "Yibin",
+    "country_code_iso3": "CHN"
+  },
+  "801": {
+    "name": "Yichang",
+    "country_code_iso3": "CHN"
+  },
+  "741": {
+    "name": "Yinchuan",
+    "country_code_iso3": "CHN"
+  },
+  "929": {
+    "name": "Yiwu",
+    "country_code_iso3": "CHN"
+  },
+  "833": {
+    "name": "Yiyang",
+    "country_code_iso3": "CHN"
+  },
+  "946": {
+    "name": "Yueqing",
+    "country_code_iso3": "CHN"
+  },
+  "837": {
+    "name": "Yueyang",
+    "country_code_iso3": "CHN"
+  },
+  "852": {
+    "name": "Yulin",
+    "country_code_iso3": "CHN"
+  },
+  "839": {
+    "name": "Zaozhuang",
+    "country_code_iso3": "CHN"
+  },
+  "913": {
+    "name": "Zhangjiagang",
+    "country_code_iso3": "CHN"
+  },
+  "755": {
+    "name": "Zhangjiakou",
+    "country_code_iso3": "CHN"
+  },
+  "932": {
+    "name": "Zhangzhou",
+    "country_code_iso3": "CHN"
+  },
+  "871": {
+    "name": "Zhanjiang",
+    "country_code_iso3": "CHN"
+  },
+  "881": {
+    "name": "Zhaoqing",
+    "country_code_iso3": "CHN"
+  },
+  "786": {
+    "name": "Zhengzhou",
+    "country_code_iso3": "CHN"
+  },
+  "896": {
+    "name": "Zhenjiang",
+    "country_code_iso3": "CHN"
+  },
+  "898": {
+    "name": "Zhongshan",
+    "country_code_iso3": "CHN"
+  },
+  "900": {
+    "name": "Zhuhai",
+    "country_code_iso3": "CHN"
+  },
+  "853": {
+    "name": "Zhuzhou",
+    "country_code_iso3": "CHN"
+  },
+  "819": {
+    "name": "Zibo",
+    "country_code_iso3": "CHN"
+  },
+  "750": {
+    "name": "Zigong",
+    "country_code_iso3": "CHN"
+  },
+  "770": {
+    "name": "Zunyi",
+    "country_code_iso3": "CHN"
+  },
+  "194": {
+    "name": "Abidjan",
+    "country_code_iso3": "CIV"
+  },
+  "189": {
+    "name": "Bouak",
+    "country_code_iso3": "CIV"
+  },
+  "280": {
+    "name": "Douala",
+    "country_code_iso3": "CMR"
+  },
+  "301": {
+    "name": "Garoua",
+    "country_code_iso3": "CMR"
+  },
+  "304": {
+    "name": "Maroua",
+    "country_code_iso3": "CMR"
+  },
+  "302": {
+    "name": "Mokolo",
+    "country_code_iso3": "CMR"
+  },
+  "287": {
+    "name": "Yaoundé",
+    "country_code_iso3": "CMR"
+  },
+  "382": {
+    "name": "Beni",
+    "country_code_iso3": "COD"
+  },
+  "374": {
+    "name": "Bukavu",
+    "country_code_iso3": "COD"
+  },
+  "390": {
+    "name": "Bunia",
+    "country_code_iso3": "COD"
+  },
+  "377": {
+    "name": "Goma",
+    "country_code_iso3": "COD"
+  },
+  "327": {
+    "name": "Kananga",
+    "country_code_iso3": "COD"
+  },
+  "309": {
+    "name": "Kinshasa",
+    "country_code_iso3": "COD"
+  },
+  "341": {
+    "name": "Kisangani",
+    "country_code_iso3": "COD"
+  },
+  "354": {
+    "name": "Lubumbashi",
+    "country_code_iso3": "COD"
+  },
+  "396": {
+    "name": "Mahagi",
+    "country_code_iso3": "COD"
+  },
+  "331": {
+    "name": "Mbuji-Mayi",
+    "country_code_iso3": "COD"
+  },
+  "325": {
+    "name": "Tshikapa",
+    "country_code_iso3": "COD"
+  },
+  "310": {
+    "name": "Brazzaville",
+    "country_code_iso3": "COG"
+  },
+  "291": {
+    "name": "Pointe-Noire",
+    "country_code_iso3": "COG"
+  },
+  "86": {
+    "name": "Barranquilla",
+    "country_code_iso3": "COL"
+  },
+  "83": {
+    "name": "Bogotá",
+    "country_code_iso3": "COL"
+  },
+  "89": {
+    "name": "Bucaramanga",
+    "country_code_iso3": "COL"
+  },
+  "72": {
+    "name": "Cali",
+    "country_code_iso3": "COL"
+  },
+  "81": {
+    "name": "Cartagena",
+    "country_code_iso3": "COL"
+  },
+  "92": {
+    "name": "Cúcuta",
+    "country_code_iso3": "COL"
+  },
+  "80": {
+    "name": "Ibagué",
+    "country_code_iso3": "COL"
+  },
+  "78": {
+    "name": "Medellín",
+    "country_code_iso3": "COL"
+  },
+  "74": {
+    "name": "Pereira",
+    "country_code_iso3": "COL"
+  },
+  "57": {
+    "name": "San José",
+    "country_code_iso3": "CRI"
+  },
+  "68": {
+    "name": "Havana",
+    "country_code_iso3": "CUB"
+  },
+  "285": {
+    "name": "Prague",
+    "country_code_iso3": "CZE"
+  },
+  "281": {
+    "name": "Berlin",
+    "country_code_iso3": "DEU"
+  },
+  "241": {
+    "name": "Cologne",
+    "country_code_iso3": "DEU"
+  },
+  "239": {
+    "name": "Dortmund",
+    "country_code_iso3": "DEU"
+  },
+  "283": {
+    "name": "Dresden",
+    "country_code_iso3": "DEU"
+  },
+  "240": {
+    "name": "Düsseldorf",
+    "country_code_iso3": "DEU"
+  },
+  "252": {
+    "name": "Frankfurt am Main",
+    "country_code_iso3": "DEU"
+  },
+  "260": {
+    "name": "Hamburg",
+    "country_code_iso3": "DEU"
+  },
+  "259": {
+    "name": "Hanover",
+    "country_code_iso3": "DEU"
+  },
+  "1011": {
+    "name": "Heidelberg",
+    "country_code_iso3": "DEU"
+  },
+  "277": {
+    "name": "Munich",
+    "country_code_iso3": "DEU"
+  },
+  "272": {
+    "name": "Nuremberg",
+    "country_code_iso3": "DEU"
+  },
+  "258": {
+    "name": "Stuttgart",
+    "country_code_iso3": "DEU"
+  },
+  "245": {
+    "name": "Wuppertal",
+    "country_code_iso3": "DEU"
+  },
+  "273": {
+    "name": "Copenhagen",
+    "country_code_iso3": "DNK"
+  },
+  "100": {
+    "name": "Santiago de los Caballeros",
+    "country_code_iso3": "DOM"
+  },
+  "101": {
+    "name": "Santo Domingo",
+    "country_code_iso3": "DOM"
+  },
+  "225": {
+    "name": "Algiers",
+    "country_code_iso3": "DZA"
+  },
+  "224": {
+    "name": "Blida",
+    "country_code_iso3": "DZA"
+  },
+  "249": {
+    "name": "Constantine",
+    "country_code_iso3": "DZA"
+  },
+  "212": {
+    "name": "Oran",
+    "country_code_iso3": "DZA"
+  },
+  "63": {
+    "name": "Guayaquil",
+    "country_code_iso3": "ECU"
+  },
+  "67": {
+    "name": "Quito",
+    "country_code_iso3": "ECU"
+  },
+  "380": {
+    "name": "Al Ismailiya",
+    "country_code_iso3": "EGY"
+  },
+  "369": {
+    "name": "Al-Minya",
+    "country_code_iso3": "EGY"
+  },
+  "371": {
+    "name": "Al-Zaqāzīq",
+    "country_code_iso3": "EGY"
+  },
+  "352": {
+    "name": "Alexandria",
+    "country_code_iso3": "EGY"
+  },
+  "372": {
+    "name": "An Nazlah",
+    "country_code_iso3": "EGY"
+  },
+  "375": {
+    "name": "Asyut",
+    "country_code_iso3": "EGY"
+  },
+  "368": {
+    "name": "Banha",
+    "country_code_iso3": "EGY"
+  },
+  "367": {
+    "name": "Cairo",
+    "country_code_iso3": "EGY"
+  },
+  "373": {
+    "name": "Damietta",
+    "country_code_iso3": "EGY"
+  },
+  "366": {
+    "name": "El Mahalla El Kubra",
+    "country_code_iso3": "EGY"
+  },
+  "363": {
+    "name": "Faiyum",
+    "country_code_iso3": "EGY"
+  },
+  "384": {
+    "name": "Girga",
+    "country_code_iso3": "EGY"
+  },
+  "395": {
+    "name": "Luxor",
+    "country_code_iso3": "EGY"
+  },
+  "370": {
+    "name": "Mansoura",
+    "country_code_iso3": "EGY"
+  },
+  "378": {
+    "name": "Port Said",
+    "country_code_iso3": "EGY"
+  },
+  "383": {
+    "name": "Sohag",
+    "country_code_iso3": "EGY"
+  },
+  "365": {
+    "name": "Tanta",
+    "country_code_iso3": "EGY"
+  },
+  "220": {
+    "name": "Barcelona",
+    "country_code_iso3": "ESP"
+  },
+  "198": {
+    "name": "Bilbao",
+    "country_code_iso3": "ESP"
+  },
+  "196": {
+    "name": "Madrid",
+    "country_code_iso3": "ESP"
+  },
+  "195": {
+    "name": "Málaga",
+    "country_code_iso3": "ESP"
+  },
+  "187": {
+    "name": "Seville",
+    "country_code_iso3": "ESP"
+  },
+  "215": {
+    "name": "Valencia",
+    "country_code_iso3": "ESP"
+  },
+  "211": {
+    "name": "Zaragoza",
+    "country_code_iso3": "ESP"
+  },
+  "996": {
+    "name": "Addis Ababa",
+    "country_code_iso3": "ETH"
+  },
+  "313": {
+    "name": "Helsinki",
+    "country_code_iso3": "FIN"
+  },
+  "213": {
+    "name": "Bordeaux",
+    "country_code_iso3": "FRA"
+  },
+  "223": {
+    "name": "Lille",
+    "country_code_iso3": "FRA"
+  },
+  "234": {
+    "name": "Lyon",
+    "country_code_iso3": "FRA"
+  },
+  "237": {
+    "name": "Marseille",
+    "country_code_iso3": "FRA"
+  },
+  "248": {
+    "name": "Nice",
+    "country_code_iso3": "FRA"
+  },
+  "219": {
+    "name": "Paris",
+    "country_code_iso3": "FRA"
+  },
+  "217": {
+    "name": "Toulouse",
+    "country_code_iso3": "FRA"
+  },
+  "278": {
+    "name": "Libreville",
+    "country_code_iso3": "GAB"
+  },
+  "998": {
+    "name": "Belfast",
+    "country_code_iso3": "GBR"
+  },
+  "206": {
+    "name": "Birmingham",
+    "country_code_iso3": "GBR"
+  },
+  "200": {
+    "name": "Bristol",
+    "country_code_iso3": "GBR"
+  },
+  "197": {
+    "name": "Glasgow",
+    "country_code_iso3": "GBR"
+  },
+  "207": {
+    "name": "Leeds",
+    "country_code_iso3": "GBR"
+  },
+  "199": {
+    "name": "Liverpool",
+    "country_code_iso3": "GBR"
+  },
+  "216": {
+    "name": "London",
+    "country_code_iso3": "GBR"
+  },
+  "202": {
+    "name": "Manchester",
+    "country_code_iso3": "GBR"
+  },
+  "208": {
+    "name": "Newcastle upon Tyne",
+    "country_code_iso3": "GBR"
+  },
+  "210": {
+    "name": "Nottingham",
+    "country_code_iso3": "GBR"
+  },
+  "209": {
+    "name": "Sheffield",
+    "country_code_iso3": "GBR"
+  },
+  "1023": {
+    "name": "Tbilisi",
+    "country_code_iso3": "GEO"
+  },
+  "214": {
+    "name": "Accra",
+    "country_code_iso3": "GHA"
+  },
+  "203": {
+    "name": "Kumasi",
+    "country_code_iso3": "GHA"
+  },
+  "201": {
+    "name": "Takoradi [Sekondi-Takoradi]",
+    "country_code_iso3": "GHA"
+  },
+  "177": {
+    "name": "Conakry",
+    "country_code_iso3": "GIN"
+  },
+  "173": {
+    "name": "Serrekunda",
+    "country_code_iso3": "GMB"
+  },
+  "176": {
+    "name": "Bissau",
+    "country_code_iso3": "GNB"
+  },
+  "324": {
+    "name": "Athens",
+    "country_code_iso3": "GRC"
+  },
+  "321": {
+    "name": "Thessaloniki",
+    "country_code_iso3": "GRC"
+  },
+  "47": {
+    "name": "Guatemala City",
+    "country_code_iso3": "GTM"
+  },
+  "51": {
+    "name": "San Pedro Sula",
+    "country_code_iso3": "HND"
+  },
+  "54": {
+    "name": "Tegucigalpa",
+    "country_code_iso3": "HND"
+  },
+  "296": {
+    "name": "Zagreb",
+    "country_code_iso3": "HRV"
+  },
+  "95": {
+    "name": "Port-au-Prince",
+    "country_code_iso3": "HTI"
+  },
+  "307": {
+    "name": "Budapest",
+    "country_code_iso3": "HUN"
+  },
+  "968": {
+    "name": "Balikpapan",
+    "country_code_iso3": "IDN"
+  },
+  "857": {
+    "name": "Bandar Lampung",
+    "country_code_iso3": "IDN"
+  },
+  "883": {
+    "name": "Bandung",
+    "country_code_iso3": "IDN"
+  },
+  "962": {
+    "name": "Banjarmasin",
+    "country_code_iso3": "IDN"
+  },
+  "840": {
+    "name": "Batam City",
+    "country_code_iso3": "IDN"
+  },
+  "906": {
+    "name": "Cilacap",
+    "country_code_iso3": "IDN"
+  },
+  "869": {
+    "name": "Cilegon",
+    "country_code_iso3": "IDN"
+  },
+  "897": {
+    "name": "Cirebon",
+    "country_code_iso3": "IDN"
+  },
+  "960": {
+    "name": "Denpasar",
+    "country_code_iso3": "IDN"
+  },
+  "889": {
+    "name": "Garut",
+    "country_code_iso3": "IDN"
+  },
+  "873": {
+    "name": "Jakarta",
+    "country_code_iso3": "IDN"
+  },
+  "828": {
+    "name": "Jambi",
+    "country_code_iso3": "IDN"
+  },
+  "950": {
+    "name": "Jember",
+    "country_code_iso3": "IDN"
+  },
+  "941": {
+    "name": "Jombang",
+    "country_code_iso3": "IDN"
+  },
+  "899": {
+    "name": "Kuningan",
+    "country_code_iso3": "IDN"
+  },
+  "931": {
+    "name": "Madiun",
+    "country_code_iso3": "IDN"
+  },
+  "923": {
+    "name": "Magelang",
+    "country_code_iso3": "IDN"
+  },
+  "977": {
+    "name": "Makassar",
+    "country_code_iso3": "IDN"
+  },
+  "963": {
+    "name": "Mataram",
+    "country_code_iso3": "IDN"
+  },
+  "764": {
+    "name": "Medan",
+    "country_code_iso3": "IDN"
+  },
+  "945": {
+    "name": "Mojokerto",
+    "country_code_iso3": "IDN"
+  },
+  "782": {
+    "name": "Padang",
+    "country_code_iso3": "IDN"
+  },
+  "849": {
+    "name": "Palembang",
+    "country_code_iso3": "IDN"
+  },
+  "928": {
+    "name": "Pati",
+    "country_code_iso3": "IDN"
+  },
+  "916": {
+    "name": "Pekalongan",
+    "country_code_iso3": "IDN"
+  },
+  "803": {
+    "name": "Pekanbaru",
+    "country_code_iso3": "IDN"
+  },
+  "918": {
+    "name": "Pontianak",
+    "country_code_iso3": "IDN"
+  },
+  "910": {
+    "name": "Purwokerto",
+    "country_code_iso3": "IDN"
+  },
+  "969": {
+    "name": "Samarinda",
+    "country_code_iso3": "IDN"
+  },
+  "919": {
+    "name": "Semarang",
+    "country_code_iso3": "IDN"
+  },
+  "952": {
+    "name": "Sumenep",
+    "country_code_iso3": "IDN"
+  },
+  "947": {
+    "name": "Surabaya",
+    "country_code_iso3": "IDN"
+  },
+  "894": {
+    "name": "Tasikmalaya",
+    "country_code_iso3": "IDN"
+  },
+  "905": {
+    "name": "Tegal",
+    "country_code_iso3": "IDN"
+  },
+  "936": {
+    "name": "Tulungagung",
+    "country_code_iso3": "IDN"
+  },
+  "922": {
+    "name": "Yogyakarta",
+    "country_code_iso3": "IDN"
+  },
+  "731": {
+    "name": "Agartala",
+    "country_code_iso3": "IND"
+  },
+  "572": {
+    "name": "Agra",
+    "country_code_iso3": "IND"
+  },
+  "567": {
+    "name": "Ahmadnagar",
+    "country_code_iso3": "IND"
+  },
+  "534": {
+    "name": "Ahmedabad",
+    "country_code_iso3": "IND"
+  },
+  "541": {
+    "name": "Ajmer",
+    "country_code_iso3": "IND"
+  },
+  "593": {
+    "name": "Akola",
+    "country_code_iso3": "IND"
+  },
+  "624": {
+    "name": "Alappuzha",
+    "country_code_iso3": "IND"
+  },
+  "569": {
+    "name": "Aligarh",
+    "country_code_iso3": "IND"
+  },
+  "554": {
+    "name": "Alwar",
+    "country_code_iso3": "IND"
+  },
+  "545": {
+    "name": "Ambala",
+    "country_code_iso3": "IND"
+  },
+  "605": {
+    "name": "Amravati",
+    "country_code_iso3": "IND"
+  },
+  "529": {
+    "name": "Amritsar",
+    "country_code_iso3": "IND"
+  },
+  "537": {
+    "name": "Anand",
+    "country_code_iso3": "IND"
+  },
+  "700": {
+    "name": "Asansol",
+    "country_code_iso3": "IND"
+  },
+  "573": {
+    "name": "Aurangabad",
+    "country_code_iso3": "IND"
+  },
+  "658": {
+    "name": "Azamgarh",
+    "country_code_iso3": "IND"
+  },
+  "627": {
+    "name": "Bahraich",
+    "country_code_iso3": "IND"
+  },
+  "616": {
+    "name": "Ballari",
+    "country_code_iso3": "IND"
+  },
+  "678": {
+    "name": "Ballia",
+    "country_code_iso3": "IND"
+  },
+  "639": {
+    "name": "Balrampur",
+    "country_code_iso3": "IND"
+  },
+  "619": {
+    "name": "Banda",
+    "country_code_iso3": "IND"
+  },
+  "582": {
+    "name": "Bareilly",
+    "country_code_iso3": "IND"
+  },
+  "649": {
+    "name": "Basti",
+    "country_code_iso3": "IND"
+  },
+  "691": {
+    "name": "Begusarai",
+    "country_code_iso3": "IND"
+  },
+  "576": {
+    "name": "Belagavi",
+    "country_code_iso3": "IND"
+  },
+  "635": {
+    "name": "Bengaluru",
+    "country_code_iso3": "IND"
+  },
+  "711": {
+    "name": "Berhampore",
+    "country_code_iso3": "IND"
+  },
+  "654": {
+    "name": "Bhadohi",
+    "country_code_iso3": "IND"
+  },
+  "535": {
+    "name": "Bhavnagar",
+    "country_code_iso3": "IND"
+  },
+  "586": {
+    "name": "Bhind",
+    "country_code_iso3": "IND"
+  },
+  "633": {
+    "name": "Bhinga",
+    "country_code_iso3": "IND"
+  },
+  "584": {
+    "name": "Bhopal",
+    "country_code_iso3": "IND"
+  },
+  "705": {
+    "name": "Bhubaneshwar",
+    "country_code_iso3": "IND"
+  },
+  "689": {
+    "name": "Bihar Sharif",
+    "country_code_iso3": "IND"
+  },
+  "530": {
+    "name": "Bikaner",
+    "country_code_iso3": "IND"
+  },
+  "669": {
+    "name": "Bilaspur",
+    "country_code_iso3": "IND"
+  },
+  "696": {
+    "name": "Bokaro",
+    "country_code_iso3": "IND"
+  },
+  "698": {
+    "name": "Brahmapur",
+    "country_code_iso3": "IND"
+  },
+  "581": {
+    "name": "Budaun",
+    "country_code_iso3": "IND"
+  },
+  "564": {
+    "name": "Bulandshahr",
+    "country_code_iso3": "IND"
+  },
+  "544": {
+    "name": "Chandigarh",
+    "country_code_iso3": "IND"
+  },
+  "677": {
+    "name": "Chennai",
+    "country_code_iso3": "IND"
+  },
+  "680": {
+    "name": "Chhapra",
+    "country_code_iso3": "IND"
+  },
+  "634": {
+    "name": "Coimbatore",
+    "country_code_iso3": "IND"
+  },
+  "704": {
+    "name": "Cuttack",
+    "country_code_iso3": "IND"
+  },
+  "688": {
+    "name": "Darbhanga",
+    "country_code_iso3": "IND"
+  },
+  "701": {
+    "name": "Darjeeling",
+    "country_code_iso3": "IND"
+  },
+  "600": {
+    "name": "Davanagere",
+    "country_code_iso3": "IND"
+  },
+  "531": {
+    "name": "Deesa",
+    "country_code_iso3": "IND"
+  },
+  "555": {
+    "name": "Dehradun",
+    "country_code_iso3": "IND"
+  },
+  "551": {
+    "name": "Delhi",
+    "country_code_iso3": "IND"
+  },
+  "666": {
+    "name": "Deoria",
+    "country_code_iso3": "IND"
+  },
+  "697": {
+    "name": "Dhanbad",
+    "country_code_iso3": "IND"
+  },
+  "583": {
+    "name": "Dharwad",
+    "country_code_iso3": "IND"
+  },
+  "563": {
+    "name": "Dhule",
+    "country_code_iso3": "IND"
+  },
+  "737": {
+    "name": "Dimapur",
+    "country_code_iso3": "IND"
+  },
+  "650": {
+    "name": "Dindigul",
+    "country_code_iso3": "IND"
+  },
+  "660": {
+    "name": "Durg",
+    "country_code_iso3": "IND"
+  },
+  "644": {
+    "name": "Erode",
+    "country_code_iso3": "IND"
+  },
+  "579": {
+    "name": "Etah",
+    "country_code_iso3": "IND"
+  },
+  "587": {
+    "name": "Etawah",
+    "country_code_iso3": "IND"
+  },
+  "630": {
+    "name": "Ettumanoor",
+    "country_code_iso3": "IND"
+  },
+  "641": {
+    "name": "Faizabad",
+    "country_code_iso3": "IND"
+  },
+  "595": {
+    "name": "Farrukhabad",
+    "country_code_iso3": "IND"
+  },
+  "625": {
+    "name": "Fatehpur",
+    "country_code_iso3": "IND"
+  },
+  "578": {
+    "name": "Firozabad",
+    "country_code_iso3": "IND"
+  },
+  "686": {
+    "name": "Gaya",
+    "country_code_iso3": "IND"
+  },
+  "671": {
+    "name": "Ghazipur",
+    "country_code_iso3": "IND"
+  },
+  "695": {
+    "name": "Giridih",
+    "country_code_iso3": "IND"
+  },
+  "637": {
+    "name": "Gonda",
+    "country_code_iso3": "IND"
+  },
+  "655": {
+    "name": "Gorakhpur",
+    "country_code_iso3": "IND"
+  },
+  "670": {
+    "name": "Guntur",
+    "country_code_iso3": "IND"
+  },
+  "613": {
+    "name": "Guruvayur",
+    "country_code_iso3": "IND"
+  },
+  "726": {
+    "name": "Guwahati",
+    "country_code_iso3": "IND"
+  },
+  "580": {
+    "name": "Gwalior",
+    "country_code_iso3": "IND"
+  },
+  "651": {
+    "name": "Handia",
+    "country_code_iso3": "IND"
+  },
+  "601": {
+    "name": "Hardoi",
+    "country_code_iso3": "IND"
+  },
+  "560": {
+    "name": "Haridwar",
+    "country_code_iso3": "IND"
+  },
+  "632": {
+    "name": "Hyderabad",
+    "country_code_iso3": "IND"
+  },
+  "738": {
+    "name": "Imphal",
+    "country_code_iso3": "IND"
+  },
+  "566": {
+    "name": "Indore",
+    "country_code_iso3": "IND"
+  },
+  "629": {
+    "name": "Jabalpur",
+    "country_code_iso3": "IND"
+  },
+  "548": {
+    "name": "Jaipur",
+    "country_code_iso3": "IND"
+  },
+  "533": {
+    "name": "Jalandhar",
+    "country_code_iso3": "IND"
+  },
+  "570": {
+    "name": "Jalgaon",
+    "country_code_iso3": "IND"
+  },
+  "707": {
+    "name": "Jalpaiguri",
+    "country_code_iso3": "IND"
+  },
+  "527": {
+    "name": "Jammu",
+    "country_code_iso3": "IND"
+  },
+  "523": {
+    "name": "Jamnagar",
+    "country_code_iso3": "IND"
+  },
+  "699": {
+    "name": "Jamshedpur",
+    "country_code_iso3": "IND"
+  },
+  "653": {
+    "name": "Jaunpur",
+    "country_code_iso3": "IND"
+  },
+  "718": {
+    "name": "Jaynagar Majilpur",
+    "country_code_iso3": "IND"
+  },
+  "592": {
+    "name": "Jhansi",
+    "country_code_iso3": "IND"
+  },
+  "532": {
+    "name": "Jodhpur",
+    "country_code_iso3": "IND"
+  },
+  "607": {
+    "name": "Kalaburagi",
+    "country_code_iso3": "IND"
+  },
+  "599": {
+    "name": "Kannur",
+    "country_code_iso3": "IND"
+  },
+  "611": {
+    "name": "Kanpur",
+    "country_code_iso3": "IND"
+  },
+  "702": {
+    "name": "Katihar",
+    "country_code_iso3": "IND"
+  },
+  "709": {
+    "name": "Kharagpur",
+    "country_code_iso3": "IND"
+  },
+  "622": {
+    "name": "Kochi",
+    "country_code_iso3": "IND"
+  },
+  "568": {
+    "name": "Kolhapur",
+    "country_code_iso3": "IND"
+  },
+  "715": {
+    "name": "Kolkata",
+    "country_code_iso3": "IND"
+  },
+  "628": {
+    "name": "Kollam",
+    "country_code_iso3": "IND"
+  },
+  "556": {
+    "name": "Kota",
+    "country_code_iso3": "IND"
+  },
+  "608": {
+    "name": "Kozhikode",
+    "country_code_iso3": "IND"
+  },
+  "716": {
+    "name": "Krishnanagar",
+    "country_code_iso3": "IND"
+  },
+  "673": {
+    "name": "Kuchai Kot",
+    "country_code_iso3": "IND"
+  },
+  "665": {
+    "name": "Kushinagar",
+    "country_code_iso3": "IND"
+  },
+  "609": {
+    "name": "Lakhimpur",
+    "country_code_iso3": "IND"
+  },
+  "597": {
+    "name": "Latur",
+    "country_code_iso3": "IND"
+  },
+  "617": {
+    "name": "Lucknow",
+    "country_code_iso3": "IND"
+  },
+  "536": {
+    "name": "Ludhiana",
+    "country_code_iso3": "IND"
+  },
+  "652": {
+    "name": "Madurai",
+    "country_code_iso3": "IND"
+  },
+  "585": {
+    "name": "Mainpuri",
+    "country_code_iso3": "IND"
+  },
+  "615": {
+    "name": "Malappuram",
+    "country_code_iso3": "IND"
+  },
+  "562": {
+    "name": "Malegaon",
+    "country_code_iso3": "IND"
+  },
+  "588": {
+    "name": "Mangaluru",
+    "country_code_iso3": "IND"
+  },
+  "667": {
+    "name": "Mau",
+    "country_code_iso3": "IND"
+  },
+  "561": {
+    "name": "Meerut",
+    "country_code_iso3": "IND"
+  },
+  "656": {
+    "name": "Mirzapur",
+    "country_code_iso3": "IND"
+  },
+  "571": {
+    "name": "Moradabad",
+    "country_code_iso3": "IND"
+  },
+  "547": {
+    "name": "Mumbai",
+    "country_code_iso3": "IND"
+  },
+  "557": {
+    "name": "Muzaffarnagar",
+    "country_code_iso3": "IND"
+  },
+  "684": {
+    "name": "Muzaffarpur",
+    "country_code_iso3": "IND"
+  },
+  "621": {
+    "name": "Mysuru",
+    "country_code_iso3": "IND"
+  },
+  "626": {
+    "name": "Nagpur",
+    "country_code_iso3": "IND"
+  },
+  "606": {
+    "name": "Nanded-Waghala",
+    "country_code_iso3": "IND"
+  },
+  "623": {
+    "name": "Nanpara",
+    "country_code_iso3": "IND"
+  },
+  "553": {
+    "name": "Nashik",
+    "country_code_iso3": "IND"
+  },
+  "594": {
+    "name": "Neeleshwaram",
+    "country_code_iso3": "IND"
+  },
+  "672": {
+    "name": "Nellore",
+    "country_code_iso3": "IND"
+  },
+  "668": {
+    "name": "Obra",
+    "country_code_iso3": "IND"
+  },
+  "550": {
+    "name": "Panipat",
+    "country_code_iso3": "IND"
+  },
+  "542": {
+    "name": "Patiala",
+    "country_code_iso3": "IND"
+  },
+  "685": {
+    "name": "Patna",
+    "country_code_iso3": "IND"
+  },
+  "589": {
+    "name": "Pilibhit",
+    "country_code_iso3": "IND"
+  },
+  "646": {
+    "name": "Pratapgarh",
+    "country_code_iso3": "IND"
+  },
+  "645": {
+    "name": "Prayagraj",
+    "country_code_iso3": "IND"
+  },
+  "676": {
+    "name": "Puducherry",
+    "country_code_iso3": "IND"
+  },
+  "558": {
+    "name": "Pune",
+    "country_code_iso3": "IND"
+  },
+  "631": {
+    "name": "Rae Bareli",
+    "country_code_iso3": "IND"
+  },
+  "706": {
+    "name": "Raiganj",
+    "country_code_iso3": "IND"
+  },
+  "663": {
+    "name": "Raipur",
+    "country_code_iso3": "IND"
+  },
+  "682": {
+    "name": "Rajamahendravaram",
+    "country_code_iso3": "IND"
+  },
+  "528": {
+    "name": "Rajkot",
+    "country_code_iso3": "IND"
+  },
+  "577": {
+    "name": "Rampur",
+    "country_code_iso3": "IND"
+  },
+  "693": {
+    "name": "Ranchi",
+    "country_code_iso3": "IND"
+  },
+  "692": {
+    "name": "Rourkela",
+    "country_code_iso3": "IND"
+  },
+  "604": {
+    "name": "Sagar",
+    "country_code_iso3": "IND"
+  },
+  "552": {
+    "name": "Saharanpur",
+    "country_code_iso3": "IND"
+  },
+  "647": {
+    "name": "Salem",
+    "country_code_iso3": "IND"
+  },
+  "574": {
+    "name": "Sambhal",
+    "country_code_iso3": "IND"
+  },
+  "612": {
+    "name": "Sandila",
+    "country_code_iso3": "IND"
+  },
+  "575": {
+    "name": "Sangli",
+    "country_code_iso3": "IND"
+  },
+  "603": {
+    "name": "Sansarpur",
+    "country_code_iso3": "IND"
+  },
+  "636": {
+    "name": "Satna",
+    "country_code_iso3": "IND"
+  },
+  "598": {
+    "name": "Shahabad",
+    "country_code_iso3": "IND"
+  },
+  "596": {
+    "name": "Shahjahanpur",
+    "country_code_iso3": "IND"
+  },
+  "543": {
+    "name": "Sikar",
+    "country_code_iso3": "IND"
+  },
+  "736": {
+    "name": "Silchar",
+    "country_code_iso3": "IND"
+  },
+  "703": {
+    "name": "Siliguri",
+    "country_code_iso3": "IND"
+  },
+  "683": {
+    "name": "Sitamarhi",
+    "country_code_iso3": "IND"
+  },
+  "610": {
+    "name": "Sitapur",
+    "country_code_iso3": "IND"
+  },
+  "590": {
+    "name": "Solapur",
+    "country_code_iso3": "IND"
+  },
+  "521": {
+    "name": "Srinagar",
+    "country_code_iso3": "IND"
+  },
+  "643": {
+    "name": "Sultanpur",
+    "country_code_iso3": "IND"
+  },
+  "539": {
+    "name": "Surat",
+    "country_code_iso3": "IND"
+  },
+  "713": {
+    "name": "Tamluk",
+    "country_code_iso3": "IND"
+  },
+  "602": {
+    "name": "Thalassery",
+    "country_code_iso3": "IND"
+  },
+  "620": {
+    "name": "Thanagaon",
+    "country_code_iso3": "IND"
+  },
+  "638": {
+    "name": "Thiruvananthapuram",
+    "country_code_iso3": "IND"
+  },
+  "618": {
+    "name": "Thrissur",
+    "country_code_iso3": "IND"
+  },
+  "657": {
+    "name": "Tiruchirappalli",
+    "country_code_iso3": "IND"
+  },
+  "662": {
+    "name": "Tirupati",
+    "country_code_iso3": "IND"
+  },
+  "640": {
+    "name": "Tiruppur",
+    "country_code_iso3": "IND"
+  },
+  "642": {
+    "name": "Tulsipur",
+    "country_code_iso3": "IND"
+  },
+  "675": {
+    "name": "Uchkagaon",
+    "country_code_iso3": "IND"
+  },
+  "538": {
+    "name": "Udaipur",
+    "country_code_iso3": "IND"
+  },
+  "565": {
+    "name": "Ujjain",
+    "country_code_iso3": "IND"
+  },
+  "614": {
+    "name": "Unnao",
+    "country_code_iso3": "IND"
+  },
+  "540": {
+    "name": "Vadodara",
+    "country_code_iso3": "IND"
+  },
+  "659": {
+    "name": "Varanasi",
+    "country_code_iso3": "IND"
+  },
+  "546": {
+    "name": "Vasai-Virar",
+    "country_code_iso3": "IND"
+  },
+  "661": {
+    "name": "Vellore",
+    "country_code_iso3": "IND"
+  },
+  "591": {
+    "name": "Vijayapura",
+    "country_code_iso3": "IND"
+  },
+  "674": {
+    "name": "Vijayawada",
+    "country_code_iso3": "IND"
+  },
+  "690": {
+    "name": "Visakhapatnam",
+    "country_code_iso3": "IND"
+  },
+  "664": {
+    "name": "Waidhan",
+    "country_code_iso3": "IND"
+  },
+  "648": {
+    "name": "Warangal",
+    "country_code_iso3": "IND"
+  },
+  "549": {
+    "name": "Yamunanagar",
+    "country_code_iso3": "IND"
+  },
+  "191": {
+    "name": "Dublin",
+    "country_code_iso3": "IRL"
+  },
+  "471": {
+    "name": "Ahwaz",
+    "country_code_iso3": "IRN"
+  },
+  "456": {
+    "name": "Ardabil",
+    "country_code_iso3": "IRN"
+  },
+  "462": {
+    "name": "Hamedan",
+    "country_code_iso3": "IRN"
+  },
+  "477": {
+    "name": "Isfahan",
+    "country_code_iso3": "IRN"
+  },
+  "489": {
+    "name": "Kerman",
+    "country_code_iso3": "IRN"
+  },
+  "457": {
+    "name": "Kermanshah",
+    "country_code_iso3": "IRN"
+  },
+  "488": {
+    "name": "Mashhad",
+    "country_code_iso3": "IRN"
+  },
+  "474": {
+    "name": "Qom",
+    "country_code_iso3": "IRN"
+  },
+  "463": {
+    "name": "Rasht",
+    "country_code_iso3": "IRN"
+  },
+  "481": {
+    "name": "Shiraz",
+    "country_code_iso3": "IRN"
+  },
+  "450": {
+    "name": "Tabriz",
+    "country_code_iso3": "IRN"
+  },
+  "473": {
+    "name": "Tehran",
+    "country_code_iso3": "IRN"
+  },
+  "483": {
+    "name": "Yazd",
+    "country_code_iso3": "IRN"
+  },
+  "494": {
+    "name": "Zahedan",
+    "country_code_iso3": "IRN"
+  },
+  "454": {
+    "name": "Ad Diwaniyah",
+    "country_code_iso3": "IRQ"
+  },
+  "461": {
+    "name": "Amarah",
+    "country_code_iso3": "IRQ"
+  },
+  "467": {
+    "name": "Basra",
+    "country_code_iso3": "IRQ"
+  },
+  "451": {
+    "name": "Hindiya",
+    "country_code_iso3": "IRQ"
+  },
+  "453": {
+    "name": "Najaf",
+    "country_code_iso3": "IRQ"
+  },
+  "459": {
+    "name": "Nasiriyah",
+    "country_code_iso3": "IRQ"
+  },
+  "452": {
+    "name": "Sulaymaniyah",
+    "country_code_iso3": "IRQ"
+  },
+  "1024": {
+    "name": "Tel Aviv-Yafo",
+    "country_code_iso3": "ISR"
+  },
+  "261": {
+    "name": "Genoa",
+    "country_code_iso3": "ITA"
+  },
+  "263": {
+    "name": "Milan",
+    "country_code_iso3": "ITA"
+  },
+  "290": {
+    "name": "Naples",
+    "country_code_iso3": "ITA"
+  },
+  "286": {
+    "name": "Palermo",
+    "country_code_iso3": "ITA"
+  },
+  "284": {
+    "name": "Rome",
+    "country_code_iso3": "ITA"
+  },
+  "250": {
+    "name": "Turin",
+    "country_code_iso3": "ITA"
+  },
+  "82": {
+    "name": "Kingston",
+    "country_code_iso3": "JAM"
+  },
+  "997": {
+    "name": "Amman",
+    "country_code_iso3": "JOR"
+  },
+  "966": {
+    "name": "Fukuoka",
+    "country_code_iso3": "JPN"
+  },
+  "985": {
+    "name": "Hamamatsu",
+    "country_code_iso3": "JPN"
+  },
+  "972": {
+    "name": "Hiroshima",
+    "country_code_iso3": "JPN"
+  },
+  "978": {
+    "name": "Kanazawa",
+    "country_code_iso3": "JPN"
+  },
+  "967": {
+    "name": "Kitakyushu",
+    "country_code_iso3": "JPN"
+  },
+  "970": {
+    "name": "Kumamoto",
+    "country_code_iso3": "JPN"
+  },
+  "1013": {
+    "name": "Kyoto",
+    "country_code_iso3": "JPN"
+  },
+  "980": {
+    "name": "Moriyama [Otsu]",
+    "country_code_iso3": "JPN"
+  },
+  "981": {
+    "name": "Nagoya",
+    "country_code_iso3": "JPN"
+  },
+  "979": {
+    "name": "Naha",
+    "country_code_iso3": "JPN"
+  },
+  "975": {
+    "name": "Okayama",
+    "country_code_iso3": "JPN"
+  },
+  "976": {
+    "name": "Osaka [Kyoto]",
+    "country_code_iso3": "JPN"
+  },
+  "965": {
+    "name": "Sapporo",
+    "country_code_iso3": "JPN"
+  },
+  "982": {
+    "name": "Sendai",
+    "country_code_iso3": "JPN"
+  },
+  "987": {
+    "name": "Shizuoka",
+    "country_code_iso3": "JPN"
+  },
+  "983": {
+    "name": "Takasaki [Maebashi]",
+    "country_code_iso3": "JPN"
+  },
+  "986": {
+    "name": "Tokyo",
+    "country_code_iso3": "JPN"
+  },
+  "1026": {
+    "name": "Toyama",
+    "country_code_iso3": "JPN"
+  },
+  "509": {
+    "name": "Almaty",
+    "country_code_iso3": "KAZ"
+  },
+  "491": {
+    "name": "Nur-Sultan",
+    "country_code_iso3": "KAZ"
+  },
+  "497": {
+    "name": "Shymkent",
+    "country_code_iso3": "KAZ"
+  },
+  "507": {
+    "name": "Bishkek",
+    "country_code_iso3": "KGZ"
+  },
+  "827": {
+    "name": "Phnom Penh",
+    "country_code_iso3": "KHM"
+  },
+  "954": {
+    "name": "Busan",
+    "country_code_iso3": "KOR"
+  },
+  "953": {
+    "name": "Changwon",
+    "country_code_iso3": "KOR"
+  },
+  "933": {
+    "name": "Cheongju-si",
+    "country_code_iso3": "KOR"
+  },
+  "951": {
+    "name": "Daegu",
+    "country_code_iso3": "KOR"
+  },
+  "937": {
+    "name": "Daejeon",
+    "country_code_iso3": "KOR"
+  },
+  "948": {
+    "name": "Gwangju",
+    "country_code_iso3": "KOR"
+  },
+  "940": {
+    "name": "Jeonju",
+    "country_code_iso3": "KOR"
+  },
+  "921": {
+    "name": "Seoul",
+    "country_code_iso3": "KOR"
+  },
+  "955": {
+    "name": "Ulsan",
+    "country_code_iso3": "KOR"
+  },
+  "470": {
+    "name": "Kuwait City",
+    "country_code_iso3": "KWT"
+  },
+  "1002": {
+    "name": "Byblos",
+    "country_code_iso3": "LBN"
+  },
+  "179": {
+    "name": "Monrovia",
+    "country_code_iso3": "LBR"
+  },
+  "288": {
+    "name": "Tripoli",
+    "country_code_iso3": "LBY"
+  },
+  "681": {
+    "name": "Colombo",
+    "country_code_iso3": "LKA"
+  },
+  "687": {
+    "name": "Kandy",
+    "country_code_iso3": "LKA"
+  },
+  "315": {
+    "name": "Riga",
+    "country_code_iso3": "LVA"
+  },
+  "180": {
+    "name": "Agadir",
+    "country_code_iso3": "MAR"
+  },
+  "185": {
+    "name": "Casablanca",
+    "country_code_iso3": "MAR"
+  },
+  "192": {
+    "name": "Fez",
+    "country_code_iso3": "MAR"
+  },
+  "184": {
+    "name": "Marrakesh",
+    "country_code_iso3": "MAR"
+  },
+  "190": {
+    "name": "Meknes",
+    "country_code_iso3": "MAR"
+  },
+  "204": {
+    "name": "Oujda",
+    "country_code_iso3": "MAR"
+  },
+  "186": {
+    "name": "Rabat",
+    "country_code_iso3": "MAR"
+  },
+  "188": {
+    "name": "Tangier",
+    "country_code_iso3": "MAR"
+  },
+  "476": {
+    "name": "Antananarivo",
+    "country_code_iso3": "MDG"
+  },
+  "21": {
+    "name": "Acapulco",
+    "country_code_iso3": "MEX"
+  },
+  "18": {
+    "name": "Aguascalientes",
+    "country_code_iso3": "MEX"
+  },
+  "58": {
+    "name": "Cancún",
+    "country_code_iso3": "MEX"
+  },
+  "17": {
+    "name": "Chihuahua",
+    "country_code_iso3": "MEX"
+  },
+  "25": {
+    "name": "Ciudad Juárez",
+    "country_code_iso3": "MEX"
+  },
+  "1004": {
+    "name": "Colima",
+    "country_code_iso3": "MEX"
+  },
+  "28": {
+    "name": "Cuernavaca",
+    "country_code_iso3": "MEX"
+  },
+  "10": {
+    "name": "Culiacán",
+    "country_code_iso3": "MEX"
+  },
+  "15": {
+    "name": "Durango",
+    "country_code_iso3": "MEX"
+  },
+  "14": {
+    "name": "Guadalajara",
+    "country_code_iso3": "MEX"
+  },
+  "9": {
+    "name": "Hermosillo",
+    "country_code_iso3": "MEX"
+  },
+  "1012": {
+    "name": "Juarez",
+    "country_code_iso3": "MEX"
+  },
+  "20": {
+    "name": "León",
+    "country_code_iso3": "MEX"
+  },
+  "53": {
+    "name": "Mérida",
+    "country_code_iso3": "MEX"
+  },
+  "8": {
+    "name": "Mexicali",
+    "country_code_iso3": "MEX"
+  },
+  "29": {
+    "name": "Mexico City",
+    "country_code_iso3": "MEX"
+  },
+  "35": {
+    "name": "Monterrey",
+    "country_code_iso3": "MEX"
+  },
+  "19": {
+    "name": "Morelia",
+    "country_code_iso3": "MEX"
+  },
+  "40": {
+    "name": "Nuevo Laredo",
+    "country_code_iso3": "MEX"
+  },
+  "36": {
+    "name": "Oaxaca",
+    "country_code_iso3": "MEX"
+  },
+  "30": {
+    "name": "Puebla",
+    "country_code_iso3": "MEX"
+  },
+  "23": {
+    "name": "Querétaro",
+    "country_code_iso3": "MEX"
+  },
+  "41": {
+    "name": "Reynosa",
+    "country_code_iso3": "MEX"
+  },
+  "31": {
+    "name": "Saltillo",
+    "country_code_iso3": "MEX"
+  },
+  "26": {
+    "name": "San Luis Potosí",
+    "country_code_iso3": "MEX"
+  },
+  "4": {
+    "name": "Tijuana",
+    "country_code_iso3": "MEX"
+  },
+  "27": {
+    "name": "Toluca",
+    "country_code_iso3": "MEX"
+  },
+  "22": {
+    "name": "Torreon",
+    "country_code_iso3": "MEX"
+  },
+  "42": {
+    "name": "Tuxtla Gutiérrez",
+    "country_code_iso3": "MEX"
+  },
+  "39": {
+    "name": "Veracruz",
+    "country_code_iso3": "MEX"
+  },
+  "44": {
+    "name": "Villahermosa",
+    "country_code_iso3": "MEX"
+  },
+  "37": {
+    "name": "Xalapa",
+    "country_code_iso3": "MEX"
+  },
+  "182": {
+    "name": "Bamako",
+    "country_code_iso3": "MLI"
+  },
+  "742": {
+    "name": "Mandalay",
+    "country_code_iso3": "MMR"
+  },
+  "744": {
+    "name": "Yangon",
+    "country_code_iso3": "MMR"
+  },
+  "710": {
+    "name": "Ulaanbaatar",
+    "country_code_iso3": "MNG"
+  },
+  "393": {
+    "name": "Maputo",
+    "country_code_iso3": "MOZ"
+  },
+  "175": {
+    "name": "Nouakchott",
+    "country_code_iso3": "MRT"
+  },
+  "493": {
+    "name": "Port Louis",
+    "country_code_iso3": "MUS"
+  },
+  "781": {
+    "name": "Bukit Mertajam",
+    "country_code_iso3": "MYS"
+  },
+  "780": {
+    "name": "George Town",
+    "country_code_iso3": "MYS"
+  },
+  "790": {
+    "name": "Ipoh",
+    "country_code_iso3": "MYS"
+  },
+  "964": {
+    "name": "Kota Kinabalu",
+    "country_code_iso3": "MYS"
+  },
+  "800": {
+    "name": "Kuala Lumpur",
+    "country_code_iso3": "MYS"
+  },
+  "1018": {
+    "name": "Penang",
+    "country_code_iso3": "MYS"
+  },
+  "221": {
+    "name": "Niamey",
+    "country_code_iso3": "NER"
+  },
+  "244": {
+    "name": "Tahoua",
+    "country_code_iso3": "NER"
+  },
+  "276": {
+    "name": "Zinder",
+    "country_code_iso3": "NER"
+  },
+  "266": {
+    "name": "Aba",
+    "country_code_iso3": "NGA"
+  },
+  "231": {
+    "name": "Abeokuta",
+    "country_code_iso3": "NGA"
+  },
+  "264": {
+    "name": "Abuja",
+    "country_code_iso3": "NGA"
+  },
+  "243": {
+    "name": "Akure",
+    "country_code_iso3": "NGA"
+  },
+  "255": {
+    "name": "Amaigbo",
+    "country_code_iso3": "NGA"
+  },
+  "282": {
+    "name": "Bauchi",
+    "country_code_iso3": "NGA"
+  },
+  "246": {
+    "name": "Benin City",
+    "country_code_iso3": "NGA"
+  },
+  "271": {
+    "name": "Calabar",
+    "country_code_iso3": "NGA"
+  },
+  "267": {
+    "name": "Enugu",
+    "country_code_iso3": "NGA"
+  },
+  "235": {
+    "name": "Ibadan",
+    "country_code_iso3": "NGA"
+  },
+  "232": {
+    "name": "Ikorodu",
+    "country_code_iso3": "NGA"
+  },
+  "238": {
+    "name": "Ilorin",
+    "country_code_iso3": "NGA"
+  },
+  "274": {
+    "name": "Jos",
+    "country_code_iso3": "NGA"
+  },
+  "265": {
+    "name": "Kaduna",
+    "country_code_iso3": "NGA"
+  },
+  "270": {
+    "name": "Kano",
+    "country_code_iso3": "NGA"
+  },
+  "228": {
+    "name": "Lagos",
+    "country_code_iso3": "NGA"
+  },
+  "297": {
+    "name": "Maiduguri",
+    "country_code_iso3": "NGA"
+  },
+  "262": {
+    "name": "Oboama Nguru",
+    "country_code_iso3": "NGA"
+  },
+  "251": {
+    "name": "Okene",
+    "country_code_iso3": "NGA"
+  },
+  "254": {
+    "name": "Onitsha",
+    "country_code_iso3": "NGA"
+  },
+  "236": {
+    "name": "Oyo",
+    "country_code_iso3": "NGA"
+  },
+  "257": {
+    "name": "Port Harcourt",
+    "country_code_iso3": "NGA"
+  },
+  "242": {
+    "name": "Sokoto",
+    "country_code_iso3": "NGA"
+  },
+  "269": {
+    "name": "Uyo",
+    "country_code_iso3": "NGA"
+  },
+  "247": {
+    "name": "Warri",
+    "country_code_iso3": "NGA"
+  },
+  "268": {
+    "name": "Zaria",
+    "country_code_iso3": "NGA"
+  },
+  "56": {
+    "name": "Managua",
+    "country_code_iso3": "NIC"
+  },
+  "233": {
+    "name": "Amsterdam",
+    "country_code_iso3": "NLD"
+  },
+  "1019": {
+    "name": "Rotterdam",
+    "country_code_iso3": "NLD"
+  },
+  "227": {
+    "name": "Rotterdam [The Hague]",
+    "country_code_iso3": "NLD"
+  },
+  "1025": {
+    "name": "The Hague",
+    "country_code_iso3": "NLD"
+  },
+  "256": {
+    "name": "Oslo",
+    "country_code_iso3": "NOR"
+  },
+  "694": {
+    "name": "Itahari",
+    "country_code_iso3": "NPL"
+  },
+  "679": {
+    "name": "Kathmandu",
+    "country_code_iso3": "NPL"
+  },
+  "995": {
+    "name": "Auckland",
+    "country_code_iso3": "NZL"
+  },
+  "1003": {
+    "name": "Christchurch",
+    "country_code_iso3": "NZL"
+  },
+  "1029": {
+    "name": "Wellington",
+    "country_code_iso3": "NZL"
+  },
+  "516": {
+    "name": "Abbottabad",
+    "country_code_iso3": "PAK"
+  },
+  "520": {
+    "name": "Faisalabad",
+    "country_code_iso3": "PAK"
+  },
+  "524": {
+    "name": "Gujranwala",
+    "country_code_iso3": "PAK"
+  },
+  "522": {
+    "name": "Gujrat",
+    "country_code_iso3": "PAK"
+  },
+  "513": {
+    "name": "Hyderabad",
+    "country_code_iso3": "PAK"
+  },
+  "508": {
+    "name": "Karachi",
+    "country_code_iso3": "PAK"
+  },
+  "525": {
+    "name": "Lahore",
+    "country_code_iso3": "PAK"
+  },
+  "512": {
+    "name": "Mardan",
+    "country_code_iso3": "PAK"
+  },
+  "518": {
+    "name": "Multan",
+    "country_code_iso3": "PAK"
+  },
+  "510": {
+    "name": "Peshawar",
+    "country_code_iso3": "PAK"
+  },
+  "505": {
+    "name": "Quetta",
+    "country_code_iso3": "PAK"
+  },
+  "517": {
+    "name": "Rawalpindi [Islamabad]",
+    "country_code_iso3": "PAK"
+  },
+  "519": {
+    "name": "Sargodha",
+    "country_code_iso3": "PAK"
+  },
+  "526": {
+    "name": "Sialkot",
+    "country_code_iso3": "PAK"
+  },
+  "511": {
+    "name": "Swat City",
+    "country_code_iso3": "PAK"
+  },
+  "515": {
+    "name": "Wah Cantonment",
+    "country_code_iso3": "PAK"
+  },
+  "65": {
+    "name": "Panama City",
+    "country_code_iso3": "PAN"
+  },
+  "96": {
+    "name": "Arequipa",
+    "country_code_iso3": "PER"
+  },
+  "64": {
+    "name": "Chiclayo",
+    "country_code_iso3": "PER"
+  },
+  "73": {
+    "name": "Lima",
+    "country_code_iso3": "PER"
+  },
+  "66": {
+    "name": "Trujillo",
+    "country_code_iso3": "PER"
+  },
+  "973": {
+    "name": "Angeles [San Fernando]",
+    "country_code_iso3": "PHL"
+  },
+  "984": {
+    "name": "Bacolod",
+    "country_code_iso3": "PHL"
+  },
+  "990": {
+    "name": "Cagayan de Oro",
+    "country_code_iso3": "PHL"
+  },
+  "989": {
+    "name": "Cebu City",
+    "country_code_iso3": "PHL"
+  },
+  "971": {
+    "name": "Dagupan",
+    "country_code_iso3": "PHL"
+  },
+  "992": {
+    "name": "Davao City",
+    "country_code_iso3": "PHL"
+  },
+  "974": {
+    "name": "Quezon City [Manila]",
+    "country_code_iso3": "PHL"
+  },
+  "299": {
+    "name": "Gdansk",
+    "country_code_iso3": "POL"
+  },
+  "303": {
+    "name": "Katowice",
+    "country_code_iso3": "POL"
+  },
+  "308": {
+    "name": "Krakow",
+    "country_code_iso3": "POL"
+  },
+  "305": {
+    "name": "Łódź",
+    "country_code_iso3": "POL"
+  },
+  "293": {
+    "name": "Poznan",
+    "country_code_iso3": "POL"
+  },
+  "311": {
+    "name": "Warsaw",
+    "country_code_iso3": "POL"
+  },
+  "295": {
+    "name": "Wroclaw",
+    "country_code_iso3": "POL"
+  },
+  "115": {
+    "name": "San Juan",
+    "country_code_iso3": "PRI"
+  },
+  "901": {
+    "name": "Chŏngjin",
+    "country_code_iso3": "PRK"
+  },
+  "902": {
+    "name": "Hamhung",
+    "country_code_iso3": "PRK"
+  },
+  "892": {
+    "name": "Pyongyang",
+    "country_code_iso3": "PRK"
+  },
+  "181": {
+    "name": "Lisbon",
+    "country_code_iso3": "PRT"
+  },
+  "183": {
+    "name": "Porto",
+    "country_code_iso3": "PRT"
+  },
+  "136": {
+    "name": "Asuncion",
+    "country_code_iso3": "PRY"
+  },
+  "140": {
+    "name": "Ciudad del Este",
+    "country_code_iso3": "PRY"
+  },
+  "397": {
+    "name": "Gaza",
+    "country_code_iso3": "PSE"
+  },
+  "1030": {
+    "name": "Ramallah",
+    "country_code_iso3": "PSE"
+  },
+  "482": {
+    "name": "Doha",
+    "country_code_iso3": "QAT"
+  },
+  "326": {
+    "name": "Bucharest",
+    "country_code_iso3": "ROU"
+  },
+  "504": {
+    "name": "Barnaul",
+    "country_code_iso3": "RUS"
+  },
+  "464": {
+    "name": "Chelyabinsk",
+    "country_code_iso3": "RUS"
+  },
+  "399": {
+    "name": "Krasnodar",
+    "country_code_iso3": "RUS"
+  },
+  "514": {
+    "name": "Krasnoyarsk",
+    "country_code_iso3": "RUS"
+  },
+  "347": {
+    "name": "Moscow",
+    "country_code_iso3": "RUS"
+  },
+  "389": {
+    "name": "Nizhny Novgorod",
+    "country_code_iso3": "RUS"
+  },
+  "500": {
+    "name": "Novosibirsk",
+    "country_code_iso3": "RUS"
+  },
+  "486": {
+    "name": "Omsk",
+    "country_code_iso3": "RUS"
+  },
+  "398": {
+    "name": "Rostov-on-Don",
+    "country_code_iso3": "RUS"
+  },
+  "322": {
+    "name": "Saint Petersburg",
+    "country_code_iso3": "RUS"
+  },
+  "499": {
+    "name": "Tomsk",
+    "country_code_iso3": "RUS"
+  },
+  "472": {
+    "name": "Tyumen",
+    "country_code_iso3": "RUS"
+  },
+  "904": {
+    "name": "Vladivostok",
+    "country_code_iso3": "RUS"
+  },
+  "376": {
+    "name": "Voronezh",
+    "country_code_iso3": "RUS"
+  },
+  "351": {
+    "name": "Yaroslavl",
+    "country_code_iso3": "RUS"
+  },
+  "455": {
+    "name": "Yekaterinburg",
+    "country_code_iso3": "RUS"
+  },
+  "387": {
+    "name": "Kigali",
+    "country_code_iso3": "RWA"
+  },
+  "479": {
+    "name": "Dammam",
+    "country_code_iso3": "SAU"
+  },
+  "478": {
+    "name": "Hofuf",
+    "country_code_iso3": "SAU"
+  },
+  "469": {
+    "name": "Riyadh",
+    "country_code_iso3": "SAU"
+  },
+  "342": {
+    "name": "Ad Da'ein",
+    "country_code_iso3": "SDN"
+  },
+  "338": {
+    "name": "Al-Fashir",
+    "country_code_iso3": "SDN"
+  },
+  "385": {
+    "name": "Al-Ubayyid",
+    "country_code_iso3": "SDN"
+  },
+  "337": {
+    "name": "Buram",
+    "country_code_iso3": "SDN"
+  },
+  "332": {
+    "name": "Kebkabiya",
+    "country_code_iso3": "SDN"
+  },
+  "336": {
+    "name": "Nyala",
+    "country_code_iso3": "SDN"
+  },
+  "172": {
+    "name": "Dakar",
+    "country_code_iso3": "SEN"
+  },
+  "174": {
+    "name": "Touba",
+    "country_code_iso3": "SEN"
+  },
+  "832": {
+    "name": "Singapore",
+    "country_code_iso3": "SGP"
+  },
+  "178": {
+    "name": "Freetown",
+    "country_code_iso3": "SLE"
+  },
+  "49": {
+    "name": "San Salvador",
+    "country_code_iso3": "SLV"
+  },
+  "468": {
+    "name": "Hargeisa",
+    "country_code_iso3": "SOM"
+  },
+  "475": {
+    "name": "Mogadishu",
+    "country_code_iso3": "SOM"
+  },
+  "316": {
+    "name": "Belgrade",
+    "country_code_iso3": "SRB"
+  },
+  "289": {
+    "name": "Stockholm",
+    "country_code_iso3": "SWE"
+  },
+  "306": {
+    "name": "N'Djamena",
+    "country_code_iso3": "TCD"
+  },
+  "218": {
+    "name": "Lomé",
+    "country_code_iso3": "TGO"
+  },
+  "765": {
+    "name": "Bangkok",
+    "country_code_iso3": "THA"
+  },
+  "501": {
+    "name": "Dushanbe",
+    "country_code_iso3": "TJK"
+  },
+  "484": {
+    "name": "Ashgabat",
+    "country_code_iso3": "TKM"
+  },
+  "279": {
+    "name": "Sfax",
+    "country_code_iso3": "TUN"
+  },
+  "275": {
+    "name": "Tunis",
+    "country_code_iso3": "TUN"
+  },
+  "394": {
+    "name": "Adana",
+    "country_code_iso3": "TUR"
+  },
+  "360": {
+    "name": "Ankara",
+    "country_code_iso3": "TUR"
+  },
+  "350": {
+    "name": "Antalya",
+    "country_code_iso3": "TUR"
+  },
+  "335": {
+    "name": "Bursa",
+    "country_code_iso3": "TUR"
+  },
+  "340": {
+    "name": "Denizli",
+    "country_code_iso3": "TUR"
+  },
+  "343": {
+    "name": "Eskisehir",
+    "country_code_iso3": "TUR"
+  },
+  "333": {
+    "name": "Istanbul",
+    "country_code_iso3": "TUR"
+  },
+  "330": {
+    "name": "Izmir",
+    "country_code_iso3": "TUR"
+  },
+  "339": {
+    "name": "İzmit",
+    "country_code_iso3": "TUR"
+  },
+  "392": {
+    "name": "Kayseri",
+    "country_code_iso3": "TUR"
+  },
+  "362": {
+    "name": "Konya",
+    "country_code_iso3": "TUR"
+  },
+  "388": {
+    "name": "Mersin",
+    "country_code_iso3": "TUR"
+  },
+  "391": {
+    "name": "Samsun",
+    "country_code_iso3": "TUR"
+  },
+  "358": {
+    "name": "Sincan",
+    "country_code_iso3": "TUR"
+  },
+  "956": {
+    "name": "Hsinchu",
+    "country_code_iso3": "TWN"
+  },
+  "961": {
+    "name": "Kaohsiung",
+    "country_code_iso3": "TWN"
+  },
+  "958": {
+    "name": "New Taipei [Taipei]",
+    "country_code_iso3": "TWN"
+  },
+  "957": {
+    "name": "Taichung",
+    "country_code_iso3": "TWN"
+  },
+  "959": {
+    "name": "Tainan",
+    "country_code_iso3": "TWN"
+  },
+  "1006": {
+    "name": "Dar es Salaam",
+    "country_code_iso3": "TZA"
+  },
+  "353": {
+    "name": "Dnipro",
+    "country_code_iso3": "UKR"
+  },
+  "381": {
+    "name": "Donetsk",
+    "country_code_iso3": "UKR"
+  },
+  "357": {
+    "name": "Kharkiv",
+    "country_code_iso3": "UKR"
+  },
+  "344": {
+    "name": "Kryvyi Rih",
+    "country_code_iso3": "UKR"
+  },
+  "329": {
+    "name": "Kyiv",
+    "country_code_iso3": "UKR"
+  },
+  "318": {
+    "name": "Lviv",
+    "country_code_iso3": "UKR"
+  },
+  "334": {
+    "name": "Odesa",
+    "country_code_iso3": "UKR"
+  },
+  "355": {
+    "name": "Zaporizhzhia",
+    "country_code_iso3": "UKR"
+  },
+  "141": {
+    "name": "Montevideo",
+    "country_code_iso3": "URY"
+  },
+  "34": {
+    "name": "Albuquerque",
+    "country_code_iso3": "USA"
+  },
+  "77": {
+    "name": "Atlanta",
+    "country_code_iso3": "USA"
+  },
+  "46": {
+    "name": "Austin",
+    "country_code_iso3": "USA"
+  },
+  "5": {
+    "name": "Bakersfield",
+    "country_code_iso3": "USA"
+  },
+  "110": {
+    "name": "Baltimore",
+    "country_code_iso3": "USA"
+  },
+  "999": {
+    "name": "Berkeley",
+    "country_code_iso3": "USA"
+  },
+  "131": {
+    "name": "Boston",
+    "country_code_iso3": "USA"
+  },
+  "1000": {
+    "name": "Boulder",
+    "country_code_iso3": "USA"
+  },
+  "70": {
+    "name": "Bradenton",
+    "country_code_iso3": "USA"
+  },
+  "124": {
+    "name": "Bridgeport",
+    "country_code_iso3": "USA"
+  },
+  "1001": {
+    "name": "Broward",
+    "country_code_iso3": "USA"
+  },
+  "111": {
+    "name": "Buffalo",
+    "country_code_iso3": "USA"
+  },
+  "87": {
+    "name": "Chicago",
+    "country_code_iso3": "USA"
+  },
+  "91": {
+    "name": "Cincinnati",
+    "country_code_iso3": "USA"
+  },
+  "99": {
+    "name": "Cleveland",
+    "country_code_iso3": "USA"
+  },
+  "94": {
+    "name": "Columbus",
+    "country_code_iso3": "USA"
+  },
+  "3": {
+    "name": "Concord",
+    "country_code_iso3": "USA"
+  },
+  "50": {
+    "name": "Dallas",
+    "country_code_iso3": "USA"
+  },
+  "45": {
+    "name": "Denver",
+    "country_code_iso3": "USA"
+  },
+  "97": {
+    "name": "Detroit",
+    "country_code_iso3": "USA"
+  },
+  "1009": {
+    "name": "El Paso",
+    "country_code_iso3": "USA"
+  },
+  "1010": {
+    "name": "Fort Lauderdale",
+    "country_code_iso3": "USA"
+  },
+  "6": {
+    "name": "Fresno",
+    "country_code_iso3": "USA"
+  },
+  "1031": {
+    "name": "Honolulu",
+    "country_code_iso3": "USA"
+  },
+  "48": {
+    "name": "Houston",
+    "country_code_iso3": "USA"
+  },
+  "88": {
+    "name": "Indianapolis",
+    "country_code_iso3": "USA"
+  },
+  "61": {
+    "name": "Kansas City",
+    "country_code_iso3": "USA"
+  },
+  "11": {
+    "name": "Las Vegas",
+    "country_code_iso3": "USA"
+  },
+  "2": {
+    "name": "Los Angeles",
+    "country_code_iso3": "USA"
+  },
+  "84": {
+    "name": "Louisville",
+    "country_code_iso3": "USA"
+  },
+  "76": {
+    "name": "Miami",
+    "country_code_iso3": "USA"
+  },
+  "90": {
+    "name": "Milwaukee",
+    "country_code_iso3": "USA"
+  },
+  "75": {
+    "name": "Minneapolis",
+    "country_code_iso3": "USA"
+  },
+  "1015": {
+    "name": "Nashville",
+    "country_code_iso3": "USA"
+  },
+  "59": {
+    "name": "New Orleans",
+    "country_code_iso3": "USA"
+  },
+  "119": {
+    "name": "New York",
+    "country_code_iso3": "USA"
+  },
+  "1016": {
+    "name": "Norfolk",
+    "country_code_iso3": "USA"
+  },
+  "1017": {
+    "name": "Oakland",
+    "country_code_iso3": "USA"
+  },
+  "52": {
+    "name": "Oklahoma City",
+    "country_code_iso3": "USA"
+  },
+  "62": {
+    "name": "Omaha",
+    "country_code_iso3": "USA"
+  },
+  "79": {
+    "name": "Orlando",
+    "country_code_iso3": "USA"
+  },
+  "113": {
+    "name": "Philadelphia",
+    "country_code_iso3": "USA"
+  },
+  "12": {
+    "name": "Phoenix",
+    "country_code_iso3": "USA"
+  },
+  "102": {
+    "name": "Pittsburgh",
+    "country_code_iso3": "USA"
+  },
+  "16": {
+    "name": "Portland",
+    "country_code_iso3": "USA"
+  },
+  "129": {
+    "name": "Providence",
+    "country_code_iso3": "USA"
+  },
+  "7": {
+    "name": "Sacramento",
+    "country_code_iso3": "USA"
+  },
+  "33": {
+    "name": "Salt Lake City",
+    "country_code_iso3": "USA"
+  },
+  "43": {
+    "name": "San Antonio",
+    "country_code_iso3": "USA"
+  },
+  "1020": {
+    "name": "San Francisco",
+    "country_code_iso3": "USA"
+  },
+  "1": {
+    "name": "San Jose",
+    "country_code_iso3": "USA"
+  },
+  "24": {
+    "name": "Seattle",
+    "country_code_iso3": "USA"
+  },
+  "69": {
+    "name": "St. Louis",
+    "country_code_iso3": "USA"
+  },
+  "71": {
+    "name": "Tampa",
+    "country_code_iso3": "USA"
+  },
+  "13": {
+    "name": "Tucson",
+    "country_code_iso3": "USA"
+  },
+  "1027": {
+    "name": "Tulsa",
+    "country_code_iso3": "USA"
+  },
+  "105": {
+    "name": "Virginia Beach",
+    "country_code_iso3": "USA"
+  },
+  "1028": {
+    "name": "Washington",
+    "country_code_iso3": "USA"
+  },
+  "107": {
+    "name": "Washington D.C.",
+    "country_code_iso3": "USA"
+  },
+  "503": {
+    "name": "Namangan",
+    "country_code_iso3": "UZB"
+  },
+  "495": {
+    "name": "Qarshi",
+    "country_code_iso3": "UZB"
+  },
+  "496": {
+    "name": "Samarkand",
+    "country_code_iso3": "UZB"
+  },
+  "498": {
+    "name": "Tashkent",
+    "country_code_iso3": "UZB"
+  },
+  "116": {
+    "name": "Barcelona",
+    "country_code_iso3": "VEN"
+  },
+  "98": {
+    "name": "Barquisimeto",
+    "country_code_iso3": "VEN"
+  },
+  "108": {
+    "name": "Caracas",
+    "country_code_iso3": "VEN"
+  },
+  "121": {
+    "name": "Ciudad Guayana",
+    "country_code_iso3": "VEN"
+  },
+  "93": {
+    "name": "Maracaibo",
+    "country_code_iso3": "VEN"
+  },
+  "104": {
+    "name": "Maracay",
+    "country_code_iso3": "VEN"
+  },
+  "120": {
+    "name": "Maturin",
+    "country_code_iso3": "VEN"
+  },
+  "103": {
+    "name": "Valencia",
+    "country_code_iso3": "VEN"
+  },
+  "851": {
+    "name": "Can Tho",
+    "country_code_iso3": "VNM"
+  },
+  "1005": {
+    "name": "Cần Thơ",
+    "country_code_iso3": "VNM"
+  },
+  "867": {
+    "name": "Da Nang",
+    "country_code_iso3": "VNM"
+  },
+  "799": {
+    "name": "Hà Noi",
+    "country_code_iso3": "VNM"
+  },
+  "809": {
+    "name": "Hai Phòng",
+    "country_code_iso3": "VNM"
+  },
+  "866": {
+    "name": "Ho Chi Minh City",
+    "country_code_iso3": "VNM"
+  },
+  "846": {
+    "name": "Long Xuyen",
+    "country_code_iso3": "VNM"
+  },
+  "863": {
+    "name": "My Tho",
+    "country_code_iso3": "VNM"
+  },
+  "460": {
+    "name": "Hodeidah",
+    "country_code_iso3": "YEM"
+  },
+  "465": {
+    "name": "Sana'a",
+    "country_code_iso3": "YEM"
+  },
+  "466": {
+    "name": "Ta'izz",
+    "country_code_iso3": "YEM"
+  },
+  "314": {
+    "name": "Cape Town",
+    "country_code_iso3": "ZAF"
+  },
+  "364": {
+    "name": "Durban",
+    "country_code_iso3": "ZAF"
+  },
+  "1008": {
+    "name": "Ekurhuleni",
+    "country_code_iso3": "ZAF"
+  },
+  "345": {
+    "name": "Evaton",
+    "country_code_iso3": "ZAF"
+  },
+  "346": {
+    "name": "Johannesburg",
+    "country_code_iso3": "ZAF"
+  },
+  "348": {
+    "name": "Klipgat",
+    "country_code_iso3": "ZAF"
+  },
+  "328": {
+    "name": "Port Elizabeth",
+    "country_code_iso3": "ZAF"
+  },
+  "349": {
+    "name": "Pretoria",
+    "country_code_iso3": "ZAF"
+  },
+  "361": {
+    "name": "Kitwe",
+    "country_code_iso3": "ZMB"
+  },
+  "359": {
+    "name": "Lusaka",
+    "country_code_iso3": "ZMB"
+  },
+  "356": {
+    "name": "Bulawayo",
+    "country_code_iso3": "ZWE"
+  },
+  "386": {
+    "name": "Harare",
+    "country_code_iso3": "ZWE"
+  }
+}

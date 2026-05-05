@@ -1,0 +1,261 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import { supabase, getPublicUrl, formatFileSize, type Document } from '../lib/supabase';
+
+// Fetch stats for Hero
+const { data: statsData } = await supabase.rpc('get_document_stats');
+const stats = statsData ? {
+  totalDocuments: statsData.total_documents || 0,
+  indexedDocuments: statsData.indexed_documents || 0,
+  totalChunks: statsData.total_chunks || 0
+} : undefined;
+
+// Pagination
+const page = parseInt(Astro.url.searchParams.get('page') || '1');
+const perPage = 24;
+const from = (page - 1) * perPage;
+const to = from + perPage - 1;
+
+// Fetch documents with pagination (scoped to plans source)
+const { data: documents, error, count } = await supabase
+  .from('documents')
+  .select('*', { count: 'exact' })
+  .eq('source', 'plans')
+  .order('created_at', { ascending: false })
+  .range(from, to);
+
+if (error) {
+  console.error('Error fetching documents:', error);
+}
+
+const totalPages = count ? Math.ceil(count / perPage) : 1;
+const docs = (documents || []) as Document[];
+---
+
+<BaseLayout title="Gallery">
+  <Hero stats={stats} />
+
+  <div class="container-wide">
+    <div class="gallery-header">
+      <h2>Browse Documents</h2>
+    </div>
+
+    {docs.length === 0 ? (
+      <div class="empty-state">
+        <p>No documents found. Upload PDFs using the migration tool to get started.</p>
+      </div>
+    ) : (
+      <>
+        <div class="gallery-grid">
+          {docs.map((doc) => (
+              <article class="document-card">
+                <a href={doc.storage_path ? getPublicUrl('plans', doc.storage_path.replace('plans/', '')) : '#'} target="_blank" rel="noopener noreferrer" class="thumbnail-link">
+                  {doc.thumbnail_path ? (
+                    <img
+                      src={getPublicUrl('thumbnails', doc.thumbnail_path.replace('thumbnails/', ''))}
+                      alt={doc.title}
+                      loading="lazy"
+                      class="thumbnail"
+                    />
+                  ) : (
+                    <div class="thumbnail-placeholder">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                      </svg>
+                    </div>
+                  )}
+                </a>
+
+                <div class="document-info">
+                  <h3 class="document-title">
+                    <a href={doc.storage_path ? getPublicUrl('plans', doc.storage_path.replace('plans/', '')) : '#'} target="_blank" rel="noopener noreferrer">
+                      {doc.title}
+                    </a>
+                  </h3>
+
+                  {(doc.metadata?.city_name || doc.metadata?.country_name) && (
+                    <div class="document-location">
+                      {[doc.metadata?.city_name, doc.metadata?.country_name].filter(Boolean).join(', ')}
+                    </div>
+                  )}
+                  <div class="document-meta">
+                    {doc.page_count && <span>{doc.page_count} pages</span>}
+                    {doc.file_size && <span>{formatFileSize(doc.file_size)}</span>}
+                    {doc.indexed_at && <span class="indexed-badge">✓ Indexed</span>}
+                  </div>
+                </div>
+              </article>
+            ))}
+        </div>
+
+        {totalPages > 1 && (
+          <nav class="pagination" aria-label="Pagination">
+            {page > 1 && (
+              <a href={`/?page=${page - 1}`} class="btn btn-secondary">← Previous</a>
+            )}
+
+            <span class="page-info">
+              Page {page} of {totalPages}
+            </span>
+
+            {page < totalPages && (
+              <a href={`/?page=${page + 1}`} class="btn btn-secondary">Next →</a>
+            )}
+          </nav>
+        )}
+      </>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .gallery-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-8);
+    gap: var(--space-4);
+  }
+
+  .gallery-header h2 {
+    margin: 0;
+  }
+
+  .subtitle {
+    color: var(--gray-600);
+    margin: 0;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: var(--space-12) var(--space-6);
+    color: var(--gray-600);
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+
+  .document-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+
+  .document-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .thumbnail-link {
+    display: block;
+    width: 100%;
+    aspect-ratio: 8.5 / 11;
+    overflow: hidden;
+    background: var(--gray-100);
+    position: relative;
+  }
+
+  .thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.2s;
+  }
+
+  .document-card:hover .thumbnail {
+    transform: scale(1.05);
+  }
+
+  .thumbnail-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray-400);
+  }
+
+  .document-info {
+    padding: var(--space-4);
+  }
+
+  .document-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 var(--space-2);
+    line-height: 1.4;
+  }
+
+  .document-title a {
+    color: var(--gray-900);
+    text-decoration: none;
+  }
+
+  .document-title a:hover {
+    color: var(--brand);
+  }
+
+  .document-location {
+    font-size: 0.875rem;
+    color: var(--gray-700);
+    margin-bottom: var(--space-2);
+  }
+
+  .document-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    font-size: 0.875rem;
+    color: var(--gray-600);
+  }
+
+  .document-meta span {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .indexed-badge {
+    color: var(--success);
+    font-weight: 500;
+  }
+
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    padding: var(--space-8) 0;
+  }
+
+  .page-info {
+    font-weight: 500;
+    color: var(--gray-700);
+  }
+
+  @media (max-width: 768px) {
+    .gallery-header {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .gallery-grid {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: var(--space-4);
+    }
+
+    .pagination {
+      flex-direction: column;
+    }
+  }
+</style>

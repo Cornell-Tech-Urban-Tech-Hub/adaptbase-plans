@@ -1,0 +1,981 @@
+loc_id,name,country_code_iso3
+492,Herat,AFG
+506,Kabul,AFG
+502,Kandahar,AFG
+292,Cabinda,AGO
+312,Huambo,AGO
+298,Luanda,AGO
+300,Lubango,AGO
+317,Tirana,ALB
+485,Abu Dhabi,ARE
+490,Al Ain,ARE
+487,Dubai,ARE
+138,Buenos Aires,ARG
+132,Cordoba,ARG
+139,La Plata,ARG
+142,Mar del Plata,ARG
+122,Mendoza,ARG
+135,Rosario,ARG
+123,Salta,ARG
+127,San Miguel de Tucumán,ARG
+1021,Santa Fe,ARG
+988,Adelaide,AUS
+994,Brisbane,AUS
+991,Melbourne,AUS
+848,Perth,AUS
+993,Sydney,AUS
+294,Vienna,AUT
+458,Baku,AZE
+379,Bujumbura,BDI
+229,Antwerp,BEL
+230,Brussels,BEL
+222,Cotonou,BEN
+226,Porto-Novo,BEN
+193,Bobo-Dioulasso,BFA
+205,Ouagadougou,BFA
+717,Bogura,BGD
+727,Brahmanbaria,BGD
+708,Chapainawabganj,BGD
+735,Chattogram,BGD
+729,Comilla,BGD
+734,Daganbhuiyan,BGD
+724,Dhaka,BGD
+728,Homna,BGD
+720,Jessore,BGD
+722,Khulna,BGD
+725,Kishoreganj,BGD
+730,Lakshmipur,BGD
+723,Mymensingh,BGD
+733,Noakhali,BGD
+712,Rajshahi,BGD
+714,Rangpur,BGD
+719,Sirajganj,BGD
+732,Sylhet,BGD
+721,Tangail,BGD
+320,Sofia,BGR
+480,Manama,BHR
+323,Minsk,BLR
+112,Cochabamba,BOL
+106,El Alto [La Paz],BOL
+125,Santa Cruz de la Sierra,BOL
+167,Aracaju,BRA
+144,Belém,BRA
+160,Belo Horizonte,BRA
+154,Campinas,BRA
+137,Campo Grande,BRA
+146,Ceilândia,BRA
+134,Cuiab ,BRA
+150,Curitiba,BRA
+165,Feira de Santana,BRA
+152,Florianópolis,BRA
+164,Fortaleza,BRA
+145,Goiânia,BRA
+171,João Pessoa,BRA
+143,Londrina,BRA
+168,Maceió,BRA
+128,Manaus,BRA
+169,Natal,BRA
+147,Novo Hamburgo,BRA
+148,Porto Alegre,BRA
+170,Recife,BRA
+151,Ribeirao Preto,BRA
+161,Rio de Janeiro,BRA
+166,Salvador,BRA
+157,Santos,BRA
+162,São Gonçalo,BRA
+158,São José dos Campos,BRA
+156,São Luís,BRA
+155,São Paulo,BRA
+153,Sorocaba,BRA
+159,Teresina,BRA
+149,Uberlândia,BRA
+163,Vila Velha,BRA
+319,Bangui,CAF
+55,Calgary,CAN
+60,Edmonton,CAN
+130,Montreal,CAN
+1014,Montréal,CAN
+126,Ottawa,CAN
+133,Quebec,CAN
+109,Toronto,CAN
+32,Vancouver,CAN
+85,Winnipeg,CAN
+253,Zurich,CHE
+117,Concepción,CHL
+118,Santiago,CHL
+114,Valparaíso,CHL
+879,Anqing,CHN
+823,Anshan,CHN
+778,Anyang,CHN
+768,Baoding,CHN
+748,Baoji,CHN
+743,Baotou,CHN
+845,Beihai,CHN
+763,Beijing,CHN
+862,Bengbu,CHN
+830,Benxi,CHN
+787,Binhai,CHN
+785,Cangzhou,CHN
+808,Changchun,CHN
+818,Changde,CHN
+847,Changsha,CHN
+917,Changshu,CHN
+769,Changzhi,CHN
+903,Changzhou,CHN
+746,Chengdu,CHN
+767,Chifeng,CHN
+761,Chongqing,CHN
+930,Cixi,CHN
+838,Dalian,CHN
+861,Dandong,CHN
+749,Datong,CHN
+760,Dazhou,CHN
+1007,Deyang,CHN
+788,Dezhou,CHN
+815,Dongying,CHN
+796,Fancheng,CHN
+822,Fushun,CHN
+793,Fuxin,CHN
+836,Fuyang,CHN
+938,Fuzhou,CHN
+895,Ganzhou,CHN
+887,Guangzhou,CHN
+829,Guilin,CHN
+771,Guiyang,CHN
+876,Haikou,CHN
+776,Handan,CHN
+920,Hangzhou,CHN
+795,Harbin,CHN
+874,Hefei,CHN
+810,Hegang,CHN
+854,Hengyang,CHN
+745,Hohhot,CHN
+907,Hong Kong,CHN
+890,Huadu,CHN
+877,Huai'an,CHN
+842,Huaibei,CHN
+865,Huangdao,CHN
+859,Huangshi,CHN
+914,Huiyang,CHN
+909,Huizhou,CHN
+805,Huludao,CHN
+820,Jiamusi,CHN
+908,Jiangyin,CHN
+775,Jiaozuo,CHN
+925,Jiaxing,CHN
+927,Jieyang,CHN
+825,Jilin,CHN
+807,Jinan,CHN
+812,Jingzhou,CHN
+926,Jinhua,CHN
+817,Jining,CHN
+804,Jinzhou,CHN
+878,Jiujiang,CHN
+794,Kaifeng,CHN
+754,Kunming,CHN
+740,Lanzhou,CHN
+870,Lianyungang,CHN
+798,Liaocheng,CHN
+824,Liaoyang,CHN
+762,Linfen,CHN
+844,Linyi,CHN
+826,Liuzhou,CHN
+944,Longgang,CHN
+806,Luohe,CHN
+773,Luoyang,CHN
+758,Luzhou,CHN
+886,Ma'anshan,CHN
+875,Maoming,CHN
+747,Mianyang,CHN
+856,Mudanjiang,CHN
+880,Nanchang,CHN
+753,Nanchong,CHN
+885,Nanjing,CHN
+821,Nanning,CHN
+915,Nantong,CHN
+789,Nanyang,CHN
+934,Ningbo,CHN
+811,Panjin,CHN
+791,Pingdingshan,CHN
+868,Pingxiang,CHN
+884,Pukou,CHN
+943,Putian,CHN
+792,Puyang,CHN
+864,Qingdao,CHN
+882,Qingyuan,CHN
+802,Qinhuangdao,CHN
+759,Qiqihar,CHN
+939,Quanzhou,CHN
+860,Rizhao,CHN
+911,Sha Tin,CHN
+924,Shanghai,CHN
+814,Shangqiu,CHN
+834,Shaoyang,CHN
+816,Shenyang,CHN
+1022,Shenzhen,CHN
+766,Shijiazhuang,CHN
+774,Shiyan,CHN
+912,Suzhou,CHN
+813,Tai'an,CHN
+757,Taiyuan,CHN
+949,Taizhou,CHN
+784,Tangshan,CHN
+858,Tianjia'an,CHN
+777,Tianjin,CHN
+779,Tongliao,CHN
+559,Ürümqi,CHN
+835,Weifang,CHN
+872,Weihai,CHN
+942,Wenzhou,CHN
+841,Wuhan,CHN
+888,Wuhu,CHN
+756,Xi'an,CHN
+935,Xiamen,CHN
+850,Xiangtan,CHN
+752,Xiangyang,CHN
+831,Xiaogan,CHN
+772,Xingtai,CHN
+739,Xining,CHN
+783,Xinxiang,CHN
+797,Xuchang,CHN
+843,Xuzhou,CHN
+891,Yancheng,CHN
+893,Yangzhou,CHN
+855,Yantai,CHN
+751,Yibin,CHN
+801,Yichang,CHN
+741,Yinchuan,CHN
+929,Yiwu,CHN
+833,Yiyang,CHN
+946,Yueqing,CHN
+837,Yueyang,CHN
+852,Yulin,CHN
+839,Zaozhuang,CHN
+913,Zhangjiagang,CHN
+755,Zhangjiakou,CHN
+932,Zhangzhou,CHN
+871,Zhanjiang,CHN
+881,Zhaoqing,CHN
+786,Zhengzhou,CHN
+896,Zhenjiang,CHN
+898,Zhongshan,CHN
+900,Zhuhai,CHN
+853,Zhuzhou,CHN
+819,Zibo,CHN
+750,Zigong,CHN
+770,Zunyi,CHN
+194,Abidjan,CIV
+189,Bouak,CIV
+280,Douala,CMR
+301,Garoua,CMR
+304,Maroua,CMR
+302,Mokolo,CMR
+287,Yaoundé,CMR
+382,Beni,COD
+374,Bukavu,COD
+390,Bunia,COD
+377,Goma,COD
+327,Kananga,COD
+309,Kinshasa,COD
+341,Kisangani,COD
+354,Lubumbashi,COD
+396,Mahagi,COD
+331,Mbuji-Mayi,COD
+325,Tshikapa,COD
+310,Brazzaville,COG
+291,Pointe-Noire,COG
+86,Barranquilla,COL
+83,Bogotá,COL
+89,Bucaramanga,COL
+72,Cali,COL
+81,Cartagena,COL
+92,Cúcuta,COL
+80,Ibagué,COL
+78,Medellín,COL
+74,Pereira,COL
+57,San José,CRI
+68,Havana,CUB
+285,Prague,CZE
+281,Berlin,DEU
+241,Cologne,DEU
+239,Dortmund,DEU
+283,Dresden,DEU
+240,Düsseldorf,DEU
+252,Frankfurt am Main,DEU
+260,Hamburg,DEU
+259,Hanover,DEU
+1011,Heidelberg,DEU
+277,Munich,DEU
+272,Nuremberg,DEU
+258,Stuttgart,DEU
+245,Wuppertal,DEU
+273,Copenhagen,DNK
+100,Santiago de los Caballeros,DOM
+101,Santo Domingo,DOM
+225,Algiers,DZA
+224,Blida,DZA
+249,Constantine,DZA
+212,Oran,DZA
+63,Guayaquil,ECU
+67,Quito,ECU
+380,Al Ismailiya,EGY
+369,Al-Minya,EGY
+371,Al-Zaqāzīq,EGY
+352,Alexandria,EGY
+372,An Nazlah,EGY
+375,Asyut,EGY
+368,Banha,EGY
+367,Cairo,EGY
+373,Damietta,EGY
+366,El Mahalla El Kubra,EGY
+363,Faiyum,EGY
+384,Girga,EGY
+395,Luxor,EGY
+370,Mansoura,EGY
+378,Port Said,EGY
+383,Sohag,EGY
+365,Tanta,EGY
+220,Barcelona,ESP
+198,Bilbao,ESP
+196,Madrid,ESP
+195,Málaga,ESP
+187,Seville,ESP
+215,Valencia,ESP
+211,Zaragoza,ESP
+996,Addis Ababa,ETH
+313,Helsinki,FIN
+213,Bordeaux,FRA
+223,Lille,FRA
+234,Lyon,FRA
+237,Marseille,FRA
+248,Nice,FRA
+219,Paris,FRA
+217,Toulouse,FRA
+278,Libreville,GAB
+998,Belfast,GBR
+206,Birmingham,GBR
+200,Bristol,GBR
+197,Glasgow,GBR
+207,Leeds,GBR
+199,Liverpool,GBR
+216,London,GBR
+202,Manchester,GBR
+208,Newcastle upon Tyne,GBR
+210,Nottingham,GBR
+209,Sheffield,GBR
+1023,Tbilisi,GEO
+214,Accra,GHA
+203,Kumasi,GHA
+201,Takoradi [Sekondi-Takoradi],GHA
+177,Conakry,GIN
+173,Serrekunda,GMB
+176,Bissau,GNB
+324,Athens,GRC
+321,Thessaloniki,GRC
+47,Guatemala City,GTM
+51,San Pedro Sula,HND
+54,Tegucigalpa,HND
+296,Zagreb,HRV
+95,Port-au-Prince,HTI
+307,Budapest,HUN
+968,Balikpapan,IDN
+857,Bandar Lampung,IDN
+883,Bandung,IDN
+962,Banjarmasin,IDN
+840,Batam City,IDN
+906,Cilacap,IDN
+869,Cilegon,IDN
+897,Cirebon,IDN
+960,Denpasar,IDN
+889,Garut,IDN
+873,Jakarta,IDN
+828,Jambi,IDN
+950,Jember,IDN
+941,Jombang,IDN
+899,Kuningan,IDN
+931,Madiun,IDN
+923,Magelang,IDN
+977,Makassar,IDN
+963,Mataram,IDN
+764,Medan,IDN
+945,Mojokerto,IDN
+782,Padang,IDN
+849,Palembang,IDN
+928,Pati,IDN
+916,Pekalongan,IDN
+803,Pekanbaru,IDN
+918,Pontianak,IDN
+910,Purwokerto,IDN
+969,Samarinda,IDN
+919,Semarang,IDN
+952,Sumenep,IDN
+947,Surabaya,IDN
+894,Tasikmalaya,IDN
+905,Tegal,IDN
+936,Tulungagung,IDN
+922,Yogyakarta,IDN
+731,Agartala,IND
+572,Agra,IND
+567,Ahmadnagar,IND
+534,Ahmedabad,IND
+541,Ajmer,IND
+593,Akola,IND
+624,Alappuzha,IND
+569,Aligarh,IND
+554,Alwar,IND
+545,Ambala,IND
+605,Amravati,IND
+529,Amritsar,IND
+537,Anand,IND
+700,Asansol,IND
+573,Aurangabad,IND
+658,Azamgarh,IND
+627,Bahraich,IND
+616,Ballari,IND
+678,Ballia,IND
+639,Balrampur,IND
+619,Banda,IND
+582,Bareilly,IND
+649,Basti,IND
+691,Begusarai,IND
+576,Belagavi,IND
+635,Bengaluru,IND
+711,Berhampore,IND
+654,Bhadohi,IND
+535,Bhavnagar,IND
+586,Bhind,IND
+633,Bhinga,IND
+584,Bhopal,IND
+705,Bhubaneshwar,IND
+689,Bihar Sharif,IND
+530,Bikaner,IND
+669,Bilaspur,IND
+696,Bokaro,IND
+698,Brahmapur,IND
+581,Budaun,IND
+564,Bulandshahr,IND
+544,Chandigarh,IND
+677,Chennai,IND
+680,Chhapra,IND
+634,Coimbatore,IND
+704,Cuttack,IND
+688,Darbhanga,IND
+701,Darjeeling,IND
+600,Davanagere,IND
+531,Deesa,IND
+555,Dehradun,IND
+551,Delhi,IND
+666,Deoria,IND
+697,Dhanbad,IND
+583,Dharwad,IND
+563,Dhule,IND
+737,Dimapur,IND
+650,Dindigul,IND
+660,Durg,IND
+644,Erode,IND
+579,Etah,IND
+587,Etawah,IND
+630,Ettumanoor,IND
+641,Faizabad,IND
+595,Farrukhabad,IND
+625,Fatehpur,IND
+578,Firozabad,IND
+686,Gaya,IND
+671,Ghazipur,IND
+695,Giridih,IND
+637,Gonda,IND
+655,Gorakhpur,IND
+670,Guntur,IND
+613,Guruvayur,IND
+726,Guwahati,IND
+580,Gwalior,IND
+651,Handia,IND
+601,Hardoi,IND
+560,Haridwar,IND
+632,Hyderabad,IND
+738,Imphal,IND
+566,Indore,IND
+629,Jabalpur,IND
+548,Jaipur,IND
+533,Jalandhar,IND
+570,Jalgaon,IND
+707,Jalpaiguri,IND
+527,Jammu,IND
+523,Jamnagar,IND
+699,Jamshedpur,IND
+653,Jaunpur,IND
+718,Jaynagar Majilpur,IND
+592,Jhansi,IND
+532,Jodhpur,IND
+607,Kalaburagi,IND
+599,Kannur,IND
+611,Kanpur,IND
+702,Katihar,IND
+709,Kharagpur,IND
+622,Kochi,IND
+568,Kolhapur,IND
+715,Kolkata,IND
+628,Kollam,IND
+556,Kota,IND
+608,Kozhikode,IND
+716,Krishnanagar,IND
+673,Kuchai Kot,IND
+665,Kushinagar,IND
+609,Lakhimpur,IND
+597,Latur,IND
+617,Lucknow,IND
+536,Ludhiana,IND
+652,Madurai,IND
+585,Mainpuri,IND
+615,Malappuram,IND
+562,Malegaon,IND
+588,Mangaluru,IND
+667,Mau,IND
+561,Meerut,IND
+656,Mirzapur,IND
+571,Moradabad,IND
+547,Mumbai,IND
+557,Muzaffarnagar,IND
+684,Muzaffarpur,IND
+621,Mysuru,IND
+626,Nagpur,IND
+606,Nanded-Waghala,IND
+623,Nanpara,IND
+553,Nashik,IND
+594,Neeleshwaram,IND
+672,Nellore,IND
+668,Obra,IND
+550,Panipat,IND
+542,Patiala,IND
+685,Patna,IND
+589,Pilibhit,IND
+646,Pratapgarh,IND
+645,Prayagraj,IND
+676,Puducherry,IND
+558,Pune,IND
+631,Rae Bareli,IND
+706,Raiganj,IND
+663,Raipur,IND
+682,Rajamahendravaram,IND
+528,Rajkot,IND
+577,Rampur,IND
+693,Ranchi,IND
+692,Rourkela,IND
+604,Sagar,IND
+552,Saharanpur,IND
+647,Salem,IND
+574,Sambhal,IND
+612,Sandila,IND
+575,Sangli,IND
+603,Sansarpur,IND
+636,Satna,IND
+598,Shahabad,IND
+596,Shahjahanpur,IND
+543,Sikar,IND
+736,Silchar,IND
+703,Siliguri,IND
+683,Sitamarhi,IND
+610,Sitapur,IND
+590,Solapur,IND
+521,Srinagar,IND
+643,Sultanpur,IND
+539,Surat,IND
+713,Tamluk,IND
+602,Thalassery,IND
+620,Thanagaon,IND
+638,Thiruvananthapuram,IND
+618,Thrissur,IND
+657,Tiruchirappalli,IND
+662,Tirupati,IND
+640,Tiruppur,IND
+642,Tulsipur,IND
+675,Uchkagaon,IND
+538,Udaipur,IND
+565,Ujjain,IND
+614,Unnao,IND
+540,Vadodara,IND
+659,Varanasi,IND
+546,Vasai-Virar,IND
+661,Vellore,IND
+591,Vijayapura,IND
+674,Vijayawada,IND
+690,Visakhapatnam,IND
+664,Waidhan,IND
+648,Warangal,IND
+549,Yamunanagar,IND
+191,Dublin,IRL
+471,Ahwaz,IRN
+456,Ardabil,IRN
+462,Hamedan,IRN
+477,Isfahan,IRN
+489,Kerman,IRN
+457,Kermanshah,IRN
+488,Mashhad,IRN
+474,Qom,IRN
+463,Rasht,IRN
+481,Shiraz,IRN
+450,Tabriz,IRN
+473,Tehran,IRN
+483,Yazd,IRN
+494,Zahedan,IRN
+454,Ad Diwaniyah,IRQ
+461,Amarah,IRQ
+467,Basra,IRQ
+451,Hindiya,IRQ
+453,Najaf,IRQ
+459,Nasiriyah,IRQ
+452,Sulaymaniyah,IRQ
+1024,Tel Aviv-Yafo,ISR
+261,Genoa,ITA
+263,Milan,ITA
+290,Naples,ITA
+286,Palermo,ITA
+284,Rome,ITA
+250,Turin,ITA
+82,Kingston,JAM
+997,Amman,JOR
+966,Fukuoka,JPN
+985,Hamamatsu,JPN
+972,Hiroshima,JPN
+978,Kanazawa,JPN
+967,Kitakyushu,JPN
+970,Kumamoto,JPN
+1013,Kyoto,JPN
+980,Moriyama [Otsu],JPN
+981,Nagoya,JPN
+979,Naha,JPN
+975,Okayama,JPN
+976,Osaka [Kyoto],JPN
+965,Sapporo,JPN
+982,Sendai,JPN
+987,Shizuoka,JPN
+983,Takasaki [Maebashi],JPN
+986,Tokyo,JPN
+1026,Toyama,JPN
+509,Almaty,KAZ
+491,Nur-Sultan,KAZ
+497,Shymkent,KAZ
+507,Bishkek,KGZ
+827,Phnom Penh,KHM
+954,Busan,KOR
+953,Changwon,KOR
+933,Cheongju-si,KOR
+951,Daegu,KOR
+937,Daejeon,KOR
+948,Gwangju,KOR
+940,Jeonju,KOR
+921,Seoul,KOR
+955,Ulsan,KOR
+470,Kuwait City,KWT
+1002,Byblos,LBN
+179,Monrovia,LBR
+288,Tripoli,LBY
+681,Colombo,LKA
+687,Kandy,LKA
+315,Riga,LVA
+180,Agadir,MAR
+185,Casablanca,MAR
+192,Fez,MAR
+184,Marrakesh,MAR
+190,Meknes,MAR
+204,Oujda,MAR
+186,Rabat,MAR
+188,Tangier,MAR
+476,Antananarivo,MDG
+21,Acapulco,MEX
+18,Aguascalientes,MEX
+58,Cancún,MEX
+17,Chihuahua,MEX
+25,Ciudad Juárez,MEX
+1004,Colima,MEX
+28,Cuernavaca,MEX
+10,Culiacán,MEX
+15,Durango,MEX
+14,Guadalajara,MEX
+9,Hermosillo,MEX
+1012,Juarez,MEX
+20,León,MEX
+53,Mérida,MEX
+8,Mexicali,MEX
+29,Mexico City,MEX
+35,Monterrey,MEX
+19,Morelia,MEX
+40,Nuevo Laredo,MEX
+36,Oaxaca,MEX
+30,Puebla,MEX
+23,Querétaro,MEX
+41,Reynosa,MEX
+31,Saltillo,MEX
+26,San Luis Potosí,MEX
+4,Tijuana,MEX
+27,Toluca,MEX
+22,Torreon,MEX
+42,Tuxtla Gutiérrez,MEX
+39,Veracruz,MEX
+44,Villahermosa,MEX
+37,Xalapa,MEX
+182,Bamako,MLI
+742,Mandalay,MMR
+744,Yangon,MMR
+710,Ulaanbaatar,MNG
+393,Maputo,MOZ
+175,Nouakchott,MRT
+493,Port Louis,MUS
+781,Bukit Mertajam,MYS
+780,George Town,MYS
+790,Ipoh,MYS
+964,Kota Kinabalu,MYS
+800,Kuala Lumpur,MYS
+1018,Penang,MYS
+221,Niamey,NER
+244,Tahoua,NER
+276,Zinder,NER
+266,Aba,NGA
+231,Abeokuta,NGA
+264,Abuja,NGA
+243,Akure,NGA
+255,Amaigbo,NGA
+282,Bauchi,NGA
+246,Benin City,NGA
+271,Calabar,NGA
+267,Enugu,NGA
+235,Ibadan,NGA
+232,Ikorodu,NGA
+238,Ilorin,NGA
+274,Jos,NGA
+265,Kaduna,NGA
+270,Kano,NGA
+228,Lagos,NGA
+297,Maiduguri,NGA
+262,Oboama Nguru,NGA
+251,Okene,NGA
+254,Onitsha,NGA
+236,Oyo,NGA
+257,Port Harcourt,NGA
+242,Sokoto,NGA
+269,Uyo,NGA
+247,Warri,NGA
+268,Zaria,NGA
+56,Managua,NIC
+233,Amsterdam,NLD
+1019,Rotterdam,NLD
+227,Rotterdam [The Hague],NLD
+1025,The Hague,NLD
+256,Oslo,NOR
+694,Itahari,NPL
+679,Kathmandu,NPL
+995,Auckland,NZL
+1003,Christchurch,NZL
+1029,Wellington,NZL
+516,Abbottabad,PAK
+520,Faisalabad,PAK
+524,Gujranwala,PAK
+522,Gujrat,PAK
+513,Hyderabad,PAK
+508,Karachi,PAK
+525,Lahore,PAK
+512,Mardan,PAK
+518,Multan,PAK
+510,Peshawar,PAK
+505,Quetta,PAK
+517,Rawalpindi [Islamabad],PAK
+519,Sargodha,PAK
+526,Sialkot,PAK
+511,Swat City,PAK
+515,Wah Cantonment,PAK
+65,Panama City,PAN
+96,Arequipa,PER
+64,Chiclayo,PER
+73,Lima,PER
+66,Trujillo,PER
+973,Angeles [San Fernando],PHL
+984,Bacolod,PHL
+990,Cagayan de Oro,PHL
+989,Cebu City,PHL
+971,Dagupan,PHL
+992,Davao City,PHL
+974,Quezon City [Manila],PHL
+299,Gdansk,POL
+303,Katowice,POL
+308,Krakow,POL
+305,Łódź,POL
+293,Poznan,POL
+311,Warsaw,POL
+295,Wroclaw,POL
+115,San Juan,PRI
+901,Chŏngjin,PRK
+902,Hamhung,PRK
+892,Pyongyang,PRK
+181,Lisbon,PRT
+183,Porto,PRT
+136,Asuncion,PRY
+140,Ciudad del Este,PRY
+397,Gaza,PSE
+1030,Ramallah,PSE
+482,Doha,QAT
+326,Bucharest,ROU
+504,Barnaul,RUS
+464,Chelyabinsk,RUS
+399,Krasnodar,RUS
+514,Krasnoyarsk,RUS
+347,Moscow,RUS
+389,Nizhny Novgorod,RUS
+500,Novosibirsk,RUS
+486,Omsk,RUS
+398,Rostov-on-Don,RUS
+322,Saint Petersburg,RUS
+499,Tomsk,RUS
+472,Tyumen,RUS
+904,Vladivostok,RUS
+376,Voronezh,RUS
+351,Yaroslavl,RUS
+455,Yekaterinburg,RUS
+387,Kigali,RWA
+479,Dammam,SAU
+478,Hofuf,SAU
+469,Riyadh,SAU
+342,Ad Da'ein,SDN
+338,Al-Fashir,SDN
+385,Al-Ubayyid,SDN
+337,Buram,SDN
+332,Kebkabiya,SDN
+336,Nyala,SDN
+172,Dakar,SEN
+174,Touba,SEN
+832,Singapore,SGP
+178,Freetown,SLE
+49,San Salvador,SLV
+468,Hargeisa,SOM
+475,Mogadishu,SOM
+316,Belgrade,SRB
+289,Stockholm,SWE
+306,N'Djamena,TCD
+218,Lomé,TGO
+765,Bangkok,THA
+501,Dushanbe,TJK
+484,Ashgabat,TKM
+279,Sfax,TUN
+275,Tunis,TUN
+394,Adana,TUR
+360,Ankara,TUR
+350,Antalya,TUR
+335,Bursa,TUR
+340,Denizli,TUR
+343,Eskisehir,TUR
+333,Istanbul,TUR
+330,Izmir,TUR
+339,İzmit,TUR
+392,Kayseri,TUR
+362,Konya,TUR
+388,Mersin,TUR
+391,Samsun,TUR
+358,Sincan,TUR
+956,Hsinchu,TWN
+961,Kaohsiung,TWN
+958,New Taipei [Taipei],TWN
+957,Taichung,TWN
+959,Tainan,TWN
+1006,Dar es Salaam,TZA
+353,Dnipro,UKR
+381,Donetsk,UKR
+357,Kharkiv,UKR
+344,Kryvyi Rih,UKR
+329,Kyiv,UKR
+318,Lviv,UKR
+334,Odesa,UKR
+355,Zaporizhzhia,UKR
+141,Montevideo,URY
+34,Albuquerque,USA
+77,Atlanta,USA
+46,Austin,USA
+5,Bakersfield,USA
+110,Baltimore,USA
+999,Berkeley,USA
+131,Boston,USA
+1000,Boulder,USA
+70,Bradenton,USA
+124,Bridgeport,USA
+1001,Broward,USA
+111,Buffalo,USA
+87,Chicago,USA
+91,Cincinnati,USA
+99,Cleveland,USA
+94,Columbus,USA
+3,Concord,USA
+50,Dallas,USA
+45,Denver,USA
+97,Detroit,USA
+1009,El Paso,USA
+1010,Fort Lauderdale,USA
+6,Fresno,USA
+1031,Honolulu,USA
+48,Houston,USA
+88,Indianapolis,USA
+61,Kansas City,USA
+11,Las Vegas,USA
+2,Los Angeles,USA
+84,Louisville,USA
+76,Miami,USA
+90,Milwaukee,USA
+75,Minneapolis,USA
+1015,Nashville,USA
+59,New Orleans,USA
+119,New York,USA
+1016,Norfolk,USA
+1017,Oakland,USA
+52,Oklahoma City,USA
+62,Omaha,USA
+79,Orlando,USA
+113,Philadelphia,USA
+12,Phoenix,USA
+102,Pittsburgh,USA
+16,Portland,USA
+129,Providence,USA
+7,Sacramento,USA
+33,Salt Lake City,USA
+43,San Antonio,USA
+1020,San Francisco,USA
+1,San Jose,USA
+24,Seattle,USA
+69,St. Louis,USA
+71,Tampa,USA
+13,Tucson,USA
+1027,Tulsa,USA
+105,Virginia Beach,USA
+1028,Washington,USA
+107,Washington D.C.,USA
+503,Namangan,UZB
+495,Qarshi,UZB
+496,Samarkand,UZB
+498,Tashkent,UZB
+116,Barcelona,VEN
+98,Barquisimeto,VEN
+108,Caracas,VEN
+121,Ciudad Guayana,VEN
+93,Maracaibo,VEN
+104,Maracay,VEN
+120,Maturin,VEN
+103,Valencia,VEN
+851,Can Tho,VNM
+1005,Cần Thơ,VNM
+867,Da Nang,VNM
+799,Hà Noi,VNM
+809,Hai Phòng,VNM
+866,Ho Chi Minh City,VNM
+846,Long Xuyen,VNM
+863,My Tho,VNM
+460,Hodeidah,YEM
+465,Sana'a,YEM
+466,Ta'izz,YEM
+314,Cape Town,ZAF
+364,Durban,ZAF
+1008,Ekurhuleni,ZAF
+345,Evaton,ZAF
+346,Johannesburg,ZAF
+348,Klipgat,ZAF
+328,Port Elizabeth,ZAF
+349,Pretoria,ZAF
+361,Kitwe,ZMB
+359,Lusaka,ZMB
+356,Bulawayo,ZWE
+386,Harare,ZWE

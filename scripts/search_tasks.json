@@ -1,0 +1,652 @@
+[
+  {
+    "loc_id": 492,
+    "city_name": "Herat",
+    "country_code": "AFG",
+    "queries": [
+      "\"Herat\" climate action plan filetype:pdf",
+      "\"Herat\" climate resilience strategy filetype:pdf",
+      "\"Herat\" climate adaptation plan filetype:pdf",
+      "\"Herat\" resilience strategy filetype:pdf",
+      "\"Herat\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 506,
+    "city_name": "Kabul",
+    "country_code": "AFG",
+    "queries": [
+      "\"Kabul\" climate action plan filetype:pdf",
+      "\"Kabul\" climate resilience strategy filetype:pdf",
+      "\"Kabul\" climate adaptation plan filetype:pdf",
+      "\"Kabul\" resilience strategy filetype:pdf",
+      "\"Kabul\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 502,
+    "city_name": "Kandahar",
+    "country_code": "AFG",
+    "queries": [
+      "\"Kandahar\" climate action plan filetype:pdf",
+      "\"Kandahar\" climate resilience strategy filetype:pdf",
+      "\"Kandahar\" climate adaptation plan filetype:pdf",
+      "\"Kandahar\" resilience strategy filetype:pdf",
+      "\"Kandahar\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 292,
+    "city_name": "Cabinda",
+    "country_code": "AGO",
+    "queries": [
+      "\"Cabinda\" climate action plan filetype:pdf",
+      "\"Cabinda\" climate resilience strategy filetype:pdf",
+      "\"Cabinda\" climate adaptation plan filetype:pdf",
+      "\"Cabinda\" resilience strategy filetype:pdf",
+      "\"Cabinda\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 312,
+    "city_name": "Huambo",
+    "country_code": "AGO",
+    "queries": [
+      "\"Huambo\" climate action plan filetype:pdf",
+      "\"Huambo\" climate resilience strategy filetype:pdf",
+      "\"Huambo\" climate adaptation plan filetype:pdf",
+      "\"Huambo\" resilience strategy filetype:pdf",
+      "\"Huambo\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 298,
+    "city_name": "Luanda",
+    "country_code": "AGO",
+    "queries": [
+      "\"Luanda\" climate action plan filetype:pdf",
+      "\"Luanda\" climate resilience strategy filetype:pdf",
+      "\"Luanda\" climate adaptation plan filetype:pdf",
+      "\"Luanda\" resilience strategy filetype:pdf",
+      "\"Luanda\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 300,
+    "city_name": "Lubango",
+    "country_code": "AGO",
+    "queries": [
+      "\"Lubango\" climate action plan filetype:pdf",
+      "\"Lubango\" climate resilience strategy filetype:pdf",
+      "\"Lubango\" climate adaptation plan filetype:pdf",
+      "\"Lubango\" resilience strategy filetype:pdf",
+      "\"Lubango\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 317,
+    "city_name": "Tirana",
+    "country_code": "ALB",
+    "queries": [
+      "\"Tirana\" climate action plan filetype:pdf",
+      "\"Tirana\" climate resilience strategy filetype:pdf",
+      "\"Tirana\" climate adaptation plan filetype:pdf",
+      "\"Tirana\" resilience strategy filetype:pdf",
+      "\"Tirana\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 485,
+    "city_name": "Abu Dhabi",
+    "country_code": "ARE",
+    "queries": [
+      "\"Abu Dhabi\" climate action plan filetype:pdf",
+      "\"Abu Dhabi\" climate resilience strategy filetype:pdf",
+      "\"Abu Dhabi\" climate adaptation plan filetype:pdf",
+      "\"Abu Dhabi\" resilience strategy filetype:pdf",
+      "\"Abu Dhabi\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 490,
+    "city_name": "Al Ain",
+    "country_code": "ARE",
+    "queries": [
+      "\"Al Ain\" climate action plan filetype:pdf",
+      "\"Al Ain\" climate resilience strategy filetype:pdf",
+      "\"Al Ain\" climate adaptation plan filetype:pdf",
+      "\"Al Ain\" resilience strategy filetype:pdf",
+      "\"Al Ain\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 487,
+    "city_name": "Dubai",
+    "country_code": "ARE",
+    "queries": [
+      "\"Dubai\" climate action plan filetype:pdf",
+      "\"Dubai\" climate resilience strategy filetype:pdf",
+      "\"Dubai\" climate adaptation plan filetype:pdf",
+      "\"Dubai\" resilience strategy filetype:pdf",
+      "\"Dubai\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 138,
+    "city_name": "Buenos Aires",
+    "country_code": "ARG",
+    "queries": [
+      "\"Buenos Aires\" climate action plan filetype:pdf",
+      "\"Buenos Aires\" climate resilience strategy filetype:pdf",
+      "\"Buenos Aires\" climate adaptation plan filetype:pdf",
+      "\"Buenos Aires\" resilience strategy filetype:pdf",
+      "\"Buenos Aires\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 132,
+    "city_name": "Cordoba",
+    "country_code": "ARG",
+    "queries": [
+      "\"Cordoba\" climate action plan filetype:pdf",
+      "\"Cordoba\" climate resilience strategy filetype:pdf",
+      "\"Cordoba\" climate adaptation plan filetype:pdf",
+      "\"Cordoba\" resilience strategy filetype:pdf",
+      "\"Cordoba\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 139,
+    "city_name": "La Plata",
+    "country_code": "ARG",
+    "queries": [
+      "\"La Plata\" climate action plan filetype:pdf",
+      "\"La Plata\" climate resilience strategy filetype:pdf",
+      "\"La Plata\" climate adaptation plan filetype:pdf",
+      "\"La Plata\" resilience strategy filetype:pdf",
+      "\"La Plata\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 142,
+    "city_name": "Mar del Plata",
+    "country_code": "ARG",
+    "queries": [
+      "\"Mar del Plata\" climate action plan filetype:pdf",
+      "\"Mar del Plata\" climate resilience strategy filetype:pdf",
+      "\"Mar del Plata\" climate adaptation plan filetype:pdf",
+      "\"Mar del Plata\" resilience strategy filetype:pdf",
+      "\"Mar del Plata\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 122,
+    "city_name": "Mendoza",
+    "country_code": "ARG",
+    "queries": [
+      "\"Mendoza\" climate action plan filetype:pdf",
+      "\"Mendoza\" climate resilience strategy filetype:pdf",
+      "\"Mendoza\" climate adaptation plan filetype:pdf",
+      "\"Mendoza\" resilience strategy filetype:pdf",
+      "\"Mendoza\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 135,
+    "city_name": "Rosario",
+    "country_code": "ARG",
+    "queries": [
+      "\"Rosario\" climate action plan filetype:pdf",
+      "\"Rosario\" climate resilience strategy filetype:pdf",
+      "\"Rosario\" climate adaptation plan filetype:pdf",
+      "\"Rosario\" resilience strategy filetype:pdf",
+      "\"Rosario\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 123,
+    "city_name": "Salta",
+    "country_code": "ARG",
+    "queries": [
+      "\"Salta\" climate action plan filetype:pdf",
+      "\"Salta\" climate resilience strategy filetype:pdf",
+      "\"Salta\" climate adaptation plan filetype:pdf",
+      "\"Salta\" resilience strategy filetype:pdf",
+      "\"Salta\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 127,
+    "city_name": "San Miguel de Tucumán",
+    "country_code": "ARG",
+    "queries": [
+      "\"San Miguel de Tucumán\" climate action plan filetype:pdf",
+      "\"San Miguel de Tucumán\" climate resilience strategy filetype:pdf",
+      "\"San Miguel de Tucumán\" climate adaptation plan filetype:pdf",
+      "\"San Miguel de Tucumán\" resilience strategy filetype:pdf",
+      "\"San Miguel de Tucumán\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 1021,
+    "city_name": "Santa Fe",
+    "country_code": "ARG",
+    "queries": [
+      "\"Santa Fe\" climate action plan filetype:pdf",
+      "\"Santa Fe\" climate resilience strategy filetype:pdf",
+      "\"Santa Fe\" climate adaptation plan filetype:pdf",
+      "\"Santa Fe\" resilience strategy filetype:pdf",
+      "\"Santa Fe\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 988,
+    "city_name": "Adelaide",
+    "country_code": "AUS",
+    "queries": [
+      "\"Adelaide\" climate action plan filetype:pdf",
+      "\"Adelaide\" climate resilience strategy filetype:pdf",
+      "\"Adelaide\" climate adaptation plan filetype:pdf",
+      "\"Adelaide\" resilience strategy filetype:pdf",
+      "\"Adelaide\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 994,
+    "city_name": "Brisbane",
+    "country_code": "AUS",
+    "queries": [
+      "\"Brisbane\" climate action plan filetype:pdf",
+      "\"Brisbane\" climate resilience strategy filetype:pdf",
+      "\"Brisbane\" climate adaptation plan filetype:pdf",
+      "\"Brisbane\" resilience strategy filetype:pdf",
+      "\"Brisbane\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 991,
+    "city_name": "Melbourne",
+    "country_code": "AUS",
+    "queries": [
+      "\"Melbourne\" climate action plan filetype:pdf",
+      "\"Melbourne\" climate resilience strategy filetype:pdf",
+      "\"Melbourne\" climate adaptation plan filetype:pdf",
+      "\"Melbourne\" resilience strategy filetype:pdf",
+      "\"Melbourne\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 848,
+    "city_name": "Perth",
+    "country_code": "AUS",
+    "queries": [
+      "\"Perth\" climate action plan filetype:pdf",
+      "\"Perth\" climate resilience strategy filetype:pdf",
+      "\"Perth\" climate adaptation plan filetype:pdf",
+      "\"Perth\" resilience strategy filetype:pdf",
+      "\"Perth\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 993,
+    "city_name": "Sydney",
+    "country_code": "AUS",
+    "queries": [
+      "\"Sydney\" climate action plan filetype:pdf",
+      "\"Sydney\" climate resilience strategy filetype:pdf",
+      "\"Sydney\" climate adaptation plan filetype:pdf",
+      "\"Sydney\" resilience strategy filetype:pdf",
+      "\"Sydney\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 294,
+    "city_name": "Vienna",
+    "country_code": "AUT",
+    "queries": [
+      "\"Vienna\" climate action plan filetype:pdf",
+      "\"Vienna\" climate resilience strategy filetype:pdf",
+      "\"Vienna\" climate adaptation plan filetype:pdf",
+      "\"Vienna\" resilience strategy filetype:pdf",
+      "\"Vienna\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 458,
+    "city_name": "Baku",
+    "country_code": "AZE",
+    "queries": [
+      "\"Baku\" climate action plan filetype:pdf",
+      "\"Baku\" climate resilience strategy filetype:pdf",
+      "\"Baku\" climate adaptation plan filetype:pdf",
+      "\"Baku\" resilience strategy filetype:pdf",
+      "\"Baku\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 379,
+    "city_name": "Bujumbura",
+    "country_code": "BDI",
+    "queries": [
+      "\"Bujumbura\" climate action plan filetype:pdf",
+      "\"Bujumbura\" climate resilience strategy filetype:pdf",
+      "\"Bujumbura\" climate adaptation plan filetype:pdf",
+      "\"Bujumbura\" resilience strategy filetype:pdf",
+      "\"Bujumbura\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 229,
+    "city_name": "Antwerp",
+    "country_code": "BEL",
+    "queries": [
+      "\"Antwerp\" climate action plan filetype:pdf",
+      "\"Antwerp\" climate resilience strategy filetype:pdf",
+      "\"Antwerp\" climate adaptation plan filetype:pdf",
+      "\"Antwerp\" resilience strategy filetype:pdf",
+      "\"Antwerp\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 230,
+    "city_name": "Brussels",
+    "country_code": "BEL",
+    "queries": [
+      "\"Brussels\" climate action plan filetype:pdf",
+      "\"Brussels\" climate resilience strategy filetype:pdf",
+      "\"Brussels\" climate adaptation plan filetype:pdf",
+      "\"Brussels\" resilience strategy filetype:pdf",
+      "\"Brussels\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 222,
+    "city_name": "Cotonou",
+    "country_code": "BEN",
+    "queries": [
+      "\"Cotonou\" climate action plan filetype:pdf",
+      "\"Cotonou\" climate resilience strategy filetype:pdf",
+      "\"Cotonou\" climate adaptation plan filetype:pdf",
+      "\"Cotonou\" resilience strategy filetype:pdf",
+      "\"Cotonou\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 226,
+    "city_name": "Porto-Novo",
+    "country_code": "BEN",
+    "queries": [
+      "\"Porto-Novo\" climate action plan filetype:pdf",
+      "\"Porto-Novo\" climate resilience strategy filetype:pdf",
+      "\"Porto-Novo\" climate adaptation plan filetype:pdf",
+      "\"Porto-Novo\" resilience strategy filetype:pdf",
+      "\"Porto-Novo\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 193,
+    "city_name": "Bobo-Dioulasso",
+    "country_code": "BFA",
+    "queries": [
+      "\"Bobo-Dioulasso\" climate action plan filetype:pdf",
+      "\"Bobo-Dioulasso\" climate resilience strategy filetype:pdf",
+      "\"Bobo-Dioulasso\" climate adaptation plan filetype:pdf",
+      "\"Bobo-Dioulasso\" resilience strategy filetype:pdf",
+      "\"Bobo-Dioulasso\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 205,
+    "city_name": "Ouagadougou",
+    "country_code": "BFA",
+    "queries": [
+      "\"Ouagadougou\" climate action plan filetype:pdf",
+      "\"Ouagadougou\" climate resilience strategy filetype:pdf",
+      "\"Ouagadougou\" climate adaptation plan filetype:pdf",
+      "\"Ouagadougou\" resilience strategy filetype:pdf",
+      "\"Ouagadougou\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 717,
+    "city_name": "Bogura",
+    "country_code": "BGD",
+    "queries": [
+      "\"Bogura\" climate action plan filetype:pdf",
+      "\"Bogura\" climate resilience strategy filetype:pdf",
+      "\"Bogura\" climate adaptation plan filetype:pdf",
+      "\"Bogura\" resilience strategy filetype:pdf",
+      "\"Bogura\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 727,
+    "city_name": "Brahmanbaria",
+    "country_code": "BGD",
+    "queries": [
+      "\"Brahmanbaria\" climate action plan filetype:pdf",
+      "\"Brahmanbaria\" climate resilience strategy filetype:pdf",
+      "\"Brahmanbaria\" climate adaptation plan filetype:pdf",
+      "\"Brahmanbaria\" resilience strategy filetype:pdf",
+      "\"Brahmanbaria\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 708,
+    "city_name": "Chapainawabganj",
+    "country_code": "BGD",
+    "queries": [
+      "\"Chapainawabganj\" climate action plan filetype:pdf",
+      "\"Chapainawabganj\" climate resilience strategy filetype:pdf",
+      "\"Chapainawabganj\" climate adaptation plan filetype:pdf",
+      "\"Chapainawabganj\" resilience strategy filetype:pdf",
+      "\"Chapainawabganj\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 735,
+    "city_name": "Chattogram",
+    "country_code": "BGD",
+    "queries": [
+      "\"Chattogram\" climate action plan filetype:pdf",
+      "\"Chattogram\" climate resilience strategy filetype:pdf",
+      "\"Chattogram\" climate adaptation plan filetype:pdf",
+      "\"Chattogram\" resilience strategy filetype:pdf",
+      "\"Chattogram\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 729,
+    "city_name": "Comilla",
+    "country_code": "BGD",
+    "queries": [
+      "\"Comilla\" climate action plan filetype:pdf",
+      "\"Comilla\" climate resilience strategy filetype:pdf",
+      "\"Comilla\" climate adaptation plan filetype:pdf",
+      "\"Comilla\" resilience strategy filetype:pdf",
+      "\"Comilla\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 734,
+    "city_name": "Daganbhuiyan",
+    "country_code": "BGD",
+    "queries": [
+      "\"Daganbhuiyan\" climate action plan filetype:pdf",
+      "\"Daganbhuiyan\" climate resilience strategy filetype:pdf",
+      "\"Daganbhuiyan\" climate adaptation plan filetype:pdf",
+      "\"Daganbhuiyan\" resilience strategy filetype:pdf",
+      "\"Daganbhuiyan\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 724,
+    "city_name": "Dhaka",
+    "country_code": "BGD",
+    "queries": [
+      "\"Dhaka\" climate action plan filetype:pdf",
+      "\"Dhaka\" climate resilience strategy filetype:pdf",
+      "\"Dhaka\" climate adaptation plan filetype:pdf",
+      "\"Dhaka\" resilience strategy filetype:pdf",
+      "\"Dhaka\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 728,
+    "city_name": "Homna",
+    "country_code": "BGD",
+    "queries": [
+      "\"Homna\" climate action plan filetype:pdf",
+      "\"Homna\" climate resilience strategy filetype:pdf",
+      "\"Homna\" climate adaptation plan filetype:pdf",
+      "\"Homna\" resilience strategy filetype:pdf",
+      "\"Homna\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 720,
+    "city_name": "Jessore",
+    "country_code": "BGD",
+    "queries": [
+      "\"Jessore\" climate action plan filetype:pdf",
+      "\"Jessore\" climate resilience strategy filetype:pdf",
+      "\"Jessore\" climate adaptation plan filetype:pdf",
+      "\"Jessore\" resilience strategy filetype:pdf",
+      "\"Jessore\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 722,
+    "city_name": "Khulna",
+    "country_code": "BGD",
+    "queries": [
+      "\"Khulna\" climate action plan filetype:pdf",
+      "\"Khulna\" climate resilience strategy filetype:pdf",
+      "\"Khulna\" climate adaptation plan filetype:pdf",
+      "\"Khulna\" resilience strategy filetype:pdf",
+      "\"Khulna\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 725,
+    "city_name": "Kishoreganj",
+    "country_code": "BGD",
+    "queries": [
+      "\"Kishoreganj\" climate action plan filetype:pdf",
+      "\"Kishoreganj\" climate resilience strategy filetype:pdf",
+      "\"Kishoreganj\" climate adaptation plan filetype:pdf",
+      "\"Kishoreganj\" resilience strategy filetype:pdf",
+      "\"Kishoreganj\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 730,
+    "city_name": "Lakshmipur",
+    "country_code": "BGD",
+    "queries": [
+      "\"Lakshmipur\" climate action plan filetype:pdf",
+      "\"Lakshmipur\" climate resilience strategy filetype:pdf",
+      "\"Lakshmipur\" climate adaptation plan filetype:pdf",
+      "\"Lakshmipur\" resilience strategy filetype:pdf",
+      "\"Lakshmipur\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 723,
+    "city_name": "Mymensingh",
+    "country_code": "BGD",
+    "queries": [
+      "\"Mymensingh\" climate action plan filetype:pdf",
+      "\"Mymensingh\" climate resilience strategy filetype:pdf",
+      "\"Mymensingh\" climate adaptation plan filetype:pdf",
+      "\"Mymensingh\" resilience strategy filetype:pdf",
+      "\"Mymensingh\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 733,
+    "city_name": "Noakhali",
+    "country_code": "BGD",
+    "queries": [
+      "\"Noakhali\" climate action plan filetype:pdf",
+      "\"Noakhali\" climate resilience strategy filetype:pdf",
+      "\"Noakhali\" climate adaptation plan filetype:pdf",
+      "\"Noakhali\" resilience strategy filetype:pdf",
+      "\"Noakhali\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 712,
+    "city_name": "Rajshahi",
+    "country_code": "BGD",
+    "queries": [
+      "\"Rajshahi\" climate action plan filetype:pdf",
+      "\"Rajshahi\" climate resilience strategy filetype:pdf",
+      "\"Rajshahi\" climate adaptation plan filetype:pdf",
+      "\"Rajshahi\" resilience strategy filetype:pdf",
+      "\"Rajshahi\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  },
+  {
+    "loc_id": 714,
+    "city_name": "Rangpur",
+    "country_code": "BGD",
+    "queries": [
+      "\"Rangpur\" climate action plan filetype:pdf",
+      "\"Rangpur\" climate resilience strategy filetype:pdf",
+      "\"Rangpur\" climate adaptation plan filetype:pdf",
+      "\"Rangpur\" resilience strategy filetype:pdf",
+      "\"Rangpur\" sustainability plan filetype:pdf"
+    ],
+    "status": "pending"
+  }
+]

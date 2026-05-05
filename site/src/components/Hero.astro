@@ -1,0 +1,143 @@
+---
+interface Props {
+  stats?: {
+    totalDocuments: number;
+    indexedDocuments: number;
+    totalChunks: number;
+  };
+}
+
+const { stats } = Astro.props;
+---
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-headline">
+      <h1>A searchable archive of <em>urban planning documents</em> for climate adaptation research.</h1>
+    </div>
+    <div class="hero-detail">
+      <p class="lede">
+        This collection provides open access to planning documents, zoning regulations, and policy frameworks
+        from cities around the world. {stats ? (
+          <>Search across <strong>{stats.totalDocuments.toLocaleString()}</strong> documents
+          with <strong>{stats.indexedDocuments.toLocaleString()}</strong> indexed and searchable using hybrid semantic and keyword search.</>
+        ) : (
+          <>Upload documents to build a searchable knowledge base for urban resilience planning.</>
+        )}
+      </p>
+      {stats && (
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="num">{stats.totalDocuments.toLocaleString()}</span>
+            <span class="lbl">Documents</span>
+          </div>
+          <div class="stat">
+            <span class="num">{stats.indexedDocuments.toLocaleString()}</span>
+            <span class="lbl">Indexed</span>
+          </div>
+          <div class="stat">
+            <span class="num">{stats.totalChunks.toLocaleString()}</span>
+            <span class="lbl">Text chunks</span>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    background: white;
+    border-bottom: 1px solid var(--gray-200);
+    padding: var(--space-8) 0;
+  }
+
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+  }
+
+  .hero-headline h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: var(--space-6);
+    color: var(--gray-900);
+  }
+
+  .hero-headline em {
+    color: var(--brand);
+    font-style: normal;
+  }
+
+  .hero-detail {
+    max-width: 800px;
+  }
+
+  .lede {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--gray-700);
+    margin-bottom: var(--space-8);
+  }
+
+  .lede strong {
+    color: var(--gray-900);
+    font-weight: 600;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: var(--space-8);
+    padding: var(--space-6) 0;
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .stat .num {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--brand);
+    line-height: 1;
+  }
+
+  .stat .lbl {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding: var(--space-6) 0;
+    }
+
+    .hero-headline h1 {
+      font-size: 1.75rem;
+    }
+
+    .lede {
+      font-size: 1rem;
+    }
+
+    .hero-stats {
+      gap: var(--space-4);
+    }
+
+    .stat .num {
+      font-size: 1.5rem;
+    }
+
+    .stat .lbl {
+      font-size: 0.75rem;
+    }
+  }
+</style>

@@ -1,0 +1,61 @@
+# Environment
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv/
+venv/
+ENV/
+env/
+.ruff_cache/
+.uv/
+
+# Tools output
+tools/output/
+tools/*.log
+
+# Astro / Node
+site/node_modules/
+site/dist/
+site/.astro/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Supabase
+supabase/.branches/
+supabase/.temp/
+
+# PDFs — source plans live in Supabase Storage, not git
+*.pdf
+plans/
+
+# Temporary files
+tmp/
