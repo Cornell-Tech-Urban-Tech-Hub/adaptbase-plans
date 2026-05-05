@@ -3,17 +3,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import { supabase } from '../lib/supabase';
 
-// Fetch stats for Hero. RPC may not exist during local dev before migration; tolerate null.
+// Fetch stats for Hero (RPC returns a table, so data is an array)
 const { data: statsData } = await supabase.rpc('get_document_stats');
-const stats = statsData ? {
-  totalDocuments: statsData.total_documents || 0,
-  indexedDocuments: statsData.indexed_documents || 0,
-  totalChunks: statsData.total_chunks || 0
+const statsRow = Array.isArray(statsData) ? statsData[0] : statsData;
+const stats = statsRow ? {
+  totalDocuments: statsRow.total_documents || 0,
+  totalCountries: statsRow.total_countries || 0,
+  totalCities: statsRow.total_cities || 0,
 } : undefined;
 
-// Full-text search requires chunks + embeddings. Until that pipeline is built,
-// the search page falls back to matching document titles/metadata.
-const hasFullTextSearch = (stats?.totalChunks ?? 0) > 0;
+// Full-text search requires chunks + embeddings — deferred until Phase 2.
+const hasFullTextSearch = false;
 ---
 
 <BaseLayout title="Search" description="Search planning documents by title or content">
