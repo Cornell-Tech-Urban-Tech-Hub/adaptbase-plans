@@ -2,8 +2,8 @@
 interface Props {
   stats?: {
     totalDocuments: number;
-    indexedDocuments: number;
-    totalChunks: number;
+    totalCountries: number;
+    totalCities: number;
   };
 }
 
@@ -19,8 +19,8 @@ const { stats } = Astro.props;
       <p class="lede">
         This collection provides open access to planning documents, zoning regulations, and policy frameworks
         from cities around the world. {stats ? (
-          <>Search across <strong>{stats.totalDocuments.toLocaleString()}</strong> documents
-          with <strong>{stats.indexedDocuments.toLocaleString()}</strong> indexed and searchable using hybrid semantic and keyword search.</>
+          <>Browse <strong>{stats.totalDocuments.toLocaleString()}</strong> documents
+          from <strong>{stats.totalCities.toLocaleString()}</strong> cities across <strong>{stats.totalCountries.toLocaleString()}</strong> countries.</>
         ) : (
           <>Upload documents to build a searchable knowledge base for urban resilience planning.</>
         )}
@@ -32,12 +32,12 @@ const { stats } = Astro.props;
             <span class="lbl">Documents</span>
           </div>
           <div class="stat">
-            <span class="num">{stats.indexedDocuments.toLocaleString()}</span>
-            <span class="lbl">Indexed</span>
+            <span class="num">{stats.totalCountries.toLocaleString()}</span>
+            <span class="lbl">Countries</span>
           </div>
           <div class="stat">
-            <span class="num">{stats.totalChunks.toLocaleString()}</span>
-            <span class="lbl">Text chunks</span>
+            <span class="num">{stats.totalCities.toLocaleString()}</span>
+            <span class="lbl">Cities</span>
           </div>
         </div>
       )}

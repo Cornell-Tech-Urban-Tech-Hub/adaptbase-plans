@@ -47,6 +47,9 @@ SOURCE = "plans"
 def generate_thumbnail(pdf_path: Path) -> bytes:
     """Render the first page of a PDF as a JPEG thumbnail."""
     doc = pymupdf.open(pdf_path)
+    if len(doc) == 0:
+        doc.close()
+        raise ValueError(f"PDF has no pages: {pdf_path.name}")
     try:
         page = doc[0]
         mat = pymupdf.Matrix(2, 2)

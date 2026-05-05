@@ -162,7 +162,7 @@ def get_supabase_client():
     key = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
 
     if not url or not key:
-        msg = "Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY in .env"
+        msg = "Missing PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY in .env"
         raise ValueError(msg)
 
     return create_client(url, key)

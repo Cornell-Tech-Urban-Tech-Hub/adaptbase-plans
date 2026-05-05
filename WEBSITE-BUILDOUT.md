@@ -25,37 +25,47 @@ All database migrations live in `adaptbase-schema/supabase/migrations/`. The pla
 ### Database Setup (in adaptbase-schema)
 - [x] Write consolidation migration `20260505100000_add_plans_support.sql`
 - [x] Delete duplicate migration from adaptbase-plans
-- [ ] Apply migration to Supabase (`cd adaptbase-schema && supabase db push`)
-- [ ] Verify plans columns added to documents/chunks
-- [ ] Verify storage buckets created (plans, thumbnails)
-- [ ] Verify indexes created (HNSW, GIN, sha256 unique)
-- [ ] Verify public-read RLS active for source='plans'
+- [x] Apply migration to Supabase (`cd adaptbase-schema && supabase db push`)
+- [x] Verify plans columns added to documents/chunks
+- [x] Verify storage buckets created (plans, thumbnails)
+- [x] Verify indexes created (HNSW, GIN, sha256 unique)
+- [x] Verify public-read RLS active for source='plans'
 - [ ] Test `get_document_stats` RPC
 - [ ] Regenerate shared types (`cd adaptbase-schema/packages/ts && npm run generate`)
 
 ### Data Pipeline (Phase 1: Upload only)
 - [x] Rewrite `tools/migrate.py` to use shared schema (UUID PKs, IngestRun, source='plans')
-- [ ] Create local PDF directory at `./pdfs/` (or set `LOCAL_PDF_DIR` in .env)
-- [ ] Run migration tool (`uv run --env-file .env python tools/migrate.py`)
+- [x] PDFs are in `./plans/` directory (2,885 PDFs organized as `{ISO3}/{loc_id}/filename.pdf`)
+- [ ] Test run with ~10 PDFs (`LOCAL_PDF_DIR=./plans uv run --env-file .env python tools/migrate.py`)
 - [ ] Verify PDFs uploaded to `plans` storage bucket
 - [ ] Verify thumbnails generated in `thumbnails` bucket
 - [ ] Verify document rows in database with indexed_at=NULL
 - [ ] Verify gallery page renders uploaded documents
 - [ ] Verify title-based search returns matching documents
+- [ ] Full run: upload all 2,885 PDFs
 
-### Data Pipeline (Phase 2: Chunking + Embedding — DEFERRED)
-User will design this separately with existing tools. Out of scope for current phase.
+### Data Pipeline (Phase 2: Chunking + Embedding)
+Design chunking/embedding strategy before building — this unlocks hybrid search and knowledge graph extraction.
 - [ ] Design chunking strategy (granularity, page-anchoring, NER/triplet compatibility)
-- [ ] Build indexing tool (chunks → embeddings → upsert)
+- [ ] Build `tools/index.py` (chunks → embeddings → upsert)
 - [ ] Deploy `embed-query` Edge Function
 - [ ] Switch search page from title fallback back to hybrid search (already structured in search.astro)
 
+### Phase 3: Vector + Hybrid Search
+- [ ] Implement hybrid search UI (replace title fallback with `match_hybrid` RPC)
+- [ ] Add keyword/semantic/both badges to search results
+- [ ] Add snippet highlighting
+- [ ] Filters by jurisdiction/year/doc_type
+
+### Phase 4: Knowledge Graph Extraction
+→ Next major phase — design and implement NER/triplet extraction pipeline to populate adaptbase ontology entities from plan text. See adaptbase-schema ontology drift check work as prerequisite.
+
 ### Deployment
-- [ ] Configure GitHub repository secrets (PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY)
-- [ ] Push to main branch
-- [ ] Verify GitHub Actions workflow runs
-- [ ] Configure custom domain DNS (plans.adaptbase.us)
-- [ ] Verify site accessible at plans.adaptbase.us
+- [x] Configure GitHub repository secrets (PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY)
+- [x] Push to main branch
+- [x] Verify GitHub Actions workflow runs
+- [x] Configure custom domain DNS (plans.adaptbase.us)
+- [x] Verify site accessible at plans.adaptbase.us
 
 ---
 

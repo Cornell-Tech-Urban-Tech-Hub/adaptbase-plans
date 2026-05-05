@@ -59,8 +59,8 @@ export interface SearchResult {
 
 export interface DocumentStats {
   total_documents: number;
-  indexed_documents: number;
-  total_chunks: number;
+  total_countries: number;
+  total_cities: number;
 }
 
 export function getPublicUrl(bucket: string, path: string): string {
