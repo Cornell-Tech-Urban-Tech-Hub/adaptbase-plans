@@ -1,10 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
+import FeedbackModal from '../components/FeedbackModal.astro';
 ---
 
 <BaseLayout title="Browse Plans">
   <Hero />
+  <FeedbackModal />
 
   <div class="container-wide page-body">
     <!-- Controls: search + filters -->
@@ -270,6 +272,35 @@ import Hero from '../components/Hero.astro';
     font-size: 0.5rem;
     color: var(--fg-4);
     opacity: 0.5;
+  }
+
+  :global(.doc-card) {
+    position: relative;
+  }
+
+  :global(.doc-report-btn) {
+    position: absolute;
+    top: var(--sp-2);
+    right: var(--sp-2);
+    background: rgba(255,255,255,0.85);
+    border: none;
+    border-radius: var(--r-sm);
+    padding: 2px 5px;
+    font-size: 0.625rem;
+    color: var(--fg-4);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity var(--dur-fast) var(--ease-standard),
+                color var(--dur-fast) var(--ease-standard);
+    line-height: 1.6;
+  }
+
+  :global(.doc-card:hover .doc-report-btn) {
+    opacity: 1;
+  }
+
+  :global(.doc-report-btn:hover) {
+    color: var(--carnelian);
   }
 
   /* ---- Empty / loading states ---- */
@@ -612,6 +643,7 @@ import Hero from '../components/Hero.astro';
           ${location ? `<div class="doc-location">${escapeHtml(location)}</div>` : ''}
           ${metaParts ? `<div class="doc-meta">${metaParts}</div>` : ''}
         </div>
+        <button class="doc-report-btn" onclick="window.openFeedbackModal('${doc.id}')" title="Report a problem with this plan" aria-label="Report a problem">⚑</button>
       </article>
     `;
   }

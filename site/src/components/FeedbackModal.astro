@@ -1,0 +1,319 @@
+---
+---
+
+<div id="feedback-modal" class="modal" aria-hidden="true" aria-modal="true" role="dialog" aria-labelledby="feedback-modal-title">
+  <div class="modal-overlay"></div>
+  <div class="modal-content">
+    <button class="modal-close" aria-label="Close">&times;</button>
+    <h2 id="feedback-modal-title">Report a problem</h2>
+
+    <div class="feedback-kind-toggle">
+      <label class="kind-option">
+        <input type="radio" name="feedback-kind" value="remove" checked />
+        <span>Remove this plan</span>
+      </label>
+      <label class="kind-option">
+        <input type="radio" name="feedback-kind" value="metadata" />
+        <span>Correct metadata</span>
+      </label>
+    </div>
+
+    <div id="feedback-remove-fields">
+      <label class="field-label" for="feedback-reason">Why should this be removed?</label>
+      <textarea id="feedback-reason" rows="4" placeholder="e.g. Not a climate plan, duplicate entry, link is broken…"></textarea>
+    </div>
+
+    <div id="feedback-metadata-fields" hidden>
+      <p class="field-hint">Leave fields blank to keep them as-is.</p>
+      <div class="meta-grid">
+        <div class="field-group">
+          <label class="field-label" for="fb-city">City</label>
+          <input type="text" id="fb-city" placeholder="e.g. Cape Town" />
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="fb-country">Country</label>
+          <input type="text" id="fb-country" placeholder="e.g. South Africa" />
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="fb-language">Language</label>
+          <input type="text" id="fb-language" placeholder="e.g. EN" />
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="fb-year">Year</label>
+          <input type="text" id="fb-year" placeholder="e.g. 2023" inputmode="numeric" />
+        </div>
+      </div>
+      <label class="field-label" for="fb-meta-reason">Additional notes (optional)</label>
+      <textarea id="fb-meta-reason" rows="2" placeholder="Any context that might help…"></textarea>
+    </div>
+
+    <div class="feedback-actions">
+      <button class="btn btn-secondary" id="feedback-cancel">Cancel</button>
+      <button class="btn btn-primary" id="feedback-submit">Submit report</button>
+    </div>
+
+    <div id="feedback-success" class="feedback-success" hidden>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      Thanks — your report has been submitted.
+    </div>
+  </div>
+</div>
+
+<script>
+  import { createClient } from '@supabase/supabase-js';
+
+  const supabaseUrl  = import.meta.env.PUBLIC_SUPABASE_URL as string;
+  const supabaseKey  = import.meta.env.PUBLIC_SUPABASE_ANON_KEY as string;
+  const supabase     = createClient(supabaseUrl, supabaseKey);
+
+  const modal        = document.getElementById('feedback-modal')!;
+  const overlay      = modal.querySelector('.modal-overlay')!;
+  const closeBtn     = modal.querySelector('.modal-close')!;
+  const cancelBtn    = document.getElementById('feedback-cancel')!;
+  const submitBtn    = document.getElementById('feedback-submit')!;
+  const removeFields = document.getElementById('feedback-remove-fields')!;
+  const metaFields   = document.getElementById('feedback-metadata-fields')!;
+  const successEl    = document.getElementById('feedback-success')!;
+  const kindInputs   = modal.querySelectorAll<HTMLInputElement>('input[name="feedback-kind"]');
+
+  let currentDocId: string | null = null;
+
+  function openModal(docId: string) {
+    currentDocId = docId;
+    successEl.hidden = true;
+    submitBtn.hidden = false;
+    (modal.querySelector<HTMLInputElement>('input[value="remove"]'))!.checked = true;
+    removeFields.hidden = false;
+    metaFields.hidden = true;
+    (document.getElementById('feedback-reason') as HTMLTextAreaElement).value = '';
+    ['fb-city','fb-country','fb-language','fb-year','fb-meta-reason'].forEach(id => {
+      (document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement).value = '';
+    });
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    currentDocId = null;
+  }
+
+  kindInputs.forEach(input => {
+    input.addEventListener('change', () => {
+      removeFields.hidden = input.value !== 'remove';
+      metaFields.hidden   = input.value !== 'metadata';
+    });
+  });
+
+  submitBtn.addEventListener('click', async () => {
+    if (!currentDocId) return;
+
+    const kind = (modal.querySelector<HTMLInputElement>('input[name="feedback-kind"]:checked'))!.value;
+
+    let reason: string | null = null;
+    let suggested: Record<string, string | number> | null = null;
+
+    if (kind === 'remove') {
+      reason = (document.getElementById('feedback-reason') as HTMLTextAreaElement).value.trim() || null;
+    } else {
+      const city     = (document.getElementById('fb-city') as HTMLInputElement).value.trim();
+      const country  = (document.getElementById('fb-country') as HTMLInputElement).value.trim();
+      const language = (document.getElementById('fb-language') as HTMLInputElement).value.trim();
+      const yearStr  = (document.getElementById('fb-year') as HTMLInputElement).value.trim();
+      const year     = yearStr ? parseInt(yearStr, 10) : null;
+      reason         = (document.getElementById('fb-meta-reason') as HTMLTextAreaElement).value.trim() || null;
+
+      suggested = {};
+      if (city)     suggested.city     = city;
+      if (country)  suggested.country  = country;
+      if (language) suggested.language = language;
+      if (year)     suggested.year     = year;
+      if (Object.keys(suggested).length === 0) suggested = null;
+    }
+
+    submitBtn.setAttribute('disabled', 'true');
+    submitBtn.textContent = 'Submitting…';
+
+    const { error } = await supabase.from('feedback').insert({
+      document_id: currentDocId,
+      kind,
+      reason,
+      suggested,
+    });
+
+    submitBtn.removeAttribute('disabled');
+    submitBtn.textContent = 'Submit report';
+
+    if (error) {
+      alert('Something went wrong — please try again.');
+      return;
+    }
+
+    successEl.hidden = false;
+    submitBtn.hidden = true;
+    setTimeout(closeModal, 2000);
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  cancelBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', closeModal);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+  });
+
+  // Expose globally so card buttons (rendered via innerHTML) can call it.
+  (window as Record<string, unknown>).openFeedbackModal = openModal;
+</script>
+
+<style>
+  .modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal.active {
+    display: flex;
+  }
+
+  .modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-content {
+    position: relative;
+    background: var(--bg-1);
+    border-radius: var(--r-lg);
+    padding: var(--sp-6);
+    width: min(480px, calc(100vw - var(--sp-6)));
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-3);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: var(--sp-4);
+    right: var(--sp-4);
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--fg-4);
+    cursor: pointer;
+    padding: 4px;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--r-md);
+    transition: background var(--dur-fast) var(--ease-standard),
+                color var(--dur-fast) var(--ease-standard);
+  }
+
+  .modal-close:hover {
+    background: var(--bg-3);
+    color: var(--fg-1);
+  }
+
+  h2 {
+    font-size: 1.125rem;
+    margin-bottom: var(--sp-5);
+    padding-right: var(--sp-7);
+  }
+
+  .feedback-kind-toggle {
+    display: flex;
+    gap: var(--sp-4);
+    margin-bottom: var(--sp-5);
+  }
+
+  .kind-option {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    cursor: pointer;
+    font-size: 0.9375rem;
+    color: var(--fg-2);
+  }
+
+  .kind-option input {
+    accent-color: var(--carnelian);
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+  }
+
+  .field-label {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--fg-2);
+    margin-bottom: var(--sp-2);
+    margin-top: var(--sp-4);
+  }
+
+  .field-label:first-child {
+    margin-top: 0;
+  }
+
+  .field-hint {
+    font-size: 0.8125rem;
+    color: var(--fg-4);
+    margin-bottom: var(--sp-3);
+  }
+
+  textarea {
+    width: 100%;
+    padding: var(--sp-3);
+    resize: vertical;
+    min-height: 80px;
+    border-radius: var(--r-md);
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: var(--sp-2) var(--sp-3);
+  }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-3);
+    margin-bottom: var(--sp-3);
+  }
+
+  .field-group .field-label {
+    margin-top: 0;
+  }
+
+  .feedback-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--sp-3);
+    margin-top: var(--sp-5);
+  }
+
+  .feedback-success {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    color: var(--chlorophyll);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    margin-top: var(--sp-4);
+  }
+
+  .feedback-success svg {
+    flex-shrink: 0;
+    stroke: var(--chlorophyll);
+  }
+</style>
