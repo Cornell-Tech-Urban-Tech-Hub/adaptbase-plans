@@ -164,7 +164,7 @@ import Hero from '../components/Hero.astro';
   /* ---- Document grid ---- */
   .docs-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: var(--sp-4);
   }
 
@@ -250,10 +250,26 @@ import Hero from '../components/Hero.astro';
     line-height: 1.4;
   }
 
-  :global(.doc-tags) {
+  :global(.doc-meta) {
     display: flex;
+    align-items: center;
     gap: var(--sp-1);
-    flex-wrap: wrap;
+    margin-top: var(--sp-1);
+  }
+
+  :global(.doc-meta-item) {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 500;
+    color: var(--fg-4);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  :global(.doc-meta-sep) {
+    font-size: 0.5rem;
+    color: var(--fg-4);
+    opacity: 0.5;
   }
 
   /* ---- Empty / loading states ---- */
@@ -301,7 +317,7 @@ import Hero from '../components/Hero.astro';
   /* ---- Responsive ---- */
   @media (max-width: 900px) {
     .docs-grid {
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: var(--sp-3);
     }
   }
@@ -326,7 +342,7 @@ import Hero from '../components/Hero.astro';
     }
 
     .docs-grid {
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: var(--sp-3);
     }
   }
@@ -560,7 +576,7 @@ import Hero from '../components/Hero.astro';
       : '';
     const location = [doc.metadata?.city_name, doc.metadata?.country_name].filter(Boolean).join(', ');
     const language = doc.metadata?.language as string | undefined;
-    const pages    = doc.page_count;
+    const year     = doc.metadata?.year as number | undefined;
 
     const thumb = thumbUrl
       ? `<img src="${thumbUrl}" alt="" loading="lazy" class="doc-thumb"/>`
@@ -570,10 +586,10 @@ import Hero from '../components/Hero.astro';
            </svg>
          </div>`;
 
-    const tags = [
-      language ? `<span class="tag tag-lang">${escapeHtml(language)}</span>` : '',
-      pages    ? `<span class="tag tag-meta">${pages}p</span>` : '',
-    ].filter(Boolean).join('');
+    const metaParts = [
+      year     ? `<span class="doc-meta-item">${year}</span>` : '',
+      language ? `<span class="doc-meta-item doc-meta-lang">${escapeHtml(language.toUpperCase())}</span>` : '',
+    ].filter(Boolean).join('<span class="doc-meta-sep">·</span>');
 
     return `
       <article class="doc-card">
@@ -585,7 +601,7 @@ import Hero from '../components/Hero.astro';
             </a>
           </h3>
           ${location ? `<div class="doc-location">${escapeHtml(location)}</div>` : ''}
-          ${tags ? `<div class="doc-tags">${tags}</div>` : ''}
+          ${metaParts ? `<div class="doc-meta">${metaParts}</div>` : ''}
         </div>
       </article>
     `;
