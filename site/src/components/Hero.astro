@@ -1,13 +1,4 @@
 ---
-interface Props {
-  stats?: {
-    totalDocuments: number;
-    totalCountries: number;
-    totalCities: number;
-  };
-}
-
-const { stats } = Astro.props;
 ---
 
 <section class="hero">
@@ -16,22 +7,20 @@ const { stats } = Astro.props;
       <h1>A searchable archive of <em>urban climate adaptation and resilience plans.</em></h1>
     </div>
     <div class="hero-detail">
-      {stats && (
-        <div class="hero-stats">
-          <div class="stat">
-            <span class="num">{stats.totalDocuments.toLocaleString()}</span>
-            <span class="lbl">Plans</span>
-          </div>
-          <div class="stat">
-            <span class="num">{stats.totalCities.toLocaleString()}</span>
-            <span class="lbl">Cities</span>
-          </div>
-          <div class="stat">
-            <span class="num">{stats.totalCountries.toLocaleString()}</span>
-            <span class="lbl">Countries</span>
-          </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="num" id="stat-plans">—</span>
+          <span class="lbl">Plans</span>
         </div>
-      )}
+        <div class="stat">
+          <span class="num" id="stat-cities">—</span>
+          <span class="lbl">Cities</span>
+        </div>
+        <div class="stat">
+          <span class="num" id="stat-countries">—</span>
+          <span class="lbl">Countries</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>

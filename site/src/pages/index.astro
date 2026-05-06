@@ -1,20 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
-import { supabase } from '../lib/supabase';
-
-// Fetch stats for Hero at build time
-const { data: statsData } = await supabase.rpc('get_document_stats');
-const statsRow = Array.isArray(statsData) ? statsData[0] : statsData;
-const stats = statsRow ? {
-  totalDocuments: statsRow.total_documents || 0,
-  totalCountries: statsRow.total_countries || 0,
-  totalCities: statsRow.total_cities || 0,
-} : undefined;
 ---
 
 <BaseLayout title="Browse Plans">
-  <Hero stats={stats} />
+  <Hero />
 
   <div class="container-wide page-body">
     <!-- Controls: search + filters -->
@@ -344,6 +334,16 @@ const stats = statsRow ? {
 
 <script>
   import { supabase, getPublicUrl, type Document } from '../lib/supabase';
+
+  async function loadStats() {
+    const { data } = await supabase.rpc('get_document_stats');
+    const row = Array.isArray(data) ? data[0] : data;
+    if (!row) return;
+    const fmt = (n: number) => n.toLocaleString();
+    document.getElementById('stat-plans')!.textContent     = fmt(row.total_documents || 0);
+    document.getElementById('stat-cities')!.textContent    = fmt(row.total_cities    || 0);
+    document.getElementById('stat-countries')!.textContent = fmt(row.total_countries || 0);
+  }
 
   const PER_PAGE = 30;
 
@@ -734,7 +734,8 @@ const stats = statsRow ? {
   syncClearButton();
   syncClearAll();
 
-  // Fire both in parallel; documents start loading immediately with current URL state
+  // Fire all three in parallel
   loadDocuments();
   loadFilterOptions();
+  loadStats();
 </script>
