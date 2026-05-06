@@ -63,3 +63,5 @@ plans/
 
 # Temporary files
 tmp/
+.playwright-mcp
+.claude
