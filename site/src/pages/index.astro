@@ -552,6 +552,13 @@ import Hero from '../components/Hero.astro';
     statusEl.textContent = `${from}–${showing} of ${totalCount.toLocaleString()} plans`;
   }
 
+  function calcColumns(): number {
+    const w = grid.clientWidth;
+    const minCard = w <= 600 ? 140 : w <= 900 ? 150 : 180;
+    const gap     = w <= 900 ? 12 : 16;
+    return Math.max(1, Math.floor((w + gap) / (minCard + gap)));
+  }
+
   function renderDocuments(docs: Document[]) {
     if (docs.length === 0) {
       const hasFilter = currentSearch || currentCountry || currentCity || currentLang;
@@ -564,7 +571,9 @@ import Hero from '../components/Hero.astro';
       return;
     }
 
-    grid.innerHTML = docs.map(doc => cardHtml(doc)).join('');
+    const cols    = calcColumns();
+    const trimmed = docs.slice(0, Math.floor(docs.length / cols) * cols);
+    grid.innerHTML = trimmed.map(doc => cardHtml(doc)).join('');
   }
 
   function cardHtml(doc: Document): string {
