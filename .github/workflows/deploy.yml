@@ -17,6 +17,7 @@ concurrency:
 env:
   PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
   PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PUBLIC_SUPABASE_ANON_KEY }}
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build:
