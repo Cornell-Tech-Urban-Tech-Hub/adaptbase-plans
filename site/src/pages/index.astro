@@ -453,7 +453,7 @@ import FeedbackModal from '../components/FeedbackModal.astro';
     const { data, error } = await supabase
       .from('documents')
       .select('metadata')
-      .eq('source', 'plans');
+      .eq('doc_type', 'adaptation_plan');
 
     if (error || !data) return;
 
@@ -533,7 +533,7 @@ import FeedbackModal from '../components/FeedbackModal.astro';
     let query = supabase
       .from('documents')
       .select('*', { count: 'exact' })
-      .eq('source', 'plans');
+      .eq('doc_type', 'adaptation_plan');
 
     if (currentSearch) {
       const escaped = currentSearch.replace(/[,()]/g, '');
@@ -562,7 +562,12 @@ import FeedbackModal from '../components/FeedbackModal.astro';
     }
 
     totalCount = count || 0;
-    renderDocuments((data || []) as Document[]);
+    const docs = (data || []) as Document[];
+    for (let i = docs.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [docs[i], docs[j]] = [docs[j], docs[i]];
+    }
+    renderDocuments(docs);
     renderStatus();
     renderPagination();
   }
