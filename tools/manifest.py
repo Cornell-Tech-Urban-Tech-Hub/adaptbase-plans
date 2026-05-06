@@ -210,15 +210,29 @@ def load_cities() -> dict[str, dict[str, str]]:
     return cities
 
 
+def read_sidecar(pdf_path: Path) -> dict:
+    """Read `<pdf>.json` sidecar if it exists, else return empty dict."""
+    sidecar = pdf_path.with_suffix(pdf_path.suffix + ".json")
+    if sidecar.exists():
+        import json
+        try:
+            return json.loads(sidecar.read_text(encoding="utf-8"))
+        except Exception:
+            return {}
+    return {}
+
+
 def build_location_metadata(
     relative_path: Path,
     countries: dict[str, dict[str, str]],
     cities: dict[str, dict[str, str]],
+    pdf_path: Path | None = None,
 ) -> dict[str, str]:
     """
     Given a path of the form `{ISO3}/{loc_id}/...filename.pdf`, return a
-    metadata dict with country and city info. Unknown codes are left blank
-    (logged by caller if desired) so PDFs in _incoming/ etc. still migrate.
+    metadata dict with country, city, and language info. Unknown codes are
+    left blank so PDFs in _incoming/ etc. still migrate.
+    Language is read from the sidecar `.json` file if present.
     """
     parts = relative_path.parts
     metadata: dict[str, str] = {}
@@ -237,6 +251,12 @@ def build_location_metadata(
         if city:
             metadata["city_loc_id"] = loc_id
             metadata["city_name"] = city["name"]
+
+    if pdf_path is not None:
+        sidecar = read_sidecar(pdf_path)
+        language = sidecar.get("language")
+        if language:
+            metadata["language"] = language
 
     return metadata
 

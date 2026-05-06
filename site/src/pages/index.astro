@@ -29,6 +29,11 @@ const stats = statsRow ? {
           placeholder="Search by title, city, or country…"
           autocomplete="off"
         />
+        <button class="search-clear" id="search-clear" aria-label="Clear search" hidden>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
       </div>
       <div class="filters">
         <select id="filter-country" class="filter-select" aria-label="Filter by country">
@@ -41,6 +46,7 @@ const stats = statsRow ? {
           <option value="">All languages</option>
         </select>
       </div>
+      <button class="clear-all" id="clear-all" hidden>Clear all</button>
     </div>
 
     <!-- Status line -->
@@ -86,9 +92,38 @@ const stats = statsRow ? {
 
   #search-input {
     width: 100%;
-    padding: var(--sp-3) var(--sp-3) var(--sp-3) 38px;
+    padding: var(--sp-3) 36px var(--sp-3) 38px;
     font-size: 0.9375rem;
     line-height: 1.5;
+  }
+
+  #search-input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  .search-clear {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: var(--fg-4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--r-sm);
+    transition: color var(--dur-fast) var(--ease-standard);
+  }
+
+  .search-clear:hover {
+    color: var(--fg-1);
+  }
+
+  .search-clear[hidden] {
+    display: none;
   }
 
   .filters {
@@ -102,6 +137,28 @@ const stats = statsRow ? {
     font-size: 0.875rem;
     cursor: pointer;
     min-width: 130px;
+  }
+
+  .clear-all {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    color: var(--fg-4);
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    transition: color var(--dur-fast) var(--ease-standard);
+  }
+
+  .clear-all:hover {
+    color: var(--fg-1);
+  }
+
+  .clear-all[hidden] {
+    display: none;
   }
 
   /* ---- Status line ---- */
@@ -303,13 +360,23 @@ const stats = statsRow ? {
   const cityMap = new Map<string, string[]>(); // iso3 → sorted city names
 
   // DOM refs
-  const searchInput  = document.getElementById('search-input')   as HTMLInputElement;
+  const searchInput   = document.getElementById('search-input')   as HTMLInputElement;
+  const searchClear   = document.getElementById('search-clear')   as HTMLButtonElement;
+  const clearAllBtn   = document.getElementById('clear-all')      as HTMLButtonElement;
   const countrySelect = document.getElementById('filter-country') as HTMLSelectElement;
-  const citySelect   = document.getElementById('filter-city')    as HTMLSelectElement;
-  const langSelect   = document.getElementById('filter-lang')    as HTMLSelectElement;
-  const grid         = document.getElementById('docs-grid')       as HTMLDivElement;
-  const statusEl     = document.getElementById('results-status')  as HTMLDivElement;
-  const paginationEl = document.getElementById('pagination')      as HTMLDivElement;
+  const citySelect    = document.getElementById('filter-city')    as HTMLSelectElement;
+  const langSelect    = document.getElementById('filter-lang')    as HTMLSelectElement;
+  const grid          = document.getElementById('docs-grid')       as HTMLDivElement;
+  const statusEl      = document.getElementById('results-status')  as HTMLDivElement;
+  const paginationEl  = document.getElementById('pagination')      as HTMLDivElement;
+
+  function syncClearButton() {
+    searchClear.hidden = searchInput.value === '';
+  }
+
+  function syncClearAll() {
+    clearAllBtn.hidden = !(currentSearch || currentCountry || currentCity || currentLang);
+  }
 
   /* ── URL state ──────────────────────────────────────────────── */
 
@@ -572,21 +639,35 @@ const stats = statsRow ? {
 
   searchInput.addEventListener('keydown', async (e) => {
     if (e.key !== 'Enter') return;
-    const q = searchInput.value.trim();
-    currentSearch = q;
+    currentSearch = searchInput.value.trim();
     currentPage = 1;
     pushUrl();
+    syncClearAll();
     await loadDocuments();
   });
 
-  // Clear search on empty input
   searchInput.addEventListener('input', () => {
+    syncClearButton();
     if (searchInput.value === '' && currentSearch !== '') {
       currentSearch = '';
       currentPage = 1;
       pushUrl();
+      syncClearAll();
       loadDocuments();
     }
+  });
+
+  searchClear.addEventListener('click', () => {
+    searchInput.value = '';
+    syncClearButton();
+    if (currentSearch !== '') {
+      currentSearch = '';
+      currentPage = 1;
+      pushUrl();
+      syncClearAll();
+      loadDocuments();
+    }
+    searchInput.focus();
   });
 
   countrySelect.addEventListener('change', async () => {
@@ -596,6 +677,7 @@ const stats = statsRow ? {
     repopulateCitySelect(currentCountry);
     citySelect.value = '';
     pushUrl();
+    syncClearAll();
     await loadDocuments();
   });
 
@@ -603,6 +685,7 @@ const stats = statsRow ? {
     currentCity = citySelect.value;
     currentPage = 1;
     pushUrl();
+    syncClearAll();
     await loadDocuments();
   });
 
@@ -610,13 +693,31 @@ const stats = statsRow ? {
     currentLang = langSelect.value;
     currentPage = 1;
     pushUrl();
+    syncClearAll();
     await loadDocuments();
+  });
+
+  clearAllBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    countrySelect.value = '';
+    citySelect.value = '';
+    langSelect.value = '';
+    repopulateCitySelect('');
+    currentSearch = currentCountry = currentCity = currentLang = '';
+    currentPage = 1;
+    pushUrl();
+    syncClearButton();
+    syncClearAll();
+    loadDocuments();
+    searchInput.focus();
   });
 
   // Handle browser back/forward
   window.addEventListener('popstate', () => {
     readUrl();
     searchInput.value = currentSearch;
+    syncClearButton();
+    syncClearAll();
     countrySelect.value = currentCountry;
     if (filterOptionsLoaded) {
       repopulateCitySelect(currentCountry);
@@ -630,6 +731,8 @@ const stats = statsRow ? {
 
   readUrl();
   searchInput.value = currentSearch;
+  syncClearButton();
+  syncClearAll();
 
   // Fire both in parallel; documents start loading immediately with current URL state
   loadDocuments();

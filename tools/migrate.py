@@ -152,7 +152,7 @@ def upload_document(
         file_options={"content-type": "image/jpeg", "upsert": "true"},
     )
 
-    metadata = build_location_metadata(relative_path, countries, cities)
+    metadata = build_location_metadata(relative_path, countries, cities, pdf_path=pdf_path)
 
     doc_data = {
         "ingest_run_id": ingest_run_id,
