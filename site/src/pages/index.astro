@@ -607,6 +607,15 @@ import FeedbackModal from '../components/FeedbackModal.astro';
     grid.innerHTML = trimmed.map(doc => cardHtml(doc)).join('');
   }
 
+  const LANG_LABELS: Record<string, string> = {
+    'ar': 'Arabic', 'ca': 'Catalan', 'cy': 'Welsh', 'de': 'German',
+    'el': 'Greek', 'en': 'English', 'es': 'Spanish', 'fi': 'Finnish',
+    'fr': 'French', 'he': 'Hebrew', 'id': 'Indonesian', 'ja': 'Japanese',
+    'ko': 'Korean', 'nl': 'Dutch', 'no': 'Norwegian', 'pl': 'Polish',
+    'pt': 'Portuguese', 'ro': 'Romanian', 'ru': 'Russian', 'tl': 'Filipino',
+    'tr': 'Turkish', 'uk': 'Ukrainian', 'zh-cn': 'Chinese',
+  };
+
   function cardHtml(doc: Document): string {
     const pdfUrl  = doc.storage_path
       ? getPublicUrl('plans', doc.storage_path.replace('plans/', ''))
@@ -615,7 +624,8 @@ import FeedbackModal from '../components/FeedbackModal.astro';
       ? getPublicUrl('thumbnails', doc.thumbnail_path.replace('thumbnails/', ''))
       : '';
     const location = [doc.metadata?.city_name, doc.metadata?.country_name].filter(Boolean).join(', ');
-    const language = doc.metadata?.language as string | undefined;
+    const langCode = doc.metadata?.language as string | undefined;
+    const language = langCode ? (LANG_LABELS[langCode] ?? langCode.toUpperCase()) : undefined;
     const year     = doc.metadata?.year as number | undefined;
 
     const thumb = thumbUrl
@@ -628,7 +638,7 @@ import FeedbackModal from '../components/FeedbackModal.astro';
 
     const metaParts = [
       year     ? `<span class="doc-meta-item">${year}</span>` : '',
-      language ? `<span class="doc-meta-item doc-meta-lang">${escapeHtml(language.toUpperCase())}</span>` : '',
+      language ? `<span class="doc-meta-item doc-meta-lang">${escapeHtml(language)}</span>` : '',
     ].filter(Boolean).join('<span class="doc-meta-sep">·</span>');
 
     return `
