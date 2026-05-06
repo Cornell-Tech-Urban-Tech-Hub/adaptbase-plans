@@ -163,7 +163,7 @@
   });
 
   // Expose globally so card buttons (rendered via innerHTML) can call it.
-  (window as Record<string, unknown>).openFeedbackModal = openModal;
+  (window as any).openFeedbackModal = openModal;
 </script>
 
 <style>
