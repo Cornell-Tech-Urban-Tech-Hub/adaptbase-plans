@@ -552,7 +552,7 @@ import FeedbackModal from '../components/FeedbackModal.astro';
     if (currentCity)    query = query.filter('metadata->>city_name',    'eq', currentCity);
     if (currentLang)    query = query.filter('metadata->>language',     'eq', currentLang);
 
-    query = query.order('random()' as any).range(from, to);
+    query = query.order('created_at', { ascending: false }).range(from, to);
 
     const { data, error, count } = await query;
 
