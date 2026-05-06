@@ -1,9 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
-import { supabase, getPublicUrl, formatFileSize, type Document } from '../lib/supabase';
+import { supabase } from '../lib/supabase';
 
-// Fetch stats for Hero (RPC returns a table, so data is an array)
+// Fetch stats for Hero at build time
 const { data: statsData } = await supabase.rpc('get_document_stats');
 const statsRow = Array.isArray(statsData) ? statsData[0] : statsData;
 const stats = statsRow ? {
@@ -11,252 +11,627 @@ const stats = statsRow ? {
   totalCountries: statsRow.total_countries || 0,
   totalCities: statsRow.total_cities || 0,
 } : undefined;
-
-// Pagination
-const page = parseInt(Astro.url.searchParams.get('page') || '1');
-const perPage = 24;
-const from = (page - 1) * perPage;
-const to = from + perPage - 1;
-
-// Fetch documents with pagination (scoped to plans source)
-const { data: documents, error, count } = await supabase
-  .from('documents')
-  .select('*', { count: 'exact' })
-  .eq('source', 'plans')
-  .order('created_at', { ascending: false })
-  .range(from, to);
-
-if (error) {
-  console.error('Error fetching documents:', error);
-}
-
-const totalPages = count ? Math.ceil(count / perPage) : 1;
-const docs = (documents || []) as Document[];
 ---
 
-<BaseLayout title="Gallery">
+<BaseLayout title="Browse Plans">
   <Hero stats={stats} />
 
-  <div class="container-wide">
-    <div class="gallery-header">
-      <h2>Browse Documents</h2>
+  <div class="container-wide page-body">
+    <!-- Controls: search + filters -->
+    <div class="controls">
+      <div class="search-wrap">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input
+          type="search"
+          id="search-input"
+          placeholder="Search by title, city, or country…"
+          autocomplete="off"
+        />
+      </div>
+      <div class="filters">
+        <select id="filter-country" class="filter-select" aria-label="Filter by country">
+          <option value="">All countries</option>
+        </select>
+        <select id="filter-city" class="filter-select" aria-label="Filter by city">
+          <option value="">All cities</option>
+        </select>
+        <select id="filter-lang" class="filter-select" aria-label="Filter by language">
+          <option value="">All languages</option>
+        </select>
+      </div>
     </div>
 
-    {docs.length === 0 ? (
-      <div class="empty-state">
-        <p>No documents found. Upload PDFs using the migration tool to get started.</p>
-      </div>
-    ) : (
-      <>
-        <div class="gallery-grid">
-          {docs.map((doc) => (
-              <article class="document-card">
-                <a href={doc.storage_path ? getPublicUrl('plans', doc.storage_path.replace('plans/', '')) : '#'} target="_blank" rel="noopener noreferrer" class="thumbnail-link">
-                  {doc.thumbnail_path ? (
-                    <img
-                      src={getPublicUrl('thumbnails', doc.thumbnail_path.replace('thumbnails/', ''))}
-                      alt={doc.title}
-                      loading="lazy"
-                      class="thumbnail"
-                    />
-                  ) : (
-                    <div class="thumbnail-placeholder">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                        <polyline points="14 2 14 8 20 8"></polyline>
-                        <line x1="16" y1="13" x2="8" y2="13"></line>
-                        <line x1="16" y1="17" x2="8" y2="17"></line>
-                        <polyline points="10 9 9 9 8 9"></polyline>
-                      </svg>
-                    </div>
-                  )}
-                </a>
+    <!-- Status line -->
+    <div id="results-status" class="results-status" aria-live="polite"></div>
 
-                <div class="document-info">
-                  <h3 class="document-title">
-                    <a href={doc.storage_path ? getPublicUrl('plans', doc.storage_path.replace('plans/', '')) : '#'} target="_blank" rel="noopener noreferrer">
-                      {doc.title}
-                    </a>
-                  </h3>
+    <!-- Document grid — populated by client script -->
+    <div id="docs-grid" class="docs-grid" aria-label="Documents"></div>
 
-                  {(doc.metadata?.city_name || doc.metadata?.country_name) && (
-                    <div class="document-location">
-                      {[doc.metadata?.city_name, doc.metadata?.country_name].filter(Boolean).join(', ')}
-                    </div>
-                  )}
-                  <div class="document-meta">
-                    {doc.page_count && <span>{doc.page_count} pages</span>}
-                    {doc.file_size && <span>{formatFileSize(doc.file_size)}</span>}
-                    {doc.indexed_at && <span class="indexed-badge">✓ Indexed</span>}
-                  </div>
-                </div>
-              </article>
-            ))}
-        </div>
-
-        {totalPages > 1 && (
-          <nav class="pagination" aria-label="Pagination">
-            {page > 1 && (
-              <a href={`/?page=${page - 1}`} class="btn btn-secondary">← Previous</a>
-            )}
-
-            <span class="page-info">
-              Page {page} of {totalPages}
-            </span>
-
-            {page < totalPages && (
-              <a href={`/?page=${page + 1}`} class="btn btn-secondary">Next →</a>
-            )}
-          </nav>
-        )}
-      </>
-    )}
+    <!-- Pagination — populated by client script -->
+    <div id="pagination" class="pagination-wrap"></div>
   </div>
 </BaseLayout>
 
 <style>
-  .gallery-header {
+  .page-body {
+    padding-top: var(--sp-6);
+    padding-bottom: var(--sp-9);
+  }
+
+  /* ---- Controls ---- */
+  .controls {
     display: flex;
+    gap: var(--sp-3);
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: var(--space-8);
-    gap: var(--space-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--sp-5);
   }
 
-  .gallery-header h2 {
-    margin: 0;
+  .search-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 220px;
   }
 
-  .subtitle {
-    color: var(--gray-600);
-    margin: 0;
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--fg-4);
+    pointer-events: none;
   }
 
-  .empty-state {
-    text-align: center;
-    padding: var(--space-12) var(--space-6);
-    color: var(--gray-600);
+  #search-input {
+    width: 100%;
+    padding: var(--sp-3) var(--sp-3) var(--sp-3) 38px;
+    font-size: 0.9375rem;
+    line-height: 1.5;
   }
 
-  .gallery-grid {
+  .filters {
+    display: flex;
+    gap: var(--sp-2);
+    flex-wrap: wrap;
+  }
+
+  .filter-select {
+    padding: var(--sp-2) var(--sp-3);
+    font-size: 0.875rem;
+    cursor: pointer;
+    min-width: 130px;
+  }
+
+  /* ---- Status line ---- */
+  .results-status {
+    font-size: 0.8125rem;
+    color: var(--fg-4);
+    font-family: var(--font-mono);
+    letter-spacing: 0.03em;
+    margin-bottom: var(--sp-4);
+    min-height: 1.4em;
+  }
+
+  /* ---- Document grid ---- */
+  .docs-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: var(--space-6);
-    margin-bottom: var(--space-8);
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--sp-4);
   }
 
-  .document-card {
-    background: white;
-    border: 1px solid var(--gray-200);
-    border-radius: var(--radius-md);
+  /* ---- Card ---- */
+  :global(.doc-card) {
+    background: var(--bg-2);
+    border: 1px solid var(--border-hair);
+    border-radius: var(--r-lg);
     overflow: hidden;
-    transition: box-shadow 0.2s, transform 0.2s;
+    transition: box-shadow var(--dur-fast) var(--ease-standard),
+                transform var(--dur-fast) var(--ease-standard);
   }
 
-  .document-card:hover {
-    box-shadow: var(--shadow-md);
+  :global(.doc-card:hover) {
+    box-shadow: var(--shadow-2);
     transform: translateY(-2px);
   }
 
-  .thumbnail-link {
+  :global(.doc-thumb-wrap) {
     display: block;
     width: 100%;
     aspect-ratio: 8.5 / 11;
     overflow: hidden;
-    background: var(--gray-100);
-    position: relative;
-  }
-
-  .thumbnail {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.2s;
-  }
-
-  .document-card:hover .thumbnail {
-    transform: scale(1.05);
-  }
-
-  .thumbnail-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--gray-400);
-  }
-
-  .document-info {
-    padding: var(--space-4);
-  }
-
-  .document-title {
-    font-size: 1rem;
-    font-weight: 600;
-    margin: 0 0 var(--space-2);
-    line-height: 1.4;
-  }
-
-  .document-title a {
-    color: var(--gray-900);
+    background: var(--bg-3);
     text-decoration: none;
   }
 
-  .document-title a:hover {
-    color: var(--brand);
+  :global(.doc-thumb) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--dur-base) var(--ease-standard);
+    display: block;
   }
 
-  .document-location {
-    font-size: 0.875rem;
-    color: var(--gray-700);
-    margin-bottom: var(--space-2);
+  :global(.doc-card:hover .doc-thumb) {
+    transform: scale(1.04);
   }
 
-  .document-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    font-size: 0.875rem;
-    color: var(--gray-600);
-  }
-
-  .document-meta span {
-    display: inline-flex;
-    align-items: center;
-  }
-
-  .indexed-badge {
-    color: var(--success);
-    font-weight: 500;
-  }
-
-  .pagination {
+  :global(.doc-thumb-placeholder) {
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-4);
-    padding: var(--space-8) 0;
+    color: var(--fg-4);
   }
 
-  .page-info {
-    font-weight: 500;
-    color: var(--gray-700);
+  :global(.doc-body) {
+    padding: var(--sp-3);
   }
 
-  @media (max-width: 768px) {
-    .gallery-header {
+  :global(.doc-title) {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: var(--sp-1);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    color: var(--fg-1);
+  }
+
+  :global(.doc-title a) {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  :global(.doc-title a:hover) {
+    color: var(--carnelian);
+    text-decoration: none;
+  }
+
+  :global(.doc-location) {
+    font-size: 0.75rem;
+    color: var(--fg-3);
+    margin-bottom: var(--sp-2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4;
+  }
+
+  :global(.doc-tags) {
+    display: flex;
+    gap: var(--sp-1);
+    flex-wrap: wrap;
+  }
+
+  /* ---- Empty / loading states ---- */
+  :global(.state-message) {
+    grid-column: 1 / -1;
+    padding: var(--sp-9) var(--sp-5);
+    text-align: center;
+    color: var(--fg-4);
+    font-size: 0.9375rem;
+  }
+
+  :global(.loading-state) {
+    grid-column: 1 / -1;
+    padding: var(--sp-9) 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-3);
+    color: var(--fg-4);
+    font-size: 0.875rem;
+  }
+
+  /* ---- Pagination ---- */
+  .pagination-wrap {
+    margin-top: var(--sp-7);
+  }
+
+  :global(.pagination-inner) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-3);
+    flex-wrap: wrap;
+  }
+
+  :global(.page-info) {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    color: var(--fg-4);
+    min-width: 80px;
+    text-align: center;
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 900px) {
+    .docs-grid {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: var(--sp-3);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .controls {
       flex-direction: column;
       align-items: stretch;
     }
 
-    .gallery-grid {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: var(--space-4);
+    .search-wrap {
+      min-width: 0;
     }
 
-    .pagination {
+    .filters {
       flex-direction: column;
+    }
+
+    .filter-select {
+      min-width: 0;
+      width: 100%;
+    }
+
+    .docs-grid {
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: var(--sp-3);
     }
   }
 </style>
+
+<script>
+  import { supabase, getPublicUrl, type Document } from '../lib/supabase';
+
+  const PER_PAGE = 30;
+
+  // State
+  let currentPage = 1;
+  let currentSearch = '';
+  let currentCountry = '';
+  let currentCity = '';
+  let currentLang = '';
+  let totalCount = 0;
+  let filterOptionsLoaded = false;
+
+  // Store metadata for cascading city filter
+  const cityMap = new Map<string, string[]>(); // iso3 → sorted city names
+
+  // DOM refs
+  const searchInput  = document.getElementById('search-input')   as HTMLInputElement;
+  const countrySelect = document.getElementById('filter-country') as HTMLSelectElement;
+  const citySelect   = document.getElementById('filter-city')    as HTMLSelectElement;
+  const langSelect   = document.getElementById('filter-lang')    as HTMLSelectElement;
+  const grid         = document.getElementById('docs-grid')       as HTMLDivElement;
+  const statusEl     = document.getElementById('results-status')  as HTMLDivElement;
+  const paginationEl = document.getElementById('pagination')      as HTMLDivElement;
+
+  /* ── URL state ──────────────────────────────────────────────── */
+
+  function readUrl() {
+    const p = new URLSearchParams(window.location.search);
+    currentSearch  = p.get('q')       || '';
+    currentCountry = p.get('country') || '';
+    currentCity    = p.get('city')    || '';
+    currentLang    = p.get('lang')    || '';
+    currentPage    = parseInt(p.get('page') || '1');
+  }
+
+  function pushUrl() {
+    const p = new URLSearchParams();
+    if (currentSearch)  p.set('q',       currentSearch);
+    if (currentCountry) p.set('country', currentCountry);
+    if (currentCity)    p.set('city',    currentCity);
+    if (currentLang)    p.set('lang',    currentLang);
+    if (currentPage > 1) p.set('page',  String(currentPage));
+    const qs = p.toString();
+    window.history.pushState({}, '', qs ? `/?${qs}` : '/');
+  }
+
+  /* ── Filter options ─────────────────────────────────────────── */
+
+  async function loadFilterOptions() {
+    const { data, error } = await supabase
+      .from('documents')
+      .select('metadata')
+      .eq('source', 'plans');
+
+    if (error || !data) return;
+
+    // Extract unique countries and build city map
+    const countries = new Map<string, string>(); // iso3 → name
+    const langSet   = new Set<string>();
+
+    for (const { metadata: m } of data) {
+      if (!m) continue;
+      if (m.country_iso3 && m.country_name) {
+        countries.set(m.country_iso3, m.country_name);
+        if (m.city_name) {
+          if (!cityMap.has(m.country_iso3)) cityMap.set(m.country_iso3, []);
+          const cities = cityMap.get(m.country_iso3)!;
+          if (!cities.includes(m.city_name)) cities.push(m.city_name);
+        }
+      }
+      if (m.language) langSet.add(m.language);
+    }
+
+    // Sort city lists
+    cityMap.forEach((cities, iso3) => cityMap.set(iso3, cities.sort((a, b) => a.localeCompare(b))));
+
+    // Populate country select
+    const sortedCountries = [...countries.entries()].sort((a, b) => a[1].localeCompare(b[1]));
+    for (const [iso3, name] of sortedCountries) {
+      const opt = document.createElement('option');
+      opt.value = iso3;
+      opt.textContent = name;
+      countrySelect.appendChild(opt);
+    }
+
+    // Populate language select
+    for (const lang of [...langSet].sort()) {
+      const opt = document.createElement('option');
+      opt.value = lang;
+      opt.textContent = lang;
+      langSelect.appendChild(opt);
+    }
+
+    // Restore state from URL
+    countrySelect.value = currentCountry;
+    if (currentCountry) repopulateCitySelect(currentCountry);
+    citySelect.value = currentCity;
+    langSelect.value = currentLang;
+
+    filterOptionsLoaded = true;
+  }
+
+  function repopulateCitySelect(iso3: string) {
+    while (citySelect.options.length > 1) citySelect.remove(1);
+    const cities = iso3 ? (cityMap.get(iso3) || []) : [];
+    for (const city of cities) {
+      const opt = document.createElement('option');
+      opt.value = city;
+      opt.textContent = city;
+      citySelect.appendChild(opt);
+    }
+  }
+
+  /* ── Document fetching ──────────────────────────────────────── */
+
+  async function loadDocuments() {
+    showLoading();
+
+    const from = (currentPage - 1) * PER_PAGE;
+    const to   = from + PER_PAGE - 1;
+
+    let query = supabase
+      .from('documents')
+      .select('*', { count: 'exact' })
+      .eq('source', 'plans');
+
+    if (currentSearch) {
+      const escaped = currentSearch.replace(/[,()]/g, '');
+      const pattern = `%${escaped}%`;
+      query = query.or(
+        [
+          `title.ilike.${pattern}`,
+          `metadata->>country_name.ilike.${pattern}`,
+          `metadata->>country_iso3.ilike.${pattern}`,
+          `metadata->>city_name.ilike.${pattern}`,
+        ].join(',')
+      );
+    }
+
+    if (currentCountry) query = query.filter('metadata->>country_iso3', 'eq', currentCountry);
+    if (currentCity)    query = query.filter('metadata->>city_name',    'eq', currentCity);
+    if (currentLang)    query = query.filter('metadata->>language',     'eq', currentLang);
+
+    query = query.order('created_at', { ascending: false }).range(from, to);
+
+    const { data, error, count } = await query;
+
+    if (error) {
+      showError();
+      return;
+    }
+
+    totalCount = count || 0;
+    renderDocuments((data || []) as Document[]);
+    renderStatus();
+    renderPagination();
+  }
+
+  /* ── Rendering ──────────────────────────────────────────────── */
+
+  function showLoading() {
+    statusEl.textContent = '';
+    paginationEl.innerHTML = '';
+    grid.innerHTML = `<div class="loading-state"><span class="spinner"></span> Loading…</div>`;
+  }
+
+  function showError() {
+    grid.innerHTML = `<div class="state-message">Error loading documents — please refresh and try again.</div>`;
+    statusEl.textContent = '';
+    paginationEl.innerHTML = '';
+  }
+
+  function renderStatus() {
+    if (totalCount === 0) {
+      statusEl.textContent = '';
+      return;
+    }
+    const showing = Math.min(currentPage * PER_PAGE, totalCount);
+    const from    = (currentPage - 1) * PER_PAGE + 1;
+    statusEl.textContent = `${from}–${showing} of ${totalCount.toLocaleString()} plans`;
+  }
+
+  function renderDocuments(docs: Document[]) {
+    if (docs.length === 0) {
+      const hasFilter = currentSearch || currentCountry || currentCity || currentLang;
+      grid.innerHTML = `
+        <div class="state-message">
+          <p>No plans found${currentSearch ? ` matching <strong>"${escapeHtml(currentSearch)}"</strong>` : ''}.</p>
+          ${hasFilter ? '<p style="margin-top:0.5em;font-size:0.875rem">Try adjusting your search or filters.</p>' : ''}
+        </div>
+      `;
+      return;
+    }
+
+    grid.innerHTML = docs.map(doc => cardHtml(doc)).join('');
+  }
+
+  function cardHtml(doc: Document): string {
+    const pdfUrl  = doc.storage_path
+      ? getPublicUrl('plans', doc.storage_path.replace('plans/', ''))
+      : '#';
+    const thumbUrl = doc.thumbnail_path
+      ? getPublicUrl('thumbnails', doc.thumbnail_path.replace('thumbnails/', ''))
+      : '';
+    const location = [doc.metadata?.city_name, doc.metadata?.country_name].filter(Boolean).join(', ');
+    const language = doc.metadata?.language as string | undefined;
+    const pages    = doc.page_count;
+
+    const thumb = thumbUrl
+      ? `<img src="${thumbUrl}" alt="" loading="lazy" class="doc-thumb"/>`
+      : `<div class="doc-thumb-placeholder">
+           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+           </svg>
+         </div>`;
+
+    const tags = [
+      language ? `<span class="tag tag-lang">${escapeHtml(language)}</span>` : '',
+      pages    ? `<span class="tag tag-meta">${pages}p</span>` : '',
+    ].filter(Boolean).join('');
+
+    return `
+      <article class="doc-card">
+        <a href="${pdfUrl}" target="_blank" rel="noopener noreferrer" class="doc-thumb-wrap">${thumb}</a>
+        <div class="doc-body">
+          <h3 class="doc-title">
+            <a href="${pdfUrl}" target="_blank" rel="noopener noreferrer">
+              ${currentSearch ? highlightText(doc.title, currentSearch) : escapeHtml(doc.title)}
+            </a>
+          </h3>
+          ${location ? `<div class="doc-location">${escapeHtml(location)}</div>` : ''}
+          ${tags ? `<div class="doc-tags">${tags}</div>` : ''}
+        </div>
+      </article>
+    `;
+  }
+
+  function renderPagination() {
+    if (totalCount <= PER_PAGE) {
+      paginationEl.innerHTML = '';
+      return;
+    }
+
+    const totalPages = Math.ceil(totalCount / PER_PAGE);
+
+    paginationEl.innerHTML = `
+      <div class="pagination-inner">
+        <button class="btn btn-secondary page-btn" data-page="${currentPage - 1}" ${currentPage <= 1 ? 'disabled' : ''}>← Prev</button>
+        <span class="page-info">Page ${currentPage} of ${totalPages}</span>
+        <button class="btn btn-secondary page-btn" data-page="${currentPage + 1}" ${currentPage >= totalPages ? 'disabled' : ''}>Next →</button>
+      </div>
+    `;
+
+    paginationEl.querySelectorAll<HTMLButtonElement>('.page-btn:not([disabled])').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentPage = parseInt(btn.dataset.page!);
+        pushUrl();
+        loadDocuments();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  }
+
+  /* ── Utilities ──────────────────────────────────────────────── */
+
+  function escapeHtml(text: string): string {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  function highlightText(text: string, query: string): string {
+    const words = query.toLowerCase().split(/\s+/).filter(w => w.length > 1);
+    let out = escapeHtml(text);
+    words.forEach(word => {
+      const re = new RegExp(`(${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+      out = out.replace(re, '<mark style="background:rgba(179,27,27,0.12);color:var(--carnelian-deep);border-radius:2px;padding:0 0.15em">$1</mark>');
+    });
+    return out;
+  }
+
+  /* ── Event wiring ───────────────────────────────────────────── */
+
+  searchInput.addEventListener('keydown', async (e) => {
+    if (e.key !== 'Enter') return;
+    const q = searchInput.value.trim();
+    currentSearch = q;
+    currentPage = 1;
+    pushUrl();
+    await loadDocuments();
+  });
+
+  // Clear search on empty input
+  searchInput.addEventListener('input', () => {
+    if (searchInput.value === '' && currentSearch !== '') {
+      currentSearch = '';
+      currentPage = 1;
+      pushUrl();
+      loadDocuments();
+    }
+  });
+
+  countrySelect.addEventListener('change', async () => {
+    currentCountry = countrySelect.value;
+    currentCity = '';
+    currentPage = 1;
+    repopulateCitySelect(currentCountry);
+    citySelect.value = '';
+    pushUrl();
+    await loadDocuments();
+  });
+
+  citySelect.addEventListener('change', async () => {
+    currentCity = citySelect.value;
+    currentPage = 1;
+    pushUrl();
+    await loadDocuments();
+  });
+
+  langSelect.addEventListener('change', async () => {
+    currentLang = langSelect.value;
+    currentPage = 1;
+    pushUrl();
+    await loadDocuments();
+  });
+
+  // Handle browser back/forward
+  window.addEventListener('popstate', () => {
+    readUrl();
+    searchInput.value = currentSearch;
+    countrySelect.value = currentCountry;
+    if (filterOptionsLoaded) {
+      repopulateCitySelect(currentCountry);
+      citySelect.value = currentCity;
+    }
+    langSelect.value = currentLang;
+    loadDocuments();
+  });
+
+  /* ── Init ────────────────────────────────────────────────────── */
+
+  readUrl();
+  searchInput.value = currentSearch;
+
+  // Fire both in parallel; documents start loading immediately with current URL state
+  loadDocuments();
+  loadFilterOptions();
+</script>
