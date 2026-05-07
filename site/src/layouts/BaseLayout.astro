@@ -42,8 +42,12 @@ const { title, description = 'Searchable archive of urban climate adaptation and
     </main>
 
     <footer class="site-footer">
-      <div class="container">
-        <p>
+      <div class="container site-footer-inner">
+        <a href="https://urban.tech.cornell.edu/" target="_blank" rel="noopener noreferrer" class="footer-org">
+          <img src="/jacobs-logo.png" alt="Jacobs Technion-Cornell Institute at Cornell Tech" class="footer-jacobs-logo" />
+          <span class="footer-org-label">Urban Tech Hub</span>
+        </a>
+        <p class="footer-links">
           Part of <a href="https://adaptbase.us">Adaptbase</a> ·
           Powered by <a href="https://supabase.com">Supabase</a> &amp; <a href="https://astro.build">Astro</a>
         </p>
@@ -484,11 +488,59 @@ const { title, description = 'Searchable archive of urban climate adaptation and
      ============================================================ */
   .site-footer {
     border-top: 1px solid var(--border-hair);
-    padding: var(--sp-5) 0;
+    padding: var(--sp-6) 0;
     margin-top: var(--sp-9);
   }
 
-  .site-footer p {
+  .site-footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-5);
+    flex-wrap: wrap;
+  }
+
+  .footer-org {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-4);
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .footer-org:hover {
+    text-decoration: none;
+  }
+
+  .footer-jacobs-logo {
+    height: 64px;
+    width: auto;
+    display: block;
+    opacity: 0.75;
+    transition: opacity var(--dur-fast) var(--ease-standard);
+  }
+
+  .footer-org:hover .footer-jacobs-logo {
+    opacity: 1;
+  }
+
+  .footer-org-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg-4);
+    padding-left: var(--sp-4);
+    border-left: 1px solid var(--border-hair);
+    transition: color var(--dur-fast) var(--ease-standard);
+  }
+
+  .footer-org:hover .footer-org-label {
+    color: var(--fg-2);
+  }
+
+  .footer-links {
     font-size: 0.8125rem;
     color: var(--fg-4);
     line-height: 1.5;
@@ -500,6 +552,13 @@ const { title, description = 'Searchable archive of urban climate adaptation and
 
   .site-footer a:hover {
     color: var(--fg-1);
+  }
+
+  @media (max-width: 600px) {
+    .site-footer-inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 
   /* ============================================================

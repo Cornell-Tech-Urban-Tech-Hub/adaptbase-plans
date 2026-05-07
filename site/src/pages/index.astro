@@ -9,36 +9,57 @@ import FeedbackModal from '../components/FeedbackModal.astro';
   <FeedbackModal />
 
   <div class="container-wide page-body">
-    <!-- Controls: search + filters -->
+    <!-- Controls: sort + filters on top, search below -->
     <div class="controls">
-      <div class="search-wrap">
-        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-        <input
-          type="search"
-          id="search-input"
-          placeholder="Search by title, city, or country…"
-          autocomplete="off"
-        />
-        <button class="search-clear" id="search-clear" aria-label="Clear search" hidden>
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
-            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      <div class="controls-top">
+        <div class="ctrl-group">
+          <span class="ctrl-label" aria-hidden="true">Sort</span>
+          <select id="sort-select" class="filter-select" aria-label="Sort results">
+            <option value="shuffle">Shuffle</option>
+            <option value="year-desc">Newest</option>
+            <option value="year-asc">Oldest</option>
+            <option value="title-asc">Title A→Z</option>
+            <option value="title-desc">Title Z→A</option>
+          </select>
+        </div>
+        <div class="ctrl-divider" aria-hidden="true"></div>
+        <div class="ctrl-group">
+          <span class="ctrl-label" aria-hidden="true">Filters</span>
+          <div class="filters">
+            <select id="filter-country" class="filter-select" aria-label="Filter by country">
+              <option value="">All countries</option>
+            </select>
+            <select id="filter-city" class="filter-select" aria-label="Filter by city">
+              <option value="">All cities</option>
+            </select>
+            <select id="filter-lang" class="filter-select" aria-label="Filter by language">
+              <option value="">All languages</option>
+            </select>
+            <select id="filter-year" class="filter-select" aria-label="Filter by year">
+              <option value="">All years</option>
+            </select>
+          </div>
+        </div>
+        <button class="clear-all" id="clear-all" hidden>Clear all</button>
+      </div>
+      <div class="controls-bottom">
+        <div class="search-wrap">
+          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
           </svg>
-        </button>
+          <input
+            type="search"
+            id="search-input"
+            placeholder="Search by title, city, or country…"
+            autocomplete="off"
+          />
+          <button class="search-clear" id="search-clear" aria-label="Clear search" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
       </div>
-      <div class="filters">
-        <select id="filter-country" class="filter-select" aria-label="Filter by country">
-          <option value="">All countries</option>
-        </select>
-        <select id="filter-city" class="filter-select" aria-label="Filter by city">
-          <option value="">All cities</option>
-        </select>
-        <select id="filter-lang" class="filter-select" aria-label="Filter by language">
-          <option value="">All languages</option>
-        </select>
-      </div>
-      <button class="clear-all" id="clear-all" hidden>Clear all</button>
     </div>
 
     <!-- Status line -->
@@ -61,16 +82,52 @@ import FeedbackModal from '../components/FeedbackModal.astro';
   /* ---- Controls ---- */
   .controls {
     display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+    margin-bottom: var(--sp-5);
+  }
+
+  .controls-top {
+    display: flex;
     gap: var(--sp-3);
     align-items: center;
     flex-wrap: wrap;
-    margin-bottom: var(--sp-5);
+  }
+
+  .controls-bottom {
+    display: flex;
+  }
+
+  .ctrl-group {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+  }
+
+  .ctrl-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg-4);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .ctrl-divider {
+    width: 1px;
+    height: 1.75em;
+    background: var(--border-hair);
+    flex-shrink: 0;
+    margin: 0 var(--sp-1);
   }
 
   .search-wrap {
     position: relative;
     flex: 1;
-    min-width: 220px;
+    min-width: 0;
+    width: 100%;
   }
 
   .search-icon {
@@ -110,25 +167,20 @@ import FeedbackModal from '../components/FeedbackModal.astro';
     transition: color var(--dur-fast) var(--ease-standard);
   }
 
-  .search-clear:hover {
-    color: var(--fg-1);
-  }
-
-  .search-clear[hidden] {
-    display: none;
-  }
+  .search-clear:hover { color: var(--fg-1); }
+  .search-clear[hidden] { display: none; }
 
   .filters {
     display: flex;
     gap: var(--sp-2);
     flex-wrap: wrap;
+    align-items: center;
   }
 
   .filter-select {
     padding: var(--sp-2) var(--sp-3);
     font-size: 0.875rem;
     cursor: pointer;
-    min-width: 130px;
   }
 
   .clear-all {
@@ -143,15 +195,11 @@ import FeedbackModal from '../components/FeedbackModal.astro';
     text-decoration: underline;
     text-underline-offset: 0.2em;
     transition: color var(--dur-fast) var(--ease-standard);
+    flex-shrink: 0;
   }
 
-  .clear-all:hover {
-    color: var(--fg-1);
-  }
-
-  .clear-all[hidden] {
-    display: none;
-  }
+  .clear-all:hover { color: var(--fg-1); }
+  .clear-all[hidden] { display: none; }
 
   /* ---- Status line ---- */
   .results-status {
@@ -168,6 +216,11 @@ import FeedbackModal from '../components/FeedbackModal.astro';
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: var(--sp-4);
+  }
+
+  .docs-grid.search-mode {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--sp-5);
   }
 
   /* ---- Card ---- */
@@ -278,21 +331,22 @@ import FeedbackModal from '../components/FeedbackModal.astro';
     position: relative;
   }
 
+
   :global(.doc-report-btn) {
     position: absolute;
-    top: var(--sp-2);
+    bottom: var(--sp-2);
     right: var(--sp-2);
-    background: rgba(255,255,255,0.85);
+    background: none;
     border: none;
-    border-radius: var(--r-sm);
-    padding: 2px 5px;
-    font-size: 0.625rem;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--fg-4);
     cursor: pointer;
     opacity: 0;
     transition: opacity var(--dur-fast) var(--ease-standard),
                 color var(--dur-fast) var(--ease-standard);
-    line-height: 1.6;
   }
 
   :global(.doc-card:hover .doc-report-btn) {
@@ -354,21 +408,27 @@ import FeedbackModal from '../components/FeedbackModal.astro';
   }
 
   @media (max-width: 600px) {
-    .controls {
+    .controls-top {
       flex-direction: column;
       align-items: stretch;
     }
 
-    .search-wrap {
-      min-width: 0;
+    .ctrl-group {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--sp-1);
+    }
+
+    .ctrl-divider {
+      display: none;
     }
 
     .filters {
       flex-direction: column;
+      align-items: stretch;
     }
 
     .filter-select {
-      min-width: 0;
       width: 100%;
     }
 
@@ -380,7 +440,7 @@ import FeedbackModal from '../components/FeedbackModal.astro';
 </style>
 
 <script>
-  import { supabase, getPublicUrl, type Document } from '../lib/supabase';
+  import { supabase, getPublicUrl, type Document, type SearchResult } from '../lib/supabase';
 
   async function loadStats() {
     const { data } = await supabase.rpc('get_document_stats');
@@ -392,7 +452,22 @@ import FeedbackModal from '../components/FeedbackModal.astro';
     document.getElementById('stat-countries')!.textContent = fmt(row.total_countries || 0);
   }
 
-  const PER_PAGE = 30;
+  const ROWS = 5;
+  let colCount = 4; // updated before every fetch
+
+  // Mirrors the CSS grid breakpoints so PER_PAGE is always cols × ROWS.
+  function detectColCount(): number {
+    const w = grid.clientWidth;
+    let minCell: number;
+    let gap: number;
+    if (w <= 600)             { minCell = 140; gap = 12; }
+    else if (w <= 900)        { minCell = 150; gap = 12; }
+    else if (isHybridSearch)  { minCell = 260; gap = 24; }
+    else                      { minCell = 180; gap = 16; }
+    return Math.max(1, Math.floor((w + gap) / (minCell + gap)));
+  }
+
+  function getPerPage(): number { return colCount * ROWS; }
 
   // State
   let currentPage = 1;
@@ -400,8 +475,15 @@ import FeedbackModal from '../components/FeedbackModal.astro';
   let currentCountry = '';
   let currentCity = '';
   let currentLang = '';
+  let currentYear = '';
+  let currentSort = 'shuffle';
   let totalCount = 0;
   let filterOptionsLoaded = false;
+
+  // Hybrid search state
+  let isHybridSearch = false;
+  type ChunkInfo = { content: string; page: number | null; vector_rank: number | null; keyword_rank: number | null };
+  const chunkInfoMap = new Map<string, ChunkInfo>();
 
   // Store metadata for cascading city filter
   const cityMap = new Map<string, string[]>(); // iso3 → sorted city names
@@ -413,6 +495,8 @@ import FeedbackModal from '../components/FeedbackModal.astro';
   const countrySelect = document.getElementById('filter-country') as HTMLSelectElement;
   const citySelect    = document.getElementById('filter-city')    as HTMLSelectElement;
   const langSelect    = document.getElementById('filter-lang')    as HTMLSelectElement;
+  const yearSelect    = document.getElementById('filter-year')    as HTMLSelectElement;
+  const sortSelect    = document.getElementById('sort-select')    as HTMLSelectElement;
   const grid          = document.getElementById('docs-grid')       as HTMLDivElement;
   const statusEl      = document.getElementById('results-status')  as HTMLDivElement;
   const paginationEl  = document.getElementById('pagination')      as HTMLDivElement;
@@ -422,7 +506,7 @@ import FeedbackModal from '../components/FeedbackModal.astro';
   }
 
   function syncClearAll() {
-    clearAllBtn.hidden = !(currentSearch || currentCountry || currentCity || currentLang);
+    clearAllBtn.hidden = !(currentSearch || currentCountry || currentCity || currentLang || currentYear);
   }
 
   /* ── URL state ──────────────────────────────────────────────── */
@@ -433,16 +517,20 @@ import FeedbackModal from '../components/FeedbackModal.astro';
     currentCountry = p.get('country') || '';
     currentCity    = p.get('city')    || '';
     currentLang    = p.get('lang')    || '';
+    currentYear    = p.get('year')    || '';
+    currentSort    = p.get('sort')    || 'shuffle';
     currentPage    = parseInt(p.get('page') || '1');
   }
 
   function pushUrl() {
     const p = new URLSearchParams();
-    if (currentSearch)  p.set('q',       currentSearch);
-    if (currentCountry) p.set('country', currentCountry);
-    if (currentCity)    p.set('city',    currentCity);
-    if (currentLang)    p.set('lang',    currentLang);
-    if (currentPage > 1) p.set('page',  String(currentPage));
+    if (currentSearch)           p.set('q',       currentSearch);
+    if (currentCountry)          p.set('country', currentCountry);
+    if (currentCity)             p.set('city',    currentCity);
+    if (currentLang)             p.set('lang',    currentLang);
+    if (currentYear)             p.set('year',    currentYear);
+    if (currentSort !== 'shuffle') p.set('sort',  currentSort);
+    if (currentPage > 1)         p.set('page',    String(currentPage));
     const qs = p.toString();
     window.history.pushState({}, '', qs ? `/?${qs}` : '/');
   }
@@ -502,11 +590,28 @@ import FeedbackModal from '../components/FeedbackModal.astro';
       langSelect.appendChild(opt);
     }
 
+    // Collect years
+    const yearSet = new Set<number>();
+    for (const { metadata: m } of data) {
+      const y = m?.year;
+      if (y && typeof y === 'number' && y > 1900 && y <= new Date().getFullYear() + 1) {
+        yearSet.add(y);
+      }
+    }
+    for (const year of [...yearSet].sort((a, b) => b - a)) {
+      const opt = document.createElement('option');
+      opt.value = String(year);
+      opt.textContent = String(year);
+      yearSelect.appendChild(opt);
+    }
+
     // Restore state from URL
     countrySelect.value = currentCountry;
     if (currentCountry) repopulateCitySelect(currentCountry);
     citySelect.value = currentCity;
     langSelect.value = currentLang;
+    yearSelect.value = currentYear;
+    sortSelect.value = currentSort;
 
     filterOptionsLoaded = true;
   }
@@ -526,48 +631,164 @@ import FeedbackModal from '../components/FeedbackModal.astro';
 
   async function loadDocuments() {
     showLoading();
+    if (currentSearch) {
+      await loadHybridResults();
+    } else {
+      await loadGallery();
+    }
+  }
 
-    const from = (currentPage - 1) * PER_PAGE;
-    const to   = from + PER_PAGE - 1;
+  async function loadGallery() {
+    isHybridSearch = false;
+    chunkInfoMap.clear();
+    grid.classList.remove('search-mode');
+
+    colCount = detectColCount();
+    const from = (currentPage - 1) * getPerPage();
+    const to   = from + getPerPage() - 1;
 
     let query = supabase
       .from('documents')
       .select('*', { count: 'exact' })
       .eq('doc_type', 'adaptation_plan');
 
-    if (currentSearch) {
-      const escaped = currentSearch.replace(/[,()]/g, '');
-      const pattern = `%${escaped}%`;
-      query = query.or(
-        [
-          `title.ilike.${pattern}`,
-          `metadata->>country_name.ilike.${pattern}`,
-          `metadata->>country_iso3.ilike.${pattern}`,
-          `metadata->>city_name.ilike.${pattern}`,
-        ].join(',')
-      );
+    if (currentCountry) query = query.filter('metadata->>country_iso3', 'eq', currentCountry);
+    if (currentCity)    query = query.filter('metadata->>city_name',    'eq', currentCity);
+    if (currentLang)    query = query.filter('metadata->>language',     'eq', currentLang);
+    if (currentYear)    query = query.filter('metadata->>year',         'eq', currentYear);
+
+    const sortAsc = currentSort === 'year-asc' || currentSort === 'title-asc';
+    if (currentSort === 'title-asc' || currentSort === 'title-desc') {
+      query = query.order('title', { ascending: sortAsc });
+    } else {
+      query = query.order('created_at', { ascending: currentSort === 'year-asc' });
     }
+    query = query.range(from, to);
+
+    const { data, error, count } = await query;
+    if (error) { showError(); return; }
+
+    totalCount = count || 0;
+    const docs = (data || []) as Document[];
+    if (currentSort === 'shuffle') {
+      for (let i = docs.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [docs[i], docs[j]] = [docs[j], docs[i]];
+      }
+    }
+    renderDocuments(docs);
+    renderStatus();
+    renderPagination();
+  }
+
+  async function loadHybridResults() {
+    // 1. Embed the query via Edge Function
+    let embedding: number[] | null = null;
+    try {
+      const { data, error } = await supabase.functions.invoke('embed-query', {
+        body: { query: currentSearch },
+      });
+      if (!error && data?.embedding) embedding = data.embedding;
+    } catch { /* fall through */ }
+
+    if (!embedding) {
+      await loadKeywordFallback();
+      return;
+    }
+
+    // 2. Hybrid RRF search on chunks
+    const { data: chunks, error: rpcErr } = await supabase.rpc('match_hybrid', {
+      query_embedding: embedding,
+      query_text: currentSearch,
+      match_count: 80,
+      filter_source: 'plan_crawler',
+    }) as { data: SearchResult[] | null; error: unknown };
+
+    if (rpcErr || !chunks?.length) {
+      await loadKeywordFallback();
+      return;
+    }
+
+    // 3. Dedupe by document_id, keep best (first) chunk per doc
+    isHybridSearch = true;
+    chunkInfoMap.clear();
+    grid.classList.add('search-mode');
+
+    for (const c of chunks) {
+      if (!chunkInfoMap.has(c.document_id)) {
+        chunkInfoMap.set(c.document_id, {
+          content: c.content,
+          page: c.page_number,
+          vector_rank: c.vector_rank,
+          keyword_rank: c.keyword_rank,
+        });
+      }
+    }
+    const topIds = [...chunkInfoMap.keys()].slice(0, 30);
+
+    // 4. Fetch document rows, applying facet filters
+    let docQuery = supabase
+      .from('documents')
+      .select('*')
+      .in('id', topIds);
+
+    if (currentCountry) docQuery = docQuery.filter('metadata->>country_iso3', 'eq', currentCountry);
+    if (currentCity)    docQuery = docQuery.filter('metadata->>city_name',    'eq', currentCity);
+    if (currentLang)    docQuery = docQuery.filter('metadata->>language',     'eq', currentLang);
+    if (currentYear)    docQuery = docQuery.filter('metadata->>year',         'eq', currentYear);
+
+    const { data: docs, error: docErr } = await docQuery;
+    if (docErr) { showError(); return; }
+
+    // 5. Re-sort by hybrid rank order (match_hybrid already ordered by score)
+    const rankOrder = new Map(topIds.map((id, i) => [id, i]));
+    const sorted = ((docs || []) as Document[]).sort(
+      (a, b) => (rankOrder.get(a.id) ?? 999) - (rankOrder.get(b.id) ?? 999)
+    );
+
+    totalCount = sorted.length;
+    renderDocuments(sorted);
+    renderStatus();
+    renderPagination();
+  }
+
+  async function loadKeywordFallback() {
+    isHybridSearch = false;
+    chunkInfoMap.clear();
+    grid.classList.remove('search-mode');
+
+    colCount = detectColCount();
+    const from = (currentPage - 1) * getPerPage();
+    const to   = from + getPerPage() - 1;
+
+    let query = supabase
+      .from('documents')
+      .select('*', { count: 'exact' })
+      .eq('doc_type', 'adaptation_plan');
+
+    const escaped = currentSearch.replace(/[,()]/g, '');
+    const pattern = `%${escaped}%`;
+    query = query.or(
+      [
+        `title.ilike.${pattern}`,
+        `metadata->>country_name.ilike.${pattern}`,
+        `metadata->>country_iso3.ilike.${pattern}`,
+        `metadata->>city_name.ilike.${pattern}`,
+      ].join(',')
+    );
 
     if (currentCountry) query = query.filter('metadata->>country_iso3', 'eq', currentCountry);
     if (currentCity)    query = query.filter('metadata->>city_name',    'eq', currentCity);
     if (currentLang)    query = query.filter('metadata->>language',     'eq', currentLang);
+    if (currentYear)    query = query.filter('metadata->>year',         'eq', currentYear);
 
     query = query.order('created_at', { ascending: false }).range(from, to);
 
     const { data, error, count } = await query;
-
-    if (error) {
-      showError();
-      return;
-    }
+    if (error) { showError(); return; }
 
     totalCount = count || 0;
-    const docs = (data || []) as Document[];
-    for (let i = docs.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [docs[i], docs[j]] = [docs[j], docs[i]];
-    }
-    renderDocuments(docs);
+    renderDocuments((data || []) as Document[]);
     renderStatus();
     renderPagination();
   }
@@ -591,8 +812,12 @@ import FeedbackModal from '../components/FeedbackModal.astro';
       statusEl.textContent = '';
       return;
     }
-    const showing = Math.min(currentPage * PER_PAGE, totalCount);
-    const from    = (currentPage - 1) * PER_PAGE + 1;
+    if (isHybridSearch) {
+      statusEl.textContent = `${totalCount} result${totalCount === 1 ? '' : 's'} for "${currentSearch}"`;
+      return;
+    }
+    const showing = Math.min(currentPage * getPerPage(), totalCount);
+    const from    = (currentPage - 1) * getPerPage() + 1;
     statusEl.textContent = `${from}–${showing} of ${totalCount.toLocaleString()} plans`;
   }
 
@@ -609,16 +834,6 @@ import FeedbackModal from '../components/FeedbackModal.astro';
     }
 
     grid.innerHTML = docs.map(doc => cardHtml(doc)).join('');
-
-    // Read actual column count from computed layout, then remove orphans.
-    const cols = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
-    const remainder = docs.length % cols;
-    if (remainder > 0) {
-      const cards = grid.querySelectorAll('.doc-card');
-      for (let i = docs.length - remainder; i < docs.length; i++) {
-        cards[i]?.remove();
-      }
-    }
   }
 
   const LANG_LABELS: Record<string, string> = {
@@ -655,6 +870,7 @@ import FeedbackModal from '../components/FeedbackModal.astro';
       language ? `<span class="doc-meta-item doc-meta-lang">${escapeHtml(language)}</span>` : '',
     ].filter(Boolean).join('<span class="doc-meta-sep">·</span>');
 
+
     return `
       <article class="doc-card">
         <a href="${pdfUrl}" target="_blank" rel="noopener noreferrer" class="doc-thumb-wrap">${thumb}</a>
@@ -667,18 +883,21 @@ import FeedbackModal from '../components/FeedbackModal.astro';
           ${location ? `<div class="doc-location">${escapeHtml(location)}</div>` : ''}
           ${metaParts ? `<div class="doc-meta">${metaParts}</div>` : ''}
         </div>
-        <button class="doc-report-btn" onclick="window.openFeedbackModal('${doc.id}')" title="Report a problem with this plan" aria-label="Report a problem">⚑</button>
+        <button class="doc-report-btn" onclick="window.openFeedbackModal('${doc.id}')" title="Report a problem with this plan" aria-label="Report a problem">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </button>
       </article>
     `;
   }
 
+
   function renderPagination() {
-    if (totalCount <= PER_PAGE) {
+    if (totalCount <= getPerPage()) {
       paginationEl.innerHTML = '';
       return;
     }
 
-    const totalPages = Math.ceil(totalCount / PER_PAGE);
+    const totalPages = Math.ceil(totalCount / getPerPage());
 
     paginationEl.innerHTML = `
       <div class="pagination-inner">
@@ -778,13 +997,29 @@ import FeedbackModal from '../components/FeedbackModal.astro';
     await loadDocuments();
   });
 
+  yearSelect.addEventListener('change', async () => {
+    currentYear = yearSelect.value;
+    currentPage = 1;
+    pushUrl();
+    syncClearAll();
+    await loadDocuments();
+  });
+
+  sortSelect.addEventListener('change', async () => {
+    currentSort = sortSelect.value;
+    currentPage = 1;
+    pushUrl();
+    await loadDocuments();
+  });
+
   clearAllBtn.addEventListener('click', () => {
     searchInput.value = '';
     countrySelect.value = '';
     citySelect.value = '';
     langSelect.value = '';
+    yearSelect.value = '';
     repopulateCitySelect('');
-    currentSearch = currentCountry = currentCity = currentLang = '';
+    currentSearch = currentCountry = currentCity = currentLang = currentYear = '';
     currentPage = 1;
     pushUrl();
     syncClearButton();
@@ -803,8 +1038,10 @@ import FeedbackModal from '../components/FeedbackModal.astro';
     if (filterOptionsLoaded) {
       repopulateCitySelect(currentCountry);
       citySelect.value = currentCity;
+      yearSelect.value = currentYear;
     }
     langSelect.value = currentLang;
+    sortSelect.value = currentSort;
     loadDocuments();
   });
 
@@ -812,8 +1049,22 @@ import FeedbackModal from '../components/FeedbackModal.astro';
 
   readUrl();
   searchInput.value = currentSearch;
+  sortSelect.value = currentSort;
   syncClearButton();
   syncClearAll();
+
+  // Reset to page 1 and reload when the grid column count changes (e.g. window resize).
+  let resizeTimer: ReturnType<typeof setTimeout> | null = null;
+  new ResizeObserver(() => {
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      const newCols = detectColCount();
+      if (newCols !== colCount) {
+        currentPage = 1;
+        loadDocuments();
+      }
+    }, 200);
+  }).observe(grid);
 
   // Fire all three in parallel
   loadDocuments();
