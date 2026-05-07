@@ -2,12 +2,14 @@
 PDF Migration Tool for adaptbase-plans.
 
 Uploads PDFs from a local directory into Supabase Storage and inserts rows
-into the shared `documents` table with `source='plans'`. Chunking and
+into the shared `documents` table with `source='plan_crawler'`. Chunking and
 embedding happen in a separate pipeline — this tool leaves `indexed_at` NULL
 so the indexing step can pick up unprocessed documents later.
 
 Idempotency: uses the SHA256 hash of the PDF as `source_id`. Re-running
-skips files whose hash already exists under `source='plans'`.
+skips files whose hash already exists under `source='plan_crawler'`.
+
+Skips any directory whose name starts with '_' (e.g. _rejected, _incoming).
 
 Usage:
     uv run --env-file .env python tools/migrate.py [--reupload]
@@ -41,7 +43,7 @@ PDF_BUCKET = os.getenv("SUPABASE_STORAGE_BUCKET", "plans")
 THUMBNAIL_BUCKET = "thumbnails"
 THUMBNAIL_WIDTH = 400
 THUMBNAIL_QUALITY = 80
-SOURCE = "plans"
+SOURCE = "plan_crawler"
 
 
 def generate_thumbnail(pdf_path: Path) -> bytes:
@@ -157,6 +159,7 @@ def upload_document(
     doc_data = {
         "ingest_run_id": ingest_run_id,
         "source": SOURCE,
+        "doc_type": "adaptation_plan",
         "source_id": file_hash,
         "title": title,
         "content_type": "pdf",
@@ -186,7 +189,12 @@ def main(reupload: bool = False) -> None:
         print("   Create the directory or set LOCAL_PDF_DIR in .env")
         return
 
-    pdf_files = list(LOCAL_PDF_DIR.rglob("*.pdf"))
+    pdf_files = []
+    for dirpath, dirnames, filenames in os.walk(LOCAL_PDF_DIR):
+        dirnames[:] = [d for d in dirnames if not d.startswith("_")]
+        for fname in filenames:
+            if fname.lower().endswith(".pdf"):
+                pdf_files.append(Path(dirpath) / fname)
     if not pdf_files:
         print(f"   No PDFs found in {LOCAL_PDF_DIR}")
         return

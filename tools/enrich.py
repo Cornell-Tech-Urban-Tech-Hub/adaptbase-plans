@@ -1,9 +1,9 @@
 """
 Document enrichment tool for adaptbase-plans.
 
-Reads first 10 pages of each PDF, sends text to an LLM, and writes back:
+Reads first 3 pages of each PDF, sends text to an LLM, and writes back:
   - title (updated in the documents.title column)
-  - year, document_type, enriched_at (merged into metadata JSONB)
+  - year, document_type, language, enriched_at (merged into metadata JSONB)
 
 Idempotent: skips docs where metadata.enriched_at is already set unless --force.
 
@@ -34,14 +34,14 @@ load_dotenv()
 _FALLBACK_MODEL = "google.gemini-3-flash-preview"
 DEFAULT_CONCURRENCY = 20
 MAX_TEXT_CHARS = 8000
-DEFAULT_PAGES = 3
+DEFAULT_PAGES = 5
 
 PROMPT_PREFIX = "\n".join(
     [
         "Analyze this climate/urban planning document text (first pages only)."
         " Return ONLY valid JSON with no markdown fences or extra text:",
         '{"title": "<clean descriptive title>", "year": <4-digit int or null>,'
-        ' "document_type": "<type>"}',
+        ' "document_type": "<type>", "language": "<ISO 639-1 code>"}',
         "",
         "document_type values (pick exactly one):",
         '- "plan"        → a forward-looking climate adaptation, resilience,'
@@ -51,6 +51,10 @@ PROMPT_PREFIX = "\n".join(
         '- "report"      → a retrospective report, assessment, inventory,'
         " or evaluation (not forward-looking)",
         '- "other"       → anything else (manual, handbook, guidance, etc.)',
+        "",
+        "language: ISO 639-1 two-letter code for the document's primary language"
+        ' (e.g. "en", "fr", "es", "pt", "ar"). Use "unknown" only if the text'
+        " is entirely unreadable (scanned image with no text).",
         "",
         "Title rules:",
         "- Write a clean, human-readable title"
@@ -114,10 +118,15 @@ def parse_llm_response(content: str) -> dict:
     if doc_type not in valid_types:
         doc_type = "other"
 
+    language = str(data.get("language", "")).lower().strip()
+    if not language or language == "unknown":
+        language = None
+
     return {
         "title": str(data["title"]).strip(),
         "year": year,
         "document_type": doc_type,
+        "language": language,
     }
 
 
@@ -172,6 +181,8 @@ async def enrich_document(
             "document_type": result["document_type"],
             "enriched_at": datetime.now(UTC).isoformat(),
         }
+        if result.get("language"):
+            new_meta["language"] = result["language"]
 
         try:
             supabase.table("documents").update(
@@ -198,7 +209,7 @@ async def run(
         docs = (
             supabase.table("documents")
             .select("id, title, storage_path, metadata")
-            .eq("source", "plans")
+            .eq("source", "plan_crawler")
             .limit(limit)
             .execute()
             .data
@@ -211,7 +222,7 @@ async def run(
             page = (
                 supabase.table("documents")
                 .select("id, title, storage_path, metadata")
-                .eq("source", "plans")
+                .eq("source", "plan_crawler")
                 .range(offset, offset + page_size - 1)
                 .execute()
                 .data
