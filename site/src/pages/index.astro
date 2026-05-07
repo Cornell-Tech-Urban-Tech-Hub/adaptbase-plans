@@ -657,11 +657,12 @@ import FeedbackModal from '../components/FeedbackModal.astro';
     if (currentLang)    query = query.filter('metadata->>language',     'eq', currentLang);
     if (currentYear)    query = query.filter('metadata->>year',         'eq', currentYear);
 
-    const sortAsc = currentSort === 'year-asc' || currentSort === 'title-asc';
     if (currentSort === 'title-asc' || currentSort === 'title-desc') {
-      query = query.order('title', { ascending: sortAsc });
+      query = query.order('title', { ascending: currentSort === 'title-asc' });
+    } else if (currentSort === 'year-asc' || currentSort === 'year-desc') {
+      query = query.order('metadata->>year', { ascending: currentSort === 'year-asc', nullsFirst: false });
     } else {
-      query = query.order('created_at', { ascending: currentSort === 'year-asc' });
+      query = query.order('created_at', { ascending: false });
     }
     query = query.range(from, to);
 
