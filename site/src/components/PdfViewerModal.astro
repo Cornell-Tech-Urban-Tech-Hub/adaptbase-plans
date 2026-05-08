@@ -1,0 +1,407 @@
+---
+---
+
+<div id="pdf-viewer-modal" class="modal" aria-hidden="true" aria-modal="true" role="dialog" aria-label="PDF Viewer">
+  <div class="modal-overlay"></div>
+  <div class="pdf-viewer-content">
+    <div class="pdf-toolbar">
+      <div class="pdf-toolbar-left">
+        <span class="pdf-title" id="pdf-viewer-title"></span>
+      </div>
+      <div class="pdf-toolbar-center">
+        <button class="pdf-nav-btn" id="pdf-prev" aria-label="Previous page">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <span class="pdf-page-info" id="pdf-page-info">Page 1 of 1</span>
+        <button class="pdf-nav-btn" id="pdf-next" aria-label="Next page">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+      <div class="pdf-toolbar-right">
+        <a class="pdf-download-btn" id="pdf-download-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Download PDF">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </a>
+        <button class="pdf-close-btn" id="pdf-close" aria-label="Close viewer">&times;</button>
+      </div>
+    </div>
+    <div class="pdf-viewport" id="pdf-viewport">
+      <div class="pdf-loading" id="pdf-loading">
+        <span class="spinner"></span> Loading PDF…
+      </div>
+      <div class="pdf-error" id="pdf-error" hidden>
+        <p>Failed to load PDF.</p>
+        <a id="pdf-error-link" href="#" target="_blank" rel="noopener noreferrer">Open in new tab</a>
+      </div>
+      <div class="pdf-page-container" id="pdf-page-container">
+        <canvas id="pdf-canvas"></canvas>
+        <div class="pdf-text-layer" id="pdf-text-layer"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { getDocument, GlobalWorkerOptions, TextLayer } from 'pdfjs-dist';
+
+  const PDFJS_VERSION = '5.7.284';
+  GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${PDFJS_VERSION}/build/pdf.worker.min.mjs`;
+
+  const modal = document.getElementById('pdf-viewer-modal')!;
+  const overlay = modal.querySelector('.modal-overlay')!;
+  const closeBtn = document.getElementById('pdf-close')!;
+  const prevBtn = document.getElementById('pdf-prev')!;
+  const nextBtn = document.getElementById('pdf-next')!;
+  const titleEl = document.getElementById('pdf-viewer-title')!;
+  const pageInfoEl = document.getElementById('pdf-page-info')!;
+  const viewport = document.getElementById('pdf-viewport')!;
+  const loadingEl = document.getElementById('pdf-loading')!;
+  const errorEl = document.getElementById('pdf-error')!;
+  const errorLink = document.getElementById('pdf-error-link')! as HTMLAnchorElement;
+  const downloadLink = document.getElementById('pdf-download-link')! as HTMLAnchorElement;
+  const pageContainer = document.getElementById('pdf-page-container')!;
+  const canvas = document.getElementById('pdf-canvas')! as HTMLCanvasElement;
+  const textLayerEl = document.getElementById('pdf-text-layer')!;
+
+  let pdfDoc: any = null;
+  let currentPageNum = 1;
+  let totalPages = 0;
+  let highlightTerms: string[] = [];
+  let rendering = false;
+
+  async function openPdfViewer(pdfUrl: string, pageNumber: number, terms: string[], title?: string) {
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    titleEl.textContent = title || 'Document';
+    downloadLink.href = pdfUrl;
+    errorLink.href = pdfUrl;
+    highlightTerms = terms.map(t => t.toLowerCase());
+    currentPageNum = Math.max(1, pageNumber || 1);
+
+    loadingEl.hidden = false;
+    errorEl.hidden = true;
+    pageContainer.hidden = true;
+
+    try {
+      const loadingTask = getDocument({ url: pdfUrl, cMapUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${PDFJS_VERSION}/cmaps/`, cMapPacked: true });
+      pdfDoc = await loadingTask.promise;
+      totalPages = pdfDoc.numPages;
+      currentPageNum = Math.min(currentPageNum, totalPages);
+      await renderPage(currentPageNum);
+    } catch (err) {
+      loadingEl.hidden = true;
+      errorEl.hidden = false;
+    }
+  }
+
+  async function renderPage(num: number) {
+    if (rendering) return;
+    rendering = true;
+
+    loadingEl.hidden = false;
+    pageContainer.hidden = true;
+
+    try {
+      const page = await pdfDoc.getPage(num);
+      const scale = calculateScale(page);
+      const vp = page.getViewport({ scale });
+
+      canvas.width = vp.width;
+      canvas.height = vp.height;
+      canvas.style.width = `${vp.width}px`;
+      canvas.style.height = `${vp.height}px`;
+
+      const ctx = canvas.getContext('2d')!;
+      await page.render({ canvasContext: ctx, viewport: vp }).promise;
+
+      // Text layer
+      textLayerEl.innerHTML = '';
+      textLayerEl.style.width = `${vp.width}px`;
+      textLayerEl.style.height = `${vp.height}px`;
+
+      const textContent = await page.getTextContent();
+      const textLayer = new TextLayer({
+        textContentSource: textContent,
+        container: textLayerEl,
+        viewport: vp,
+      });
+      await textLayer.render();
+
+      // Highlight search terms in text layer
+      if (highlightTerms.length > 0) {
+        highlightTextLayer();
+      }
+
+      loadingEl.hidden = true;
+      pageContainer.hidden = false;
+      updatePageInfo();
+    } catch {
+      loadingEl.hidden = true;
+      errorEl.hidden = false;
+    } finally {
+      rendering = false;
+    }
+  }
+
+  function calculateScale(page: any): number {
+    const unscaledVp = page.getViewport({ scale: 1 });
+    const maxWidth = viewport.clientWidth - 48;
+    const maxHeight = viewport.clientHeight - 24;
+    const scaleW = maxWidth / unscaledVp.width;
+    const scaleH = maxHeight / unscaledVp.height;
+    return Math.min(scaleW, scaleH, 2.5);
+  }
+
+  function highlightTextLayer() {
+    const spans = textLayerEl.querySelectorAll('span');
+    spans.forEach(span => {
+      const text = span.textContent || '';
+      const lower = text.toLowerCase();
+      let hasMatch = false;
+      for (const term of highlightTerms) {
+        if (term.length > 1 && lower.includes(term)) {
+          hasMatch = true;
+          break;
+        }
+      }
+      if (hasMatch) {
+        span.classList.add('pdf-highlight');
+      }
+    });
+  }
+
+  function updatePageInfo() {
+    pageInfoEl.textContent = `Page ${currentPageNum} of ${totalPages}`;
+    (prevBtn as HTMLButtonElement).disabled = currentPageNum <= 1;
+    (nextBtn as HTMLButtonElement).disabled = currentPageNum >= totalPages;
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    pdfDoc = null;
+    canvas.width = 0;
+    canvas.height = 0;
+    textLayerEl.innerHTML = '';
+  }
+
+  prevBtn.addEventListener('click', () => {
+    if (currentPageNum > 1) {
+      currentPageNum--;
+      renderPage(currentPageNum);
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (currentPageNum < totalPages) {
+      currentPageNum++;
+      renderPage(currentPageNum);
+    }
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', closeModal);
+  document.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('active')) return;
+    if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowLeft' && currentPageNum > 1) { currentPageNum--; renderPage(currentPageNum); }
+    if (e.key === 'ArrowRight' && currentPageNum < totalPages) { currentPageNum++; renderPage(currentPageNum); }
+  });
+
+  (window as any).openPdfViewer = openPdfViewer;
+</script>
+
+<style>
+  #pdf-viewer-modal .pdf-viewer-content {
+    position: fixed;
+    inset: 0;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    background: var(--ink);
+  }
+
+  .pdf-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--sp-3) var(--sp-4);
+    background: var(--ink-2);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    flex-shrink: 0;
+    gap: var(--sp-3);
+  }
+
+  .pdf-toolbar-left,
+  .pdf-toolbar-center,
+  .pdf-toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+  }
+
+  .pdf-toolbar-left { flex: 1; min-width: 0; }
+  .pdf-toolbar-center { flex-shrink: 0; }
+  .pdf-toolbar-right { flex: 1; justify-content: flex-end; }
+
+  .pdf-title {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--white);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .pdf-page-info {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.7);
+    white-space: nowrap;
+  }
+
+  .pdf-nav-btn {
+    background: rgba(255,255,255,0.08);
+    border: none;
+    border-radius: var(--r-md);
+    padding: 6px 8px;
+    color: rgba(255,255,255,0.8);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background var(--dur-fast) var(--ease-standard);
+  }
+
+  .pdf-nav-btn:hover:not(:disabled) {
+    background: rgba(255,255,255,0.16);
+    color: var(--white);
+  }
+
+  .pdf-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  .pdf-download-btn {
+    background: rgba(255,255,255,0.08);
+    border: none;
+    border-radius: var(--r-md);
+    padding: 6px 8px;
+    color: rgba(255,255,255,0.8);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: background var(--dur-fast) var(--ease-standard);
+  }
+
+  .pdf-download-btn:hover {
+    background: rgba(255,255,255,0.16);
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .pdf-close-btn {
+    background: rgba(255,255,255,0.08);
+    border: none;
+    border-radius: var(--r-md);
+    padding: 4px 10px;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: rgba(255,255,255,0.8);
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-standard);
+  }
+
+  .pdf-close-btn:hover {
+    background: rgba(255,255,255,0.16);
+    color: var(--white);
+  }
+
+  .pdf-viewport {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--sp-4);
+  }
+
+  .pdf-loading {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9375rem;
+  }
+
+  .pdf-loading .spinner {
+    border-color: rgba(255,255,255,0.2);
+    border-top-color: var(--white);
+  }
+
+  .pdf-error {
+    text-align: center;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9375rem;
+  }
+
+  .pdf-error a {
+    color: rgba(255,255,255,0.9);
+    text-decoration: underline;
+    margin-top: var(--sp-3);
+    display: inline-block;
+  }
+
+  .pdf-page-container {
+    position: relative;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    line-height: 0;
+  }
+
+  #pdf-canvas {
+    display: block;
+  }
+
+  .pdf-text-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    opacity: 0.3;
+    line-height: 1;
+  }
+
+  .pdf-text-layer :global(span) {
+    position: absolute;
+    white-space: pre;
+    color: transparent;
+    pointer-events: all;
+    cursor: text;
+  }
+
+  .pdf-text-layer :global(span.pdf-highlight) {
+    background: rgba(179, 27, 27, 0.35);
+    border-radius: 2px;
+  }
+
+  #pdf-viewer-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+  }
+
+  #pdf-viewer-modal.active {
+    display: block;
+  }
+
+  #pdf-viewer-modal > .modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+  }
+</style>

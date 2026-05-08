@@ -2,11 +2,13 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import FeedbackModal from '../components/FeedbackModal.astro';
+import PdfViewerModal from '../components/PdfViewerModal.astro';
 ---
 
 <BaseLayout title="Browse Plans">
   <Hero />
   <FeedbackModal />
+  <PdfViewerModal />
 
   <div class="container-wide page-body">
     <!-- Controls: sort + filters on top, search below -->
@@ -50,7 +52,7 @@ import FeedbackModal from '../components/FeedbackModal.astro';
           <input
             type="search"
             id="search-input"
-            placeholder="Search by title, city, or country…"
+            placeholder="Search plan content…"
             autocomplete="off"
           />
           <button class="search-clear" id="search-clear" aria-label="Clear search" hidden>
@@ -399,6 +401,232 @@ import FeedbackModal from '../components/FeedbackModal.astro';
     text-align: center;
   }
 
+  /* ---- SERP (Search Results) ---- */
+  :global(.serp-layout) {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--sp-5);
+  }
+
+  @media (min-width: 900px) {
+    :global(.serp-layout) {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+
+  :global(.serp-sidebar) {
+    position: sticky;
+    top: var(--sp-4);
+    align-self: start;
+  }
+
+  :global(.serp-sidebar-heading) {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--fg-4);
+    margin-bottom: var(--sp-3);
+  }
+
+  :global(.serp-thumbs) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+
+  :global(.sr-thumb-card) {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-2);
+    border-radius: var(--r-md);
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-standard);
+  }
+
+  :global(.sr-thumb-card:hover) {
+    background: var(--bg-2);
+  }
+
+  :global(.sr-thumb-img) {
+    width: 48px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: var(--r-sm);
+    border: 1px solid var(--border-hair);
+    flex-shrink: 0;
+  }
+
+  :global(.sr-thumb-placeholder) {
+    width: 48px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-2);
+    border-radius: var(--r-sm);
+    border: 1px solid var(--border-hair);
+    color: var(--fg-5);
+    flex-shrink: 0;
+  }
+
+  :global(.sr-thumb-label) {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    line-height: 1.35;
+    color: var(--fg-3);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  :global(.search-results) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+
+  :global(.search-result) {
+    background: var(--bg-2);
+    border: 1px solid var(--border-hair);
+    border-radius: var(--r-lg);
+    padding: var(--sp-5);
+    transition: box-shadow var(--dur-fast) var(--ease-standard),
+                border-color var(--dur-fast) var(--ease-standard);
+    cursor: pointer;
+  }
+
+  :global(.search-result:hover) {
+    box-shadow: var(--shadow-2);
+    border-color: var(--border-soft);
+  }
+
+  :global(.sr-header) {
+    margin-bottom: var(--sp-3);
+  }
+
+  :global(.sr-title) {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: var(--sp-1);
+    color: var(--fg-1);
+  }
+
+  :global(.sr-title a) {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  :global(.sr-title a:hover) {
+    color: var(--carnelian);
+    text-decoration: none;
+  }
+
+  :global(.sr-location) {
+    font-size: 0.8125rem;
+    color: var(--fg-4);
+    font-family: var(--font-sans);
+  }
+
+  :global(.sr-excerpts) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+
+  :global(.sr-excerpt) {
+    display: flex;
+    gap: var(--sp-3);
+    align-items: flex-start;
+  }
+
+  :global(.sr-page-badge) {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--carnelian-deep);
+    background: rgba(179, 27, 27, 0.08);
+    padding: 2px 7px;
+    border-radius: var(--r-pill);
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+
+  :global(.sr-excerpt p) {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--fg-3);
+    margin: 0;
+  }
+
+  :global(.sr-excerpt mark) {
+    background: rgba(179, 27, 27, 0.12);
+    color: var(--carnelian-deep);
+    border-radius: 2px;
+    padding: 0 0.15em;
+  }
+
+  :global(.sr-footer) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: var(--sp-3);
+    padding-top: var(--sp-3);
+    border-top: 1px solid var(--border-hair);
+  }
+
+  :global(.sr-meta) {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+  }
+
+  :global(.sr-meta-item) {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--fg-4);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  :global(.sr-meta-sep) {
+    font-size: 0.5rem;
+    color: var(--fg-4);
+    opacity: 0.5;
+  }
+
+  :global(.sr-view-btn) {
+    background: none;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--r-md);
+    padding: 5px 10px;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--fg-3);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-1);
+    transition: background var(--dur-fast) var(--ease-standard),
+                color var(--dur-fast) var(--ease-standard),
+                border-color var(--dur-fast) var(--ease-standard);
+  }
+
+  :global(.sr-view-btn:hover) {
+    background: var(--carnelian);
+    color: var(--white);
+    border-color: var(--carnelian);
+  }
+
   /* ---- Responsive ---- */
   @media (max-width: 900px) {
     .docs-grid {
@@ -483,7 +711,7 @@ import FeedbackModal from '../components/FeedbackModal.astro';
   // Hybrid search state
   let isHybridSearch = false;
   type ChunkInfo = { content: string; page: number | null; vector_rank: number | null; keyword_rank: number | null };
-  const chunkInfoMap = new Map<string, ChunkInfo>();
+  const chunkInfoMap = new Map<string, ChunkInfo[]>();
 
   // Store metadata for cascading city filter
   const cityMap = new Map<string, string[]>(); // iso3 → sorted city names
@@ -710,19 +938,31 @@ import FeedbackModal from '../components/FeedbackModal.astro';
       return;
     }
 
-    // 3. Dedupe by document_id, keep best (first) chunk per doc
+    // 3. Re-rank: boost chunks containing ALL query terms
     isHybridSearch = true;
     chunkInfoMap.clear();
     grid.classList.add('search-mode');
 
-    for (const c of chunks) {
-      if (!chunkInfoMap.has(c.document_id)) {
-        chunkInfoMap.set(c.document_id, {
+    const queryTerms = currentSearch.toLowerCase().split(/\s+/).filter(w => w.length > 1);
+    const reranked = [...chunks].sort((a, b) => {
+      const aLower = a.content.toLowerCase();
+      const bLower = b.content.toLowerCase();
+      const aHits = queryTerms.filter(t => aLower.includes(t)).length;
+      const bHits = queryTerms.filter(t => bLower.includes(t)).length;
+      if (aHits !== bHits) return bHits - aHits;
+      return (a.vector_rank ?? 999) - (b.vector_rank ?? 999);
+    });
+
+    for (const c of reranked) {
+      const existing = chunkInfoMap.get(c.document_id) || [];
+      if (existing.length < 2) {
+        existing.push({
           content: c.content,
           page: c.page_number,
           vector_rank: c.vector_rank,
           keyword_rank: c.keyword_rank,
         });
+        chunkInfoMap.set(c.document_id, existing);
       }
     }
     const topIds = [...chunkInfoMap.keys()].slice(0, 30);
@@ -741,14 +981,31 @@ import FeedbackModal from '../components/FeedbackModal.astro';
     const { data: docs, error: docErr } = await docQuery;
     if (docErr) { showError(); return; }
 
-    // 5. Re-sort by hybrid rank order (match_hybrid already ordered by score)
+    // 5. Re-sort: chunk rank order + geo metadata boost
     const rankOrder = new Map(topIds.map((id, i) => [id, i]));
-    const sorted = ((docs || []) as Document[]).sort(
-      (a, b) => (rankOrder.get(a.id) ?? 999) - (rankOrder.get(b.id) ?? 999)
-    );
+    const sorted = ((docs || []) as Document[]).sort((a, b) => {
+      const aRank = rankOrder.get(a.id) ?? 999;
+      const bRank = rankOrder.get(b.id) ?? 999;
+      const aGeo = geoBoost(a, queryTerms);
+      const bGeo = geoBoost(b, queryTerms);
+      if (aGeo !== bGeo) return bGeo - aGeo;
+      return aRank - bRank;
+    });
 
-    totalCount = sorted.length;
-    renderDocuments(sorted);
+    // 6. Filter out results where no query term appears in chunks or metadata
+    const filtered = sorted.filter(doc => {
+      const chunks = chunkInfoMap.get(doc.id) || [];
+      const haystack = [
+        doc.title,
+        doc.metadata?.city_name,
+        doc.metadata?.country_name,
+        ...chunks.map(c => c.content),
+      ].filter(Boolean).join(' ').toLowerCase();
+      return queryTerms.some(t => haystack.includes(t));
+    });
+
+    totalCount = filtered.length;
+    renderSearchResults(filtered);
     renderStatus();
     renderPagination();
   }
@@ -835,6 +1092,150 @@ import FeedbackModal from '../components/FeedbackModal.astro';
     }
 
     grid.innerHTML = docs.map(doc => cardHtml(doc)).join('');
+  }
+
+  function renderSearchResults(docs: Document[]) {
+    if (docs.length === 0) {
+      grid.innerHTML = `
+        <div class="state-message">
+          <p>No results found for <strong>"${escapeHtml(currentSearch)}"</strong>.</p>
+          <p style="margin-top:0.5em;font-size:0.875rem">Try different keywords or broaden your filters.</p>
+        </div>
+      `;
+      return;
+    }
+
+    const thumbnailsHtml = docs.map(doc => {
+      const pdfUrl = doc.storage_path
+        ? getPublicUrl('plans', doc.storage_path.replace('plans/', ''))
+        : '#';
+      const thumbUrl = doc.thumbnail_path
+        ? getPublicUrl('thumbnails', doc.thumbnail_path.replace('thumbnails/', ''))
+        : '';
+      const chunks = chunkInfoMap.get(doc.id) || [];
+      const firstPage = chunks[0]?.page || 1;
+      const thumb = thumbUrl
+        ? `<img src="${thumbUrl}" alt="" loading="lazy" class="sr-thumb-img"/>`
+        : `<div class="sr-thumb-placeholder"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>`;
+      return `
+        <div class="sr-thumb-card" data-pdf-url="${escapeHtml(pdfUrl)}" data-pdf-page="${firstPage}" data-pdf-title="${escapeHtml(doc.title)}">
+          ${thumb}
+          <span class="sr-thumb-label">${escapeHtml(doc.title.length > 40 ? doc.title.slice(0, 38) + '…' : doc.title)}</span>
+        </div>
+      `;
+    }).join('');
+
+    grid.innerHTML = `
+      <div class="serp-layout">
+        <div class="search-results">${docs.map(doc => searchResultHtml(doc)).join('')}</div>
+        <aside class="serp-sidebar">
+          <h4 class="serp-sidebar-heading">Matching Documents</h4>
+          <div class="serp-thumbs">${thumbnailsHtml}</div>
+        </aside>
+      </div>
+    `;
+
+    // Wire up click handlers for PDF viewer
+    grid.querySelectorAll<HTMLElement>('[data-pdf-url]').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        const pdfUrl = el.dataset.pdfUrl!;
+        const page = parseInt(el.dataset.pdfPage || '1');
+        const title = el.dataset.pdfTitle || '';
+        const terms = currentSearch.toLowerCase().split(/\s+/).filter(w => w.length > 1);
+        (window as any).openPdfViewer(pdfUrl, page, terms, title);
+      });
+    });
+  }
+
+  function searchResultHtml(doc: Document): string {
+    const pdfUrl = doc.storage_path
+      ? getPublicUrl('plans', doc.storage_path.replace('plans/', ''))
+      : '#';
+    const location = [doc.metadata?.city_name, doc.metadata?.country_name].filter(Boolean).join(', ');
+    const langCode = doc.metadata?.language as string | undefined;
+    const language = langCode ? (LANG_LABELS[langCode] ?? langCode.toUpperCase()) : undefined;
+    const year = doc.metadata?.year as number | undefined;
+    const chunks = chunkInfoMap.get(doc.id) || [];
+    const firstPage = chunks[0]?.page || 1;
+
+    const excerptHtml = chunks.map(chunk => {
+      const excerpt = formatExcerpt(chunk.content, currentSearch);
+      const pageLabel = chunk.page ? `p. ${chunk.page}` : 'p. ?';
+      return `
+        <div class="sr-excerpt">
+          <span class="sr-page-badge">${pageLabel}</span>
+          <p>${excerpt}</p>
+        </div>
+      `;
+    }).join('');
+
+    const metaParts = [
+      year     ? `<span class="sr-meta-item">${year}</span>` : '',
+      language ? `<span class="sr-meta-item">${escapeHtml(language)}</span>` : '',
+    ].filter(Boolean).join('<span class="sr-meta-sep">·</span>');
+
+    return `
+      <article class="search-result" data-pdf-url="${escapeHtml(pdfUrl)}" data-pdf-page="${firstPage}" data-pdf-title="${escapeHtml(doc.title)}">
+        <div class="sr-header">
+          <h3 class="sr-title">
+            <a href="#" data-pdf-url="${escapeHtml(pdfUrl)}" data-pdf-page="${firstPage}" data-pdf-title="${escapeHtml(doc.title)}">
+              ${highlightText(doc.title, currentSearch)}
+            </a>
+          </h3>
+          ${location ? `<span class="sr-location">${escapeHtml(location)}</span>` : ''}
+        </div>
+        <div class="sr-excerpts">${excerptHtml}</div>
+        <div class="sr-footer">
+          <div class="sr-meta">${metaParts}</div>
+          <button class="sr-view-btn" data-pdf-url="${escapeHtml(pdfUrl)}" data-pdf-page="${firstPage}" data-pdf-title="${escapeHtml(doc.title)}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            View PDF
+          </button>
+        </div>
+      </article>
+    `;
+  }
+
+  function geoBoost(doc: Document, terms: string[]): number {
+    const haystack = [
+      doc.title,
+      doc.metadata?.city_name,
+      doc.metadata?.country_name,
+    ].filter(Boolean).join(' ').toLowerCase();
+    let score = 0;
+    for (const t of terms) {
+      if (haystack.includes(t)) score++;
+    }
+    return score;
+  }
+
+  function formatExcerpt(content: string, query: string): string {
+    const words = query.toLowerCase().split(/\s+/).filter(w => w.length > 1);
+    const lower = content.toLowerCase();
+    const MAX_LEN = 220;
+
+    // Find the first occurrence of any search term
+    let bestIdx = -1;
+    for (const word of words) {
+      const idx = lower.indexOf(word);
+      if (idx !== -1 && (bestIdx === -1 || idx < bestIdx)) {
+        bestIdx = idx;
+      }
+    }
+
+    let excerpt: string;
+    if (content.length <= MAX_LEN) {
+      excerpt = content;
+    } else if (bestIdx === -1) {
+      excerpt = content.slice(0, MAX_LEN);
+    } else {
+      const start = Math.max(0, bestIdx - 60);
+      const end = Math.min(content.length, start + MAX_LEN);
+      excerpt = (start > 0 ? '…' : '') + content.slice(start, end) + (end < content.length ? '…' : '');
+    }
+
+    return highlightText(excerpt, query);
   }
 
   const LANG_LABELS: Record<string, string> = {
@@ -1059,6 +1460,7 @@ import FeedbackModal from '../components/FeedbackModal.astro';
   new ResizeObserver(() => {
     if (resizeTimer) clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
+      if (isHybridSearch) return;
       const newCols = detectColCount();
       if (newCols !== colCount) {
         currentPage = 1;
