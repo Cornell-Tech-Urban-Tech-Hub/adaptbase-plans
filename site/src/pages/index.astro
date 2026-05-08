@@ -247,6 +247,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     overflow: hidden;
     background: var(--bg-3);
     text-decoration: none;
+    cursor: pointer;
   }
 
   :global(.doc-thumb) {
@@ -1089,6 +1090,17 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     }
 
     grid.innerHTML = docs.map(doc => cardHtml(doc)).join('');
+
+    grid.querySelectorAll<HTMLElement>('[data-pdf-url]').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        const pdfUrl = el.dataset.pdfUrl!;
+        const page = parseInt(el.dataset.pdfPage || '1');
+        const title = el.dataset.pdfTitle || '';
+        const terms = currentSearch.toLowerCase().split(/\s+/).filter(w => w.length > 1);
+        (window as any).openPdfViewer(pdfUrl, page, terms, title);
+      });
+    });
   }
 
   function renderSearchResults(docs: Document[]) {
@@ -1272,10 +1284,10 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
 
     return `
       <article class="doc-card">
-        <a href="${pdfUrl}" target="_blank" rel="noopener noreferrer" class="doc-thumb-wrap">${thumb}</a>
+        <div class="doc-thumb-wrap" data-pdf-url="${escapeHtml(pdfUrl)}" data-pdf-page="1" data-pdf-title="${escapeHtml(doc.title)}">${thumb}</div>
         <div class="doc-body">
           <h3 class="doc-title">
-            <a href="${pdfUrl}" target="_blank" rel="noopener noreferrer">
+            <a href="#" data-pdf-url="${escapeHtml(pdfUrl)}" data-pdf-page="1" data-pdf-title="${escapeHtml(doc.title)}">
               ${currentSearch ? highlightText(doc.title, currentSearch) : escapeHtml(doc.title)}
             </a>
           </h3>
