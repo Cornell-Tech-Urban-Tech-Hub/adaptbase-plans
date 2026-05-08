@@ -18,6 +18,10 @@
         </button>
       </div>
       <div class="pdf-toolbar-right">
+        <div class="pdf-goto">
+          <label for="pdf-goto-input" class="pdf-goto-label">p.</label>
+          <input type="number" id="pdf-goto-input" class="pdf-goto-input" min="1" placeholder="—" aria-label="Go to page" />
+        </div>
         <a class="pdf-download-btn" id="pdf-download-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Download PDF">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         </a>
@@ -61,6 +65,7 @@
   const pageContainer = document.getElementById('pdf-page-container')!;
   const canvas = document.getElementById('pdf-canvas')! as HTMLCanvasElement;
   const textLayerEl = document.getElementById('pdf-text-layer')!;
+  const gotoInput = document.getElementById('pdf-goto-input')! as HTMLInputElement;
 
   let pdfDoc: any = null;
   let currentPageNum = 1;
@@ -115,7 +120,12 @@
       const ctx = canvas.getContext('2d')!;
       await page.render({ canvasContext: ctx, viewport: vp }).promise;
 
-      // Text layer
+      // Show page as soon as canvas is ready — don't wait for text layer
+      loadingEl.hidden = true;
+      pageContainer.hidden = false;
+      updatePageInfo();
+
+      // Text layer builds after page is visible
       textLayerEl.innerHTML = '';
       textLayerEl.style.width = `${vp.width}px`;
       textLayerEl.style.height = `${vp.height}px`;
@@ -128,14 +138,9 @@
       });
       await textLayer.render();
 
-      // Highlight search terms in text layer
       if (highlightTerms.length > 0) {
         highlightTextLayer();
       }
-
-      loadingEl.hidden = true;
-      pageContainer.hidden = false;
-      updatePageInfo();
     } catch {
       loadingEl.hidden = true;
       errorEl.hidden = false;
@@ -173,6 +178,8 @@
 
   function updatePageInfo() {
     pageInfoEl.textContent = `Page ${currentPageNum} of ${totalPages}`;
+    gotoInput.max = String(totalPages);
+    gotoInput.value = String(currentPageNum);
     (prevBtn as HTMLButtonElement).disabled = currentPageNum <= 1;
     (nextBtn as HTMLButtonElement).disabled = currentPageNum >= totalPages;
   }
@@ -198,6 +205,21 @@
     if (currentPageNum < totalPages) {
       currentPageNum++;
       renderPage(currentPageNum);
+    }
+  });
+
+  gotoInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const n = parseInt(gotoInput.value);
+      if (n >= 1 && n <= totalPages && n !== currentPageNum) {
+        currentPageNum = n;
+        renderPage(currentPageNum);
+      }
+      gotoInput.blur();
+    }
+    if (e.key === 'Escape') {
+      gotoInput.value = String(currentPageNum);
+      gotoInput.blur();
     }
   });
 
@@ -244,7 +266,48 @@
 
   .pdf-toolbar-left { flex: 1; min-width: 0; }
   .pdf-toolbar-center { flex-shrink: 0; }
-  .pdf-toolbar-right { flex: 1; justify-content: flex-end; }
+  .pdf-toolbar-right { flex: 1; justify-content: flex-end; gap: var(--sp-3); }
+
+  .pdf-goto {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .pdf-goto-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.45);
+    white-space: nowrap;
+  }
+
+  .pdf-goto-input {
+    width: 48px;
+    padding: 4px 6px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: var(--r-sm);
+    color: var(--white);
+    text-align: center;
+    -moz-appearance: textfield;
+    transition: border-color var(--dur-fast) var(--ease-standard),
+                background var(--dur-fast) var(--ease-standard);
+  }
+
+  .pdf-goto-input::-webkit-outer-spin-button,
+  .pdf-goto-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
+  .pdf-goto-input:focus {
+    outline: none;
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.3);
+  }
 
   .pdf-title {
     font-family: var(--font-sans);
@@ -328,6 +391,13 @@
     align-items: center;
     justify-content: center;
     padding: var(--sp-4);
+  }
+
+  /* Author-side display: flex overrides UA [hidden] display: none — fix it explicitly */
+  .pdf-loading[hidden],
+  .pdf-error[hidden],
+  .pdf-page-container[hidden] {
+    display: none !important;
   }
 
   .pdf-loading {
