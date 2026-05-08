@@ -6,32 +6,44 @@
   <div class="modal-content">
     <button class="modal-close" aria-label="Close">&times;</button>
 
-    <h2>About Adaptbase Plans</h2>
+    <h2>About this archive</h2>
 
     <div class="about-text">
-      <p>
-        This collection provides open access to planning documents, zoning regulations, and policy frameworks
-        from cities around the world, supporting climate adaptation research and urban resilience planning.
+      <p class="lead">
+        AdaptBase Plans is an open archive of city-level climate adaptation and urban resilience plans
+        from around the world — assembled to make it easier for researchers, planners, and policymakers
+        to find, compare, and learn from what cities are actually doing to prepare for climate change.
       </p>
 
-      <h3>Technology</h3>
+      <h3>What's in it</h3>
       <p>
-        The archive uses hybrid search combining semantic embeddings and keyword matching to help researchers
-        find relevant passages across thousands of planning documents. All PDFs are chunked and indexed using
-        vector embeddings for semantic search.
+        The archive focuses on official plans adopted by city and municipal governments: climate action plans,
+        resilience strategies, heat and flood adaptation plans, and similar documents. We deliberately exclude
+        national adaptation plans and purely mitigation-focused documents to keep the scope tight and useful.
+        Plans are drawn from cities across every region of the world, with a particular emphasis on the
+        Global South, where planning capacity and document accessibility are often uneven.
       </p>
 
-      <h3>Part of Adaptbase</h3>
+      <h3>How it works</h3>
       <p>
-        This archive is part of the <a href="https://adaptbase.us" target="_blank" rel="noopener noreferrer">Adaptbase</a> project,
-        a knowledge base for climate adaptation research and urban resilience planning.
+        Documents are discovered through automated web research, reviewed for relevance, and indexed so you
+        can search across their full text — not just titles. Search combines keyword matching with semantic
+        understanding, so a query like "managed retreat from coastal flooding" will surface relevant passages
+        even when the document uses different phrasing.
       </p>
 
-      <h3>Open Source</h3>
+      <h3>How to help</h3>
       <p>
-        Built with <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a>,
-        <a href="https://supabase.com" target="_blank" rel="noopener noreferrer">Supabase</a>, and
-        <a href="https://github.com/pgvector/pgvector" target="_blank" rel="noopener noreferrer">pgvector</a>.
+        This archive is incomplete and imperfect. If you find a plan that shouldn't be here, a document
+        that's miscategorized, or metadata that's wrong — use the flag button on any plan card to let us
+        know. If you know of a city-level plan that's missing, we'd love to hear from you.
+      </p>
+
+      <h3>Part of AdaptBase</h3>
+      <p>
+        This archive is one piece of <a href="https://www.adaptbase.us" target="_blank" rel="noopener noreferrer">AdaptBase</a>,
+        a broader knowledge base for climate adaptation research built by the
+        <a href="https://urban.tech.cornell.edu/" target="_blank" rel="noopener noreferrer">Urban Tech Hub at Cornell Tech</a>.
       </p>
     </div>
   </div>
@@ -54,68 +66,83 @@
   .modal-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.45);
     backdrop-filter: blur(4px);
   }
 
   .modal-content {
     position: relative;
-    background: white;
-    border-radius: var(--radius-md);
-    padding: var(--space-8);
-    max-width: 600px;
-    max-height: 80vh;
+    background: var(--bg-1);
+    border-radius: var(--r-lg);
+    padding: var(--sp-6);
+    width: min(560px, calc(100vw - var(--sp-6)));
+    max-height: 88vh;
     overflow-y: auto;
-    margin: var(--space-4);
-    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    box-shadow: var(--shadow-3);
   }
 
   .modal-close {
     position: absolute;
-    top: var(--space-4);
-    right: var(--space-4);
+    top: var(--sp-4);
+    right: var(--sp-4);
     background: transparent;
     border: none;
-    font-size: 2rem;
+    font-size: 1.5rem;
     line-height: 1;
-    color: var(--gray-600);
+    color: var(--fg-4);
     cursor: pointer;
-    transition: color 0.2s;
-    padding: 0;
+    padding: 4px;
     width: 2rem;
     height: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: var(--r-md);
+    transition: background var(--dur-fast) var(--ease-standard),
+                color var(--dur-fast) var(--ease-standard);
   }
 
   .modal-close:hover {
-    color: var(--gray-900);
+    background: var(--bg-3);
+    color: var(--fg-1);
   }
 
-  .modal-content h2 {
-    margin-top: 0;
-    margin-bottom: var(--space-6);
-    color: var(--brand);
-  }
-
-  .modal-content h3 {
+  h2 {
     font-size: 1.125rem;
-    margin-top: var(--space-6);
-    margin-bottom: var(--space-3);
+    margin-bottom: var(--sp-5);
+    padding-right: var(--sp-7);
+    color: var(--fg-1);
+  }
+
+  h3 {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--fg-1);
+    margin-top: var(--sp-6);
+    margin-bottom: var(--sp-2);
+  }
+
+  .about-text .lead {
+    font-size: 0.9375rem;
+    color: var(--fg-1);
+    line-height: 1.7;
+    margin-bottom: 0;
   }
 
   .about-text p {
-    color: var(--gray-700);
+    font-size: 0.9rem;
+    color: var(--fg-3);
     line-height: 1.7;
+    margin: 0;
   }
 
   .about-text a {
-    color: var(--brand);
+    color: var(--carnelian);
     font-weight: 500;
+    text-decoration: none;
   }
 
   .about-text a:hover {
-    color: var(--brand-dark);
+    text-decoration: underline;
   }
 </style>
