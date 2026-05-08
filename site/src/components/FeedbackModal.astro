@@ -5,7 +5,13 @@
   <div class="modal-overlay"></div>
   <div class="modal-content">
     <button class="modal-close" aria-label="Close">&times;</button>
-    <h2 id="feedback-modal-title">Report a problem</h2>
+    <div class="modal-header">
+      <svg class="header-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      <div>
+        <h2 id="feedback-modal-title">Report a problem</h2>
+        <p class="modal-desc">Found an error or omission? Use this tool to help us keep our records accurate.</p>
+      </div>
+    </div>
 
     <div class="feedback-kind-toggle">
       <label class="kind-option">
@@ -14,17 +20,50 @@
       </label>
       <label class="kind-option">
         <input type="radio" name="feedback-kind" value="metadata" />
-        <span>Correct metadata</span>
+        <span>Plan information correction</span>
       </label>
     </div>
 
     <div id="feedback-remove-fields">
-      <label class="field-label" for="feedback-reason">Why should this be removed?</label>
-      <textarea id="feedback-reason" rows="4" placeholder="e.g. Not a climate plan, duplicate entry, link is broken…"></textarea>
+      <p class="field-label">Why should this be removed?</p>
+      <div class="remove-reasons">
+        <label class="reason-option">
+          <input type="radio" name="remove-reason" value="not_city_level" />
+          <span>Not a city-level plan</span>
+          <span class="reason-hint">e.g. national, regional, or sub-national plan</span>
+        </label>
+        <label class="reason-option">
+          <input type="radio" name="remove-reason" value="not_adaptation" />
+          <span>Not an adaptation or resilience plan</span>
+          <span class="reason-hint">e.g. mitigation, transportation, or general strategy</span>
+        </label>
+        <label class="reason-option">
+          <input type="radio" name="remove-reason" value="duplicate" />
+          <span>Duplicate entry</span>
+          <span class="reason-hint">Same document appears more than once</span>
+        </label>
+        <label class="reason-option">
+          <input type="radio" name="remove-reason" value="broken_link" />
+          <span>Broken or inaccessible link</span>
+          <span class="reason-hint">PDF cannot be opened or downloaded</span>
+        </label>
+        <label class="reason-option">
+          <input type="radio" name="remove-reason" value="other" />
+          <span>Other</span>
+        </label>
+      </div>
+      <div id="remove-other-wrap" hidden>
+        <label class="field-label" for="feedback-reason">Please describe</label>
+        <textarea id="feedback-reason" rows="3" placeholder="Tell us more…"></textarea>
+      </div>
     </div>
 
     <div id="feedback-metadata-fields" hidden>
       <p class="field-hint">Leave fields blank to keep them as-is.</p>
+      <div class="field-group">
+        <label class="field-label" for="fb-title">Plan title</label>
+        <input type="text" id="fb-title" placeholder="e.g. Cape Town Climate Action Plan 2040" />
+      </div>
       <div class="meta-grid">
         <div class="field-group">
           <label class="field-label" for="fb-city">City</label>
@@ -35,12 +74,12 @@
           <input type="text" id="fb-country" placeholder="e.g. South Africa" />
         </div>
         <div class="field-group">
-          <label class="field-label" for="fb-language">Language</label>
-          <input type="text" id="fb-language" placeholder="e.g. EN" />
+          <label class="field-label" for="fb-year">Publication year</label>
+          <input type="text" id="fb-year" placeholder="e.g. 2023" inputmode="numeric" />
         </div>
         <div class="field-group">
-          <label class="field-label" for="fb-year">Year</label>
-          <input type="text" id="fb-year" placeholder="e.g. 2023" inputmode="numeric" />
+          <label class="field-label" for="fb-language">Language</label>
+          <input type="text" id="fb-language" placeholder="e.g. EN" />
         </div>
       </div>
       <label class="field-label" for="fb-meta-reason">Additional notes (optional)</label>
@@ -66,15 +105,17 @@
   const supabaseKey  = import.meta.env.PUBLIC_SUPABASE_ANON_KEY as string;
   const supabase     = createClient(supabaseUrl, supabaseKey);
 
-  const modal        = document.getElementById('feedback-modal')!;
-  const overlay      = modal.querySelector('.modal-overlay')!;
-  const closeBtn     = modal.querySelector('.modal-close')!;
-  const cancelBtn    = document.getElementById('feedback-cancel')!;
-  const submitBtn    = document.getElementById('feedback-submit')!;
-  const removeFields = document.getElementById('feedback-remove-fields')!;
-  const metaFields   = document.getElementById('feedback-metadata-fields')!;
-  const successEl    = document.getElementById('feedback-success')!;
-  const kindInputs   = modal.querySelectorAll<HTMLInputElement>('input[name="feedback-kind"]');
+  const modal          = document.getElementById('feedback-modal')!;
+  const overlay        = modal.querySelector('.modal-overlay')!;
+  const closeBtn       = modal.querySelector('.modal-close')!;
+  const cancelBtn      = document.getElementById('feedback-cancel')!;
+  const submitBtn      = document.getElementById('feedback-submit')!;
+  const removeFields   = document.getElementById('feedback-remove-fields')!;
+  const metaFields     = document.getElementById('feedback-metadata-fields')!;
+  const successEl      = document.getElementById('feedback-success')!;
+  const removeOtherWrap = document.getElementById('remove-other-wrap')!;
+  const kindInputs     = modal.querySelectorAll<HTMLInputElement>('input[name="feedback-kind"]');
+  const removeReasonInputs = modal.querySelectorAll<HTMLInputElement>('input[name="remove-reason"]');
 
   let currentDocId: string | null = null;
 
@@ -85,8 +126,10 @@
     (modal.querySelector<HTMLInputElement>('input[value="remove"]'))!.checked = true;
     removeFields.hidden = false;
     metaFields.hidden = true;
+    removeOtherWrap.hidden = true;
+    modal.querySelectorAll<HTMLInputElement>('input[name="remove-reason"]').forEach(r => r.checked = false);
     (document.getElementById('feedback-reason') as HTMLTextAreaElement).value = '';
-    ['fb-city','fb-country','fb-language','fb-year','fb-meta-reason'].forEach(id => {
+    ['fb-title','fb-city','fb-country','fb-language','fb-year','fb-meta-reason'].forEach(id => {
       (document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement).value = '';
     });
     modal.classList.add('active');
@@ -106,6 +149,12 @@
     });
   });
 
+  removeReasonInputs.forEach(input => {
+    input.addEventListener('change', () => {
+      removeOtherWrap.hidden = input.value !== 'other';
+    });
+  });
+
   submitBtn.addEventListener('click', async () => {
     if (!currentDocId) return;
 
@@ -115,8 +164,14 @@
     let suggested: Record<string, string | number> | null = null;
 
     if (kind === 'remove') {
-      reason = (document.getElementById('feedback-reason') as HTMLTextAreaElement).value.trim() || null;
+      const selectedReason = modal.querySelector<HTMLInputElement>('input[name="remove-reason"]:checked');
+      if (selectedReason?.value === 'other') {
+        reason = (document.getElementById('feedback-reason') as HTMLTextAreaElement).value.trim() || null;
+      } else {
+        reason = selectedReason?.value ?? null;
+      }
     } else {
+      const title    = (document.getElementById('fb-title') as HTMLInputElement).value.trim();
       const city     = (document.getElementById('fb-city') as HTMLInputElement).value.trim();
       const country  = (document.getElementById('fb-country') as HTMLInputElement).value.trim();
       const language = (document.getElementById('fb-language') as HTMLInputElement).value.trim();
@@ -125,6 +180,7 @@
       reason         = (document.getElementById('fb-meta-reason') as HTMLTextAreaElement).value.trim() || null;
 
       suggested = {};
+      if (title)    suggested.title    = title;
       if (city)     suggested.city     = city;
       if (country)  suggested.country  = country;
       if (language) suggested.language = language;
@@ -224,10 +280,29 @@
     color: var(--fg-1);
   }
 
-  h2 {
-    font-size: 1.125rem;
+  .modal-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--sp-3);
     margin-bottom: var(--sp-5);
     padding-right: var(--sp-7);
+  }
+
+  .header-icon {
+    flex-shrink: 0;
+    margin-top: 3px;
+    color: var(--fg-3);
+  }
+
+  h2 {
+    font-size: 1.125rem;
+    margin-bottom: var(--sp-1);
+  }
+
+  .modal-desc {
+    font-size: 0.8125rem;
+    color: var(--fg-4);
+    margin: 0;
   }
 
   .feedback-kind-toggle {
@@ -250,6 +325,59 @@
     width: 1rem;
     height: 1rem;
     cursor: pointer;
+  }
+
+  .remove-reasons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+    margin-top: var(--sp-2);
+    margin-bottom: var(--sp-3);
+  }
+
+  .reason-option {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: var(--sp-2);
+    row-gap: 0;
+    align-items: baseline;
+    cursor: pointer;
+    padding: var(--sp-2) var(--sp-3);
+    border-radius: var(--r-md);
+    border: 1px solid transparent;
+    transition: background var(--dur-fast) var(--ease-standard),
+                border-color var(--dur-fast) var(--ease-standard);
+  }
+
+  .reason-option:hover {
+    background: var(--bg-2);
+  }
+
+  .reason-option input[type="radio"] {
+    grid-row: 1 / 3;
+    grid-column: 1;
+    align-self: center;
+    accent-color: var(--carnelian);
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 0;
+  }
+
+  .reason-option > span:nth-child(2) {
+    grid-row: 1;
+    grid-column: 2;
+    font-size: 0.9375rem;
+    color: var(--fg-1);
+  }
+
+  .reason-hint {
+    grid-row: 2;
+    grid-column: 2;
+    font-size: 0.75rem;
+    color: var(--fg-4);
   }
 
   .field-label {
@@ -303,8 +431,12 @@
   }
 
   .feedback-success {
-    display: flex;
+    display: none;
     align-items: center;
+  }
+
+  .feedback-success:not([hidden]) {
+    display: flex;
     gap: var(--sp-2);
     color: var(--chlorophyll);
     font-size: 0.9375rem;
