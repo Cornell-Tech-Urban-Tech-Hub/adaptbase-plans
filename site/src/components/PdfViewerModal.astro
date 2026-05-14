@@ -25,6 +25,9 @@
         <a class="pdf-download-btn" id="pdf-download-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Download PDF">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         </a>
+        <button class="pdf-report-btn" id="pdf-report" aria-label="Report a problem" title="Report a problem" hidden>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 6.75a5.25 5.25 0 0 1 6.775-5.025.75.75 0 0 1 .313 1.248l-3.32 3.319c.063.475.276.903.641 1.193.363.287.849.394 1.408.237l3.32-3.32a.75.75 0 0 1 1.248.313 5.25 5.25 0 0 1-5.472 6.756c-1.018-.086-1.87.1-2.309.634L7.344 21.3A3.298 3.298 0 1 1 2.7 16.657l8.684-7.151c.533-.44.72-1.291.634-2.309z" clip-rule="evenodd"/></svg>
+        </button>
         <button class="pdf-close-btn" id="pdf-close" aria-label="Close viewer">&times;</button>
       </div>
     </div>
@@ -66,21 +69,25 @@
   const canvas = document.getElementById('pdf-canvas')! as HTMLCanvasElement;
   const textLayerEl = document.getElementById('pdf-text-layer')!;
   const gotoInput = document.getElementById('pdf-goto-input')! as HTMLInputElement;
+  const reportBtn = document.getElementById('pdf-report')! as HTMLButtonElement;
 
   let pdfDoc: any = null;
   let currentPageNum = 1;
   let totalPages = 0;
   let highlightTerms: string[] = [];
   let rendering = false;
+  let currentDocId: string | null = null;
 
-  async function openPdfViewer(pdfUrl: string, pageNumber: number, terms: string[], title?: string) {
+  async function openPdfViewer(pdfUrl: string, pageNumber: number, terms: string[], title?: string, docId?: string | null) {
     modal.classList.add('active');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 
+    currentDocId = docId || null;
     titleEl.textContent = title || 'Document';
     downloadLink.href = pdfUrl;
     errorLink.href = pdfUrl;
+    reportBtn.hidden = !currentDocId;
     highlightTerms = terms.map(t => t.toLowerCase());
     currentPageNum = Math.max(1, pageNumber || 1);
 
@@ -220,6 +227,13 @@
     if (e.key === 'Escape') {
       gotoInput.value = String(currentPageNum);
       gotoInput.blur();
+    }
+  });
+
+  reportBtn.addEventListener('click', () => {
+    if (currentDocId && (window as any).openFeedbackModal) {
+      closeModal();
+      (window as any).openFeedbackModal(currentDocId);
     }
   });
 
@@ -365,6 +379,28 @@
     background: rgba(255,255,255,0.16);
     color: var(--white);
     text-decoration: none;
+  }
+
+  .pdf-report-btn {
+    background: rgba(255,255,255,0.08);
+    border: none;
+    border-radius: var(--r-md);
+    padding: 6px 8px;
+    color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background var(--dur-fast) var(--ease-standard),
+                color var(--dur-fast) var(--ease-standard);
+  }
+
+  .pdf-report-btn:hover {
+    background: rgba(255,255,255,0.16);
+    color: rgba(255,255,255,0.9);
+  }
+
+  .pdf-report-btn[hidden] {
+    display: none;
   }
 
   .pdf-close-btn {
