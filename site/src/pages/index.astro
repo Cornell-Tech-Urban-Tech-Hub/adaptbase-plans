@@ -890,7 +890,19 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     } else {
       query = query.order('created_at', { ascending: false });
     }
-    query = query.range(from, to);
+
+    if (currentSort === 'shuffle') {
+      // First get total count, then pick a random offset
+      const { count: total } = await supabase
+        .from('documents')
+        .select('id', { count: 'exact', head: true })
+        .eq('doc_type', 'adaptation_plan');
+      const maxOffset = Math.max(0, (total || 0) - getPerPage());
+      const randOffset = Math.floor(Math.random() * (maxOffset + 1));
+      query = query.range(randOffset, randOffset + getPerPage() - 1);
+    } else {
+      query = query.range(from, to);
+    }
 
     const { data, error, count } = await query;
     if (error) { showError(); return; }
