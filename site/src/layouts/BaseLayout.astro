@@ -33,6 +33,7 @@ const { title, description = 'Searchable archive of urban climate adaptation and
         <span class="brand-name">Plans</span>
       </a>
       <div class="header-actions">
+        <button class="btn btn-primary btn-sm" id="submit-plan-button">Submit a Plan</button>
         <button class="btn-ghost" id="about-button">About</button>
       </div>
     </header>
@@ -58,6 +59,7 @@ const { title, description = 'Searchable archive of urban climate adaptation and
 
     <script>
       const aboutButton = document.getElementById('about-button');
+      const submitPlanButton = document.getElementById('submit-plan-button');
       const modal = document.getElementById('about-modal');
       const modalClose = modal?.querySelector('.modal-close');
       const modalOverlay = modal?.querySelector('.modal-overlay');
@@ -65,6 +67,10 @@ const { title, description = 'Searchable archive of urban climate adaptation and
       aboutButton?.addEventListener('click', () => {
         modal?.classList.add('active');
         modal?.setAttribute('aria-hidden', 'false');
+      });
+
+      submitPlanButton?.addEventListener('click', () => {
+        (window as any).openSubmitPlanModal?.();
       });
 
       const closeModal = () => {
@@ -342,6 +348,12 @@ const { title, description = 'Searchable archive of urban climate adaptation and
     line-height: 1;
   }
 
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+  }
+
   /* ============================================================
      BUTTONS
      ============================================================ */
@@ -409,6 +421,11 @@ const { title, description = 'Searchable archive of urban climate adaptation and
     background: rgba(18, 20, 23, 0.06);
     color: var(--fg-1);
     text-decoration: none;
+  }
+
+  .btn-sm {
+    padding: 7px 12px;
+    font-size: 0.8125rem;
   }
 
   /* ============================================================
