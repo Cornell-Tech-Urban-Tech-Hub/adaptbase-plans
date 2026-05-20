@@ -922,11 +922,19 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     }
 
     if (currentSort === 'shuffle') {
-      // First get total count, then pick a random offset
-      const { count: total } = await supabase
+      // First get total count WITH FILTERS, then pick a random offset
+      let countQuery = supabase
         .from('documents')
         .select('id', { count: 'exact', head: true })
         .eq('doc_type', 'adaptation_plan');
+
+      // Apply same filters as main query
+      if (currentCountry) countQuery = countQuery.filter('metadata->>country_iso3', 'eq', currentCountry);
+      if (currentCity)    countQuery = countQuery.filter('metadata->>city_name',    'eq', currentCity);
+      if (currentLang)    countQuery = countQuery.filter('metadata->>language',     'eq', currentLang);
+      if (currentYear)    countQuery = countQuery.filter('metadata->>year',         'eq', currentYear);
+
+      const { count: total } = await countQuery;
       const maxOffset = Math.max(0, (total || 0) - getPerPage());
       const randOffset = Math.floor(Math.random() * (maxOffset + 1));
       query = query.range(randOffset, randOffset + getPerPage() - 1);
