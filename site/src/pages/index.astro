@@ -1204,7 +1204,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
         ? getPublicUrl('plans', doc.storage_path.replace('plans/', ''))
         : '#';
       const thumbUrl = doc.thumbnail_path
-        ? getPublicUrl('thumbnails', doc.thumbnail_path.replace('thumbnails/', ''))
+        ? getPublicUrl('plans', doc.thumbnail_path.replace('plans/', ''))
         : '';
       const chunks = chunkInfoMap.get(doc.id) || [];
       const firstPage = chunks[0]?.page || 1;
@@ -1358,7 +1358,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
       ? getPublicUrl('plans', doc.storage_path.replace('plans/', ''))
       : '#';
     const thumbUrl = doc.thumbnail_path
-      ? getPublicUrl('thumbnails', doc.thumbnail_path.replace('thumbnails/', ''))
+      ? getPublicUrl('plans', doc.thumbnail_path.replace('plans/', ''))
       : '';
     const location = [doc.metadata?.city_name, doc.metadata?.country_name].filter(Boolean).join(', ');
     const langCode = doc.metadata?.language as string | undefined;
