@@ -42,9 +42,6 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
             <select id="filter-year" class="filter-select" aria-label="Filter by year">
               <option value="">All years</option>
             </select>
-            <select id="filter-doctype" class="filter-select" aria-label="Filter by document type">
-              <option value="">All types</option>
-            </select>
           </div>
         </div>
         <button class="clear-all" id="clear-all" hidden>Clear all</button>
@@ -732,7 +729,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
   let currentCity = '';
   let currentLang = '';
   let currentYear = '';
-  let currentDocType = '';
+
   let currentSort = 'shuffle';
   let totalCount = 0;
   let filterOptionsLoaded = false;
@@ -753,7 +750,6 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
   const citySelect    = document.getElementById('filter-city')    as HTMLSelectElement;
   const langSelect    = document.getElementById('filter-lang')    as HTMLSelectElement;
   const yearSelect    = document.getElementById('filter-year')    as HTMLSelectElement;
-  const docTypeSelect = document.getElementById('filter-doctype') as HTMLSelectElement;
   const sortSelect    = document.getElementById('sort-select')    as HTMLSelectElement;
   const grid          = document.getElementById('docs-grid')       as HTMLDivElement;
   const statusEl      = document.getElementById('results-status')  as HTMLDivElement;
@@ -764,7 +760,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
   }
 
   function syncClearAll() {
-    clearAllBtn.hidden = !(currentSearch || currentCountry || currentCity || currentLang || currentYear || currentDocType);
+    clearAllBtn.hidden = !(currentSearch || currentCountry || currentCity || currentLang || currentYear);
   }
 
   /* ── URL state ──────────────────────────────────────────────── */
@@ -776,7 +772,6 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     currentCity    = p.get('city')    || '';
     currentLang    = p.get('lang')    || '';
     currentYear    = p.get('year')    || '';
-    currentDocType = p.get('doctype') || '';
     currentSort    = p.get('sort')    || 'shuffle';
     currentPage    = parseInt(p.get('page') || '1');
   }
@@ -788,7 +783,6 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     if (currentCity)             p.set('city',    currentCity);
     if (currentLang)             p.set('lang',    currentLang);
     if (currentYear)             p.set('year',    currentYear);
-    if (currentDocType)          p.set('doctype', currentDocType);
     if (currentSort !== 'shuffle') p.set('sort',  currentSort);
     if (currentPage > 1)         p.set('page',    String(currentPage));
     const qs = p.toString();
@@ -808,7 +802,6 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     // Extract unique countries and build city map
     const countries = new Map<string, string>(); // iso3 → name
     const langSet   = new Set<string>();
-    const docTypeSet = new Set<string>();
 
     for (const { metadata: m } of data) {
       if (!m) continue;
@@ -821,7 +814,6 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
         }
       }
       if (m.language) langSet.add(m.language);
-      if (m.document_type) docTypeSet.add(m.document_type);
     }
 
     // Sort city lists
@@ -870,21 +862,12 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
       yearSelect.appendChild(opt);
     }
 
-    // Populate document type select
-    for (const docType of [...docTypeSet].sort()) {
-      const opt = document.createElement('option');
-      opt.value = docType;
-      opt.textContent = docType;
-      docTypeSelect.appendChild(opt);
-    }
-
     // Restore state from URL
     countrySelect.value = currentCountry;
     if (currentCountry) repopulateCitySelect(currentCountry);
     citySelect.value = currentCity;
     langSelect.value = currentLang;
     yearSelect.value = currentYear;
-    docTypeSelect.value = currentDocType;
     sortSelect.value = currentSort;
 
     filterOptionsLoaded = true;
@@ -930,7 +913,6 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     if (currentCity)    query = query.filter('metadata->>city_name',    'eq', currentCity);
     if (currentLang)    query = query.filter('metadata->>language',     'eq', currentLang);
     if (currentYear)    query = query.filter('metadata->>year',         'eq', currentYear);
-    if (currentDocType) query = query.filter('metadata->>document_type', 'eq', currentDocType);
 
     if (currentSort === 'title-asc' || currentSort === 'title-desc') {
       query = query.order('title', { ascending: currentSort === 'title-asc' });
@@ -952,7 +934,6 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
       if (currentCity)    countQuery = countQuery.filter('metadata->>city_name',    'eq', currentCity);
       if (currentLang)    countQuery = countQuery.filter('metadata->>language',     'eq', currentLang);
       if (currentYear)    countQuery = countQuery.filter('metadata->>year',         'eq', currentYear);
-      if (currentDocType) countQuery = countQuery.filter('metadata->>document_type', 'eq', currentDocType);
 
       const { count: total } = await countQuery;
       const maxOffset = Math.max(0, (total || 0) - getPerPage());
@@ -1120,7 +1101,6 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     if (currentCity)    query = query.filter('metadata->>city_name',    'eq', currentCity);
     if (currentLang)    query = query.filter('metadata->>language',     'eq', currentLang);
     if (currentYear)    query = query.filter('metadata->>year',         'eq', currentYear);
-    if (currentDocType) query = query.filter('metadata->>document_type', 'eq', currentDocType);
 
     query = query.order('created_at', { ascending: false }).range(from, to);
 
@@ -1513,14 +1493,6 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     await loadDocuments();
   });
 
-  docTypeSelect.addEventListener('change', async () => {
-    currentDocType = docTypeSelect.value;
-    currentPage = 1;
-    pushUrl();
-    syncClearAll();
-    await loadDocuments();
-  });
-
   sortSelect.addEventListener('change', async () => {
     currentSort = sortSelect.value;
     currentPage = 1;
@@ -1534,9 +1506,8 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     citySelect.value = '';
     langSelect.value = '';
     yearSelect.value = '';
-    docTypeSelect.value = '';
     repopulateCitySelect('');
-    currentSearch = currentCountry = currentCity = currentLang = currentYear = currentDocType = '';
+    currentSearch = currentCountry = currentCity = currentLang = currentYear = '';
     currentPage = 1;
     pushUrl();
     syncClearButton();
@@ -1556,7 +1527,6 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
       repopulateCitySelect(currentCountry);
       citySelect.value = currentCity;
       yearSelect.value = currentYear;
-      docTypeSelect.value = currentDocType;
     }
     langSelect.value = currentLang;
     sortSelect.value = currentSort;
