@@ -339,11 +339,20 @@ const { title, description = 'Searchable archive of urban climate adaptation and
     z-index: 50;
   }
 
+  /* The wordmark and site name at search.adaptbase.us's size, set once
+     here so the two scale together (2026-10-08). */
   .brand-link {
     display: flex;
     align-items: center;
     gap: var(--sp-3);
     text-decoration: none;
+    font-size: clamp(1.7rem, 2.5vw, 2.4rem);
+  }
+
+  @media (max-width: 767px) {
+    .brand-link {
+      font-size: 1.45rem;
+    }
   }
 
   .brand-link:hover {
@@ -423,7 +432,7 @@ const { title, description = 'Searchable archive of urban climate adaptation and
      tight in ink, then the site's name in regular grey. */
   .brand-eyebrow {
     font-family: var(--font-sans);
-    font-size: 1.6rem;
+    font-size: 1em;
     font-weight: 700;
     letter-spacing: -0.035em;
     line-height: 1;
@@ -433,14 +442,14 @@ const { title, description = 'Searchable archive of urban climate adaptation and
   .brand-divider {
     display: block;
     width: 1px;
-    height: 24px;
+    height: 0.8em;
     background: var(--border-soft);
   }
 
   .brand-name {
     font-family: var(--font-sans);
     font-weight: 400;
-    font-size: 1.6rem;
+    font-size: 1em;
     color: var(--fg-3);
     letter-spacing: -0.025em;
     line-height: 1;
