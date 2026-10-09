@@ -178,7 +178,7 @@ adaptbase-plans/
 │   │   │   └── search.astro    # Search UI
 │   │   ├── components/
 │   │   └── styles/
-│   │       └── tokens.css      # Design system from ontology
+│   │       └── tokens.css      # unused; the live tokens are in layouts/BaseLayout.astro
 │   ├── public/
 │   │   └── CNAME               # plans.adaptbase.us
 │   └── package.json
@@ -204,7 +204,7 @@ adaptbase-plans/
 - **Page-Level Linking**: Search results link directly to specific pages in PDFs
 - **Idempotent Upload**: SHA256-based deduplication prevents re-uploading unchanged files
 - **Thumbnail Generation**: Automatic first-page previews for gallery view
-- **Themed UI**: Matches adaptbase ontology design system
+- **Themed UI**: the AdaptBase sites' shared look (white ground, Helvetica, ink controls, red for emphasis), set in `site/src/layouts/BaseLayout.astro`
 
 ## Custom Domain Setup
 

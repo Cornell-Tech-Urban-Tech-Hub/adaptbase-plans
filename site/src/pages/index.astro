@@ -296,8 +296,9 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
   }
 
   :global(.doc-title a:hover) {
-    color: var(--carnelian);
-    text-decoration: none;
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--border-firm);
   }
 
   :global(.doc-location) {
@@ -347,13 +348,13 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--carnelian);
+    color: var(--concrete);
     cursor: pointer;
     transition: color var(--dur-fast) var(--ease-standard);
   }
 
   :global(.doc-report-btn:hover) {
-    color: var(--carnelian-bright);
+    color: var(--carnelian);
   }
 
   /* ---- Empty / loading states ---- */
@@ -519,8 +520,9 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
   }
 
   :global(.sr-title a:hover) {
-    color: var(--carnelian);
-    text-decoration: none;
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--border-firm);
   }
 
   :global(.sr-location) {
@@ -548,7 +550,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
 
   :global(.match-keyword) {
     color: var(--carnelian-deep);
-    background: rgba(179, 27, 27, 0.08);
+    background: rgba(215, 38, 61, 0.08);
   }
 
   :global(.match-hybrid) {
@@ -575,7 +577,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     font-weight: 500;
     letter-spacing: 0.04em;
     color: var(--carnelian-deep);
-    background: rgba(179, 27, 27, 0.08);
+    background: rgba(215, 38, 61, 0.08);
     padding: 2px 7px;
     border-radius: var(--r-pill);
     white-space: nowrap;
@@ -590,7 +592,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
   }
 
   :global(.sr-excerpt mark) {
-    background: rgba(179, 27, 27, 0.12);
+    background: rgba(215, 38, 61, 0.12);
     color: var(--carnelian-deep);
     border-radius: 2px;
     padding: 0 0.15em;
@@ -645,9 +647,9 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
   }
 
   :global(.sr-view-btn:hover) {
-    background: var(--carnelian);
+    background: var(--ink);
     color: var(--white);
-    border-color: var(--carnelian);
+    border-color: var(--ink);
   }
 
   /* ---- Responsive ---- */
@@ -1418,7 +1420,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     let out = escapeHtml(text);
     words.forEach(word => {
       const re = new RegExp(`(${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-      out = out.replace(re, '<mark style="background:rgba(179,27,27,0.12);color:var(--carnelian-deep);border-radius:2px;padding:0 0.15em">$1</mark>');
+      out = out.replace(re, '<mark style="background:rgba(215, 38, 61, 0.12);color:var(--carnelian-deep);border-radius:2px;padding:0 0.15em">$1</mark>');
     });
     return out;
   }
