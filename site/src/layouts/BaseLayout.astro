@@ -22,11 +22,21 @@ const { title, description = 'Searchable archive of urban climate adaptation and
   </head>
   <body>
     <header class="site-header">
-      <a href="/" class="brand-link">
-        <span class="brand-eyebrow">AdaptBase</span>
+      <div class="brand-link">
+        <a href="/" class="brand-eyebrow">AdaptBase</a>
         <span class="brand-divider" aria-hidden="true"></span>
-        <span class="brand-name">Plans</span>
-      </a>
+        <!-- The AdaptBase site switcher: the same block on search, plans and ontology. -->
+        <details class="site-switch">
+          <summary class="brand-name" aria-label="Plans. Switch AdaptBase site">Plans<svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></summary>
+          <nav class="site-switch-menu" aria-label="AdaptBase sites">
+            <a href="https://search.adaptbase.us/"><b>Graph</b><span>Search and explore the knowledge graph</span></a>
+            <a href="https://plans.adaptbase.us/" aria-current="page"><b>Plans</b><span>The library of adaptation and resilience plans</span></a>
+            <a href="https://ontology.adaptbase.us/"><b>Ontology</b><span>The types and relationships behind the graph</span></a>
+            <hr />
+            <a href="https://www.adaptbase.us/"><b>AdaptBase</b><span>About the project</span></a>
+          </nav>
+        </details>
+      </div>
       <div class="header-actions">
         <button class="btn btn-primary btn-sm" id="submit-plan-button">Submit a Plan</button>
         <button class="btn-ghost" id="about-button">About</button>
@@ -66,6 +76,20 @@ const { title, description = 'Searchable archive of urban climate adaptation and
 
       submitPlanButton?.addEventListener('click', () => {
         (window as any).openSubmitPlanModal?.();
+      });
+
+      // The site switcher: close on a click outside or on Escape; opening and
+      // keyboard use are the browser's own <details>/<summary> behaviour.
+      document.querySelectorAll<HTMLDetailsElement>('details.site-switch').forEach((d) => {
+        document.addEventListener('click', (e) => {
+          if (d.open && !d.contains(e.target as Node)) d.open = false;
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && d.open) {
+            d.open = false;
+            d.querySelector('summary')?.focus();
+          }
+        });
       });
 
       const closeModal = () => {
@@ -326,6 +350,75 @@ const { title, description = 'Searchable archive of urban climate adaptation and
     text-decoration: none;
   }
 
+  a.brand-eyebrow,
+  a.brand-eyebrow:hover {
+    text-decoration: none;
+  }
+
+  /* ---- AdaptBase site switcher ----
+     The site name beside the wordmark opens a menu of the AdaptBase sites.
+     The same block is on search.adaptbase.us, plans.adaptbase.us and
+     ontology.adaptbase.us (2026-10-08); colours are literal so it renders
+     alike on all three. Size comes from .brand-name. */
+  .site-switch { position: relative; }
+  .site-switch > summary {
+    list-style: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 6px;
+    margin: -4px -6px;
+    border-radius: 6px;
+    user-select: none;
+  }
+  .site-switch > summary::-webkit-details-marker { display: none; }
+  .site-switch > summary:hover,
+  .site-switch[open] > summary { color: #111111; background: #f4f4f5; }
+  .site-switch > summary:focus-visible { outline: 2px solid #111111; outline-offset: 2px; }
+  .site-switch .chev { width: 0.5em; height: 0.5em; flex: none; transition: transform 0.15s ease; }
+  .site-switch[open] .chev { transform: rotate(180deg); }
+  .site-switch-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: -6px;
+    z-index: 300;
+    min-width: 300px;
+    padding: 6px;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 10px 28px -14px rgba(0, 0, 0, 0.2);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    letter-spacing: normal;
+    white-space: normal;
+  }
+  .site-switch-menu a {
+    display: grid;
+    gap: 2px;
+    padding: 9px 12px;
+    border-radius: 6px;
+    color: #111111;
+    text-decoration: none;
+  }
+  .site-switch-menu a:hover,
+  .site-switch-menu a:focus-visible { background: #f4f4f5; outline: none; text-decoration: none; color: #111111; }
+  .site-switch-menu b { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; }
+  .site-switch-menu span { font-size: 0.8rem; color: #6b6b6b; line-height: 1.35; }
+  .site-switch-menu a[aria-current="page"] b::after { content: " · you are here"; font-weight: 400; font-size: 0.8rem; color: #6b6b6b; }
+  .site-switch-menu hr { border: 0; border-top: 1px solid rgba(0, 0, 0, 0.08); margin: 6px 4px; }
+  /* Narrow screens: the menu spans the width under the header instead of
+     hanging off the site name, which ran it off the right edge. */
+  @media (max-width: 560px) {
+    .site-switch-menu {
+      position: fixed;
+      top: 58px;
+      left: 12px;
+      right: 12px;
+      min-width: 0;
+    }
+  }
+
   /* The wordmark, as search.adaptbase.us sets it: "AdaptBase" bold and
      tight in ink, then the site's name in regular grey. */
   .brand-eyebrow {
@@ -456,8 +549,9 @@ const { title, description = 'Searchable archive of urban climate adaptation and
   select:focus,
   textarea:focus {
     outline: none;
-    border-color: var(--ink);
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+    /* No focus ring (2026-10-08): the caret marks focus; the border only
+       firms up a shade. */
+    border-color: var(--border-firm);
   }
 
   /* ============================================================
