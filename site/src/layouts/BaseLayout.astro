@@ -17,18 +17,13 @@ const { title, description = 'Searchable archive of urban climate adaptation and
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title} | Adaptbase Plans</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+    <title>{title} | AdaptBase Plans</title>
+    <!-- No webfonts: the type is Helvetica Neue / Helvetica / Arial. -->
   </head>
   <body>
     <header class="site-header">
       <a href="/" class="brand-link">
-        <span class="brand-eyebrow">Adaptbase</span>
+        <span class="brand-eyebrow">AdaptBase</span>
         <span class="brand-divider" aria-hidden="true"></span>
         <span class="brand-name">Plans</span>
       </a>
@@ -49,7 +44,7 @@ const { title, description = 'Searchable archive of urban climate adaptation and
           <span class="footer-org-label">Urban Tech Hub</span>
         </a>
         <p class="footer-links">
-          Part of <a href="https://adaptbase.us">Adaptbase</a> ·
+          Part of <a href="https://adaptbase.us">AdaptBase</a> ·
           Powered by <a href="https://supabase.com">Supabase</a> &amp; <a href="https://astro.build">Astro</a>
         </p>
       </div>
@@ -93,29 +88,38 @@ const { title, description = 'Searchable archive of urban climate adaptation and
 <style is:global>
   /* ============================================================
      DESIGN TOKENS
+     2026-10-08: the AdaptBase sites share the Harvard deck's look
+     (www.adaptbase.us/hbs-adaptation-finance-demo/): white ground,
+     near-black Helvetica for everything (no webfonts), ink controls,
+     and the deck's red kept for emphasis — the same choices as
+     search.adaptbase.us (adaptbase-core packages/search/src/styles/tokens.css).
+     The four font tokens survive so component CSS keeps working; they
+     all resolve to one family now, labels included.
      ============================================================ */
   :root {
     /* Fonts */
-    --font-display: 'Fraunces', Georgia, serif;
-    --font-sans:    'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
-    --font-accent:  'Instrument Serif', Georgia, serif;
+    --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-sans:    "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-mono:    "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-accent:  "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-    /* Brand */
-    --carnelian:        #B31B1B;
-    --carnelian-deep:   #8C1515;
+    /* Brand: the deck's red (it replaced Cornell carnelian). For emphasis
+       — the hero phrase, the wordmark accent, errors — not for controls. */
+    --carnelian:        #D7263D;
+    --carnelian-deep:   #B01E33;
     --carnelian-bright: #E4002B;
+    --accent-rgb:       215, 38, 61;
 
-    /* Neutrals (ink → paper) */
-    --ink:      #121417;
-    --ink-2:    #2A2D33;
-    --graphite: #4A4F57;
-    --concrete: #8A8F98;
-    --mist:     #C7CAD1;
-    --stone:    #E3E5E9;
-    --fog:      #EFF0F3;
-    --paper:    #F7F6F2;
-    --paper-2:  #FBFAF6;
+    /* Neutrals (ink → white), the deck's */
+    --ink:      #111111;
+    --ink-2:    #333333;
+    --graphite: #6B6B6B;
+    --concrete: #8A8A8A;
+    --mist:     #C7C7C7;
+    --stone:    #E4E4E7;
+    --fog:      #F4F4F5;
+    --paper:    #FFFFFF;
+    --paper-2:  #FFFFFF;
     --white:    #FFFFFF;
 
     /* Accents */
@@ -132,7 +136,7 @@ const { title, description = 'Searchable archive of urban climate adaptation and
     --fg-3:     var(--graphite);
     --fg-4:     var(--concrete);
     --fg-brand: var(--carnelian);
-    --fg-link:  var(--carnelian-deep);
+    --fg-link:  var(--ink);
     --bg-1:     var(--paper);
     --bg-2:     var(--paper-2);
     --bg-3:     var(--fog);
@@ -143,14 +147,14 @@ const { title, description = 'Searchable archive of urban climate adaptation and
     --status-success: var(--chlorophyll);
 
     /* Borders */
-    --border-hair: rgba(18, 20, 23, 0.08);
-    --border-soft: rgba(18, 20, 23, 0.14);
-    --border-firm: rgba(18, 20, 23, 0.24);
+    --border-hair: rgba(0, 0, 0, 0.08);
+    --border-soft: rgba(0, 0, 0, 0.12);
+    --border-firm: rgba(0, 0, 0, 0.24);
 
     /* Shadows */
-    --shadow-1: 0 1px 0 rgba(18,20,23,0.04), 0 1px 2px rgba(18,20,23,0.04);
-    --shadow-2: 0 1px 0 rgba(18,20,23,0.04), 0 6px 16px -6px rgba(18,20,23,0.10);
-    --shadow-3: 0 2px 0 rgba(18,20,23,0.04), 0 18px 40px -12px rgba(18,20,23,0.18);
+    --shadow-1: 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-2: 0 1px 2px rgba(0,0,0,0.05), 0 6px 16px -8px rgba(0,0,0,0.14);
+    --shadow-3: 0 1px 2px rgba(0,0,0,0.04), 0 10px 28px -14px rgba(0,0,0,0.2);
 
     /* Spacing (4px base) */
     --sp-1:  0.25rem;
@@ -231,23 +235,22 @@ const { title, description = 'Searchable archive of urban climate adaptation and
   /* ============================================================
      TYPOGRAPHY
      ============================================================ */
+  /* Headings set bold and tight, as the deck sets its titles. */
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    font-weight: 500;
-    line-height: 1.15;
+    font-weight: 700;
+    line-height: 1.12;
     color: var(--fg-1);
   }
 
   h1 {
     font-size: clamp(1.75rem, 4vw, 2.75rem);
-    font-variation-settings: "opsz" 72;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.03em;
   }
 
   h2 {
     font-size: clamp(1.375rem, 3vw, 2rem);
-    font-variation-settings: "opsz" 48;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.025em;
   }
 
   h3 {
@@ -270,8 +273,9 @@ const { title, description = 'Searchable archive of urban climate adaptation and
   }
 
   a:hover {
-    color: var(--carnelian-bright);
+    color: var(--ink);
     text-decoration: underline;
+    text-decoration-color: var(--border-firm);
     text-underline-offset: 0.18em;
   }
 
@@ -322,29 +326,30 @@ const { title, description = 'Searchable archive of urban climate adaptation and
     text-decoration: none;
   }
 
+  /* The wordmark, as search.adaptbase.us sets it: "AdaptBase" bold and
+     tight in ink, then the site's name in regular grey. */
   .brand-eyebrow {
-    font-family: var(--font-mono);
-    font-size: 1.25rem;
-    font-weight: 500;
-    letter-spacing: 0.10em;
-    text-transform: uppercase;
-    color: var(--fg-brand);
+    font-family: var(--font-sans);
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1;
+    color: var(--fg-1);
   }
 
   .brand-divider {
     display: block;
     width: 1px;
-    height: 22px;
+    height: 24px;
     background: var(--border-soft);
   }
 
   .brand-name {
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 1.25rem;
-    color: var(--fg-1);
-    font-variation-settings: "opsz" 24;
-    letter-spacing: -0.01em;
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 1.6rem;
+    color: var(--fg-3);
+    letter-spacing: -0.025em;
     line-height: 1;
   }
 
@@ -380,13 +385,14 @@ const { title, description = 'Searchable archive of urban climate adaptation and
     text-decoration: none;
   }
 
+  /* Controls are ink, as on the search site; red is for emphasis. */
   .btn-primary {
-    background: var(--carnelian);
+    background: var(--ink);
     color: var(--white);
   }
 
   .btn-primary:hover {
-    background: var(--carnelian-deep);
+    background: var(--ink-2);
     color: var(--white);
   }
 
@@ -450,8 +456,8 @@ const { title, description = 'Searchable archive of urban climate adaptation and
   select:focus,
   textarea:focus {
     outline: none;
-    border-color: var(--carnelian);
-    box-shadow: 0 0 0 3px rgba(179, 27, 27, 0.12);
+    border-color: var(--ink);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
   }
 
   /* ============================================================
@@ -471,10 +477,10 @@ const { title, description = 'Searchable archive of urban climate adaptation and
   }
 
   .tag-lang {
-    background: rgba(179, 27, 27, 0.09);
-    color: var(--carnelian-deep);
+    background: var(--fog);
+    color: var(--fg-2);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
   }
 
   .tag-meta {
@@ -490,7 +496,7 @@ const { title, description = 'Searchable archive of urban climate adaptation and
     width: 18px;
     height: 18px;
     border: 2px solid var(--border-soft);
-    border-top-color: var(--carnelian);
+    border-top-color: var(--ink);
     border-radius: 50%;
     animation: spin 0.6s linear infinite;
     flex-shrink: 0;
