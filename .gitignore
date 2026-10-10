@@ -65,3 +65,4 @@ plans/
 tmp/
 .playwright-mcp
 .claude
+.mcp.json
