@@ -693,7 +693,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
 </style>
 
 <script>
-  import { supabase, getPublicUrl, type Document, type SearchResult } from '../lib/supabase';
+  import { supabase, getPublicUrl, DOC_COLUMNS, type Document, type SearchResult } from '../lib/supabase';
 
   async function loadStats() {
     const { data } = await supabase.rpc('get_document_stats');
@@ -908,7 +908,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
 
     let query = supabase
       .from('documents')
-      .select('*', { count: 'exact' })
+      .select(DOC_COLUMNS, { count: 'exact' })
       .eq('doc_type', 'adaptation_plan');
 
     if (currentCountry) query = query.filter('metadata->>country_iso3', 'eq', currentCountry);
@@ -1030,7 +1030,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     // 4. Fetch document rows, applying facet filters
     let docQuery = supabase
       .from('documents')
-      .select('*')
+      .select(DOC_COLUMNS)
       .in('id', topIds);
 
     if (currentCountry) docQuery = docQuery.filter('metadata->>country_iso3', 'eq', currentCountry);
@@ -1085,7 +1085,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
 
     let query = supabase
       .from('documents')
-      .select('*', { count: 'exact' })
+      .select(DOC_COLUMNS, { count: 'exact' })
       .eq('doc_type', 'adaptation_plan');
 
     const escaped = currentSearch.replace(/[,()]/g, '');

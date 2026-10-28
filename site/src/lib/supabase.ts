@@ -9,18 +9,23 @@ if (!supabaseUrl || !supabaseAnonKey) {
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+/* The document columns this site reads. Named, never `*`: since adaptbase-core
+ * migration 20261028170000 the anon key may select only the listing columns of
+ * `documents` (not raw_content, full_text or tsv, the whole text of every
+ * plan), and a `*` select is refused outright. Add a column here only if it is
+ * in that migration's grant. */
+export const DOC_COLUMNS =
+  'id, source, title, url, content_type, metadata, created_at, updated_at, storage_path, thumbnail_path, page_count, file_size, indexed_at, doc_type';
+
 // Types match the merged adaptbase-schema.
 // TODO: Replace with path import from @adaptbase/schema-ts once types are
 // regenerated after the consolidation migration is applied.
 export interface Document {
   id: string;
-  ingest_run_id: string | null;
   source: string;
-  source_id: string | null;
   title: string;
   url: string | null;
   content_type: string | null;
-  raw_content: string | null;
   metadata: Record<string, any>;
   created_at: string;
   updated_at: string;
@@ -30,8 +35,8 @@ export interface Document {
   thumbnail_path: string | null;
   page_count: number | null;
   file_size: number | null;
-  sha256: string | null;
   indexed_at: string | null;
+  doc_type: string | null;
 }
 
 export interface Chunk {
