@@ -708,6 +708,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
   const SEMANTIC_QUERY_THRESHOLD = 4;
   const MIN_RRF_SCORE = 0.01;
   const ROWS = 5;
+  const ID_PAGE = 1000; // PostgREST caps every response at 1000 rows
   let colCount = 4; // updated before every fetch
 
   // Mirrors the CSS grid breakpoints so PER_PAGE is always cols × ROWS.
@@ -733,6 +734,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
   let currentYear = '';
 
   let currentSort = 'shuffle';
+  let currentSeed = '';
   let totalCount = 0;
   let filterOptionsLoaded = false;
 
@@ -775,10 +777,22 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     currentLang    = p.get('lang')    || '';
     currentYear    = p.get('year')    || '';
     currentSort    = p.get('sort')    || 'shuffle';
+    if (!['year-desc', 'year-asc', 'title-asc', 'title-desc'].includes(currentSort)) currentSort = 'shuffle';
     currentPage    = parseInt(p.get('page') || '1');
+    currentSeed    = p.get('seed')    || '';
+    if (currentSort === 'shuffle' && !currentSeed) {
+      // A fresh visit gets a fresh order; pin it on this history entry so
+      // reload and back return to the same one.
+      currentSeed = newSeed();
+      window.history.replaceState(window.history.state, '', urlFor());
+    }
   }
 
   function pushUrl() {
+    window.history.pushState({}, '', urlFor());
+  }
+
+  function urlFor(): string {
     const p = new URLSearchParams();
     if (currentSearch)           p.set('q',       currentSearch);
     if (currentCountry)          p.set('country', currentCountry);
@@ -786,36 +800,32 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     if (currentLang)             p.set('lang',    currentLang);
     if (currentYear)             p.set('year',    currentYear);
     if (currentSort !== 'shuffle') p.set('sort',  currentSort);
+    else if (currentSeed)        p.set('seed',    currentSeed);
     if (currentPage > 1)         p.set('page',    String(currentPage));
     const qs = p.toString();
-    window.history.pushState({}, '', qs ? `/?${qs}` : '/');
+    return qs ? `/?${qs}` : '/';
   }
 
   /* ── Filter options ─────────────────────────────────────────── */
 
   async function loadFilterOptions() {
-    const { data, error } = await supabase
-      .from('documents')
-      .select('metadata')
-      .eq('doc_type', 'adaptation_plan');
-
-    if (error || !data) return;
+    const data = await loadCorpusIndex();
+    if (!data) return;
 
     // Extract unique countries and build city map
     const countries = new Map<string, string>(); // iso3 → name
     const langSet   = new Set<string>();
 
-    for (const { metadata: m } of data) {
-      if (!m) continue;
-      if (m.country_iso3 && m.country_name) {
-        countries.set(m.country_iso3, m.country_name);
-        if (m.city_name) {
-          if (!cityMap.has(m.country_iso3)) cityMap.set(m.country_iso3, []);
-          const cities = cityMap.get(m.country_iso3)!;
-          if (!cities.includes(m.city_name)) cities.push(m.city_name);
+    for (const m of data) {
+      if (m.iso3 && m.cname) {
+        countries.set(m.iso3, m.cname);
+        if (m.city) {
+          if (!cityMap.has(m.iso3)) cityMap.set(m.iso3, []);
+          const cities = cityMap.get(m.iso3)!;
+          if (!cities.includes(m.city)) cities.push(m.city);
         }
       }
-      if (m.language) langSet.add(m.language);
+      if (m.lang) langSet.add(m.lang);
     }
 
     // Sort city lists
@@ -832,7 +842,8 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
 
     // Populate language select
     const LANG_LABELS: Record<string, string> = {
-      'ar': 'العربية', 'ca': 'Català', 'cy': 'Cymraeg', 'da': 'Dansk',
+      'ar': 'العربية', 'bg': 'Български', 'ca': 'Català', 'cs': 'Čeština',
+      'cy': 'Cymraeg', 'da': 'Dansk', 'hr': 'Hrvatski',
       'de': 'Deutsch', 'el': 'Ελληνικά', 'en': 'English', 'es': 'Español',
       'eu': 'Euskara', 'fi': 'Suomi', 'fr': 'Français', 'he': 'עברית',
       'hu': 'Magyar', 'id': 'Bahasa Indonesia', 'it': 'Italiano', 'ja': '日本語',
@@ -842,17 +853,22 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
       'tr': 'Türkçe', 'uk': 'Українська', 'vi': 'Tiếng Việt',
       'zh': '中文', 'zh-cn': '中文',
     };
-    for (const lang of [...langSet].sort((a, b) => (LANG_LABELS[a] ?? a).localeCompare(LANG_LABELS[b] ?? b))) {
+    // Codes missing from the map fall back to the browser's own endonym.
+    const endonym = (code: string) => {
+      const name = LANG_LABELS[code] ?? intlLangName(code, code);
+      return name ? name.charAt(0).toLocaleUpperCase(code) + name.slice(1) : code.toUpperCase();
+    };
+    for (const lang of [...langSet].sort((a, b) => endonym(a).localeCompare(endonym(b)))) {
       const opt = document.createElement('option');
       opt.value = lang;
-      opt.textContent = LANG_LABELS[lang] ?? lang.toUpperCase();
+      opt.textContent = endonym(lang);
       langSelect.appendChild(opt);
     }
 
     // Collect years
     const yearSet = new Set<number>();
-    for (const { metadata: m } of data) {
-      const y = m?.year;
+    for (const m of data) {
+      const y = m.yearNum;
       if (y && typeof y === 'number' && y > 1900 && y <= new Date().getFullYear() + 1) {
         yearSet.add(y);
       }
@@ -888,16 +904,116 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
 
   /* ── Document fetching ──────────────────────────────────────── */
 
+  // Every load bumps loadSeq; a loader whose seq is no longer current drops
+  // its response. Without this, a slow earlier load (e.g. the unfiltered
+  // first page) can land after a newer one and overwrite it.
+  let loadSeq = 0;
+
   async function loadDocuments() {
+    const seq = ++loadSeq;
     showLoading();
     if (currentSearch) {
-      await loadHybridResults();
+      await loadHybridResults(seq);
     } else {
-      await loadGallery();
+      await loadGallery(seq);
     }
   }
 
-  async function loadGallery() {
+  // Facet filters, applied server-side the same way by every query.
+  function applyFilters<Q>(query: Q): Q {
+    let q = query as any;
+    if (currentCountry) q = q.filter('metadata->>country_iso3', 'eq', currentCountry);
+    if (currentCity)    q = q.filter('metadata->>city_name',    'eq', currentCity);
+    if (currentLang)    q = q.filter('metadata->>language',     'eq', currentLang);
+    if (currentYear)    q = q.filter('metadata->>year',         'eq', currentYear);
+    return q as Q;
+  }
+
+  // Drain a PostgREST query in ID_PAGE chunks (responses cap at 1000 rows).
+  // `make` returns a fresh builder with filters and a stable .order() applied.
+  async function paginate<T>(make: () => any): Promise<T[] | null> {
+    const out: T[] = [];
+    for (let start = 0; ; start += ID_PAGE) {
+      const { data, error } = await make().range(start, start + ID_PAGE - 1);
+      if (error || !data) return null;
+      out.push(...data);
+      if (data.length < ID_PAGE) return out;
+    }
+  }
+
+  /* ── Corpus index ───────────────────────────────────────────────
+     One small row per plan: just the facet fields. Fetched once per page
+     view and shared by the filter dropdowns and Shuffle, which filters it
+     client-side with the same equality the server filters use (->> text). */
+
+  type IndexRow = {
+    id: string;
+    iso3: string | null; cname: string | null; city: string | null;
+    lang: string | null; year: string | null; yearNum: unknown;
+  };
+
+  let corpusIndex: Promise<IndexRow[] | null> | null = null;
+
+  function loadCorpusIndex(): Promise<IndexRow[] | null> {
+    corpusIndex ??= paginate<IndexRow>(() => supabase
+      .from('documents')
+      .select('id, iso3:metadata->>country_iso3, cname:metadata->>country_name, city:metadata->>city_name, lang:metadata->>language, year:metadata->>year, yearNum:metadata->year')
+      .eq('doc_type', 'adaptation_plan')
+      .order('id'),
+    ).then(rows => {
+      if (!rows) corpusIndex = null; // let the next load retry
+      return rows;
+    });
+    return corpusIndex;
+  }
+
+  function matchesFilters(r: IndexRow): boolean {
+    return (!currentCountry || r.iso3 === currentCountry)
+        && (!currentCity    || r.city === currentCity)
+        && (!currentLang    || r.lang === currentLang)
+        && (!currentYear    || r.year === currentYear);
+  }
+
+  /* ── Shuffle ────────────────────────────────────────────────────
+     Shuffle is a stable random order, not a fresh draw per fetch. Each
+     visit gets a seed (kept in the URL), and every plan is ranked by
+     hash(seed, id). So paging walks the whole filtered set exactly once,
+     and reload / back / a shared link keep the same order. (Page
+     boundaries follow the grid's column count, so the same page number
+     on a different screen width starts at a different place in that
+     order.) Ranking by hash instead of shuffling a fetched list also
+     keeps the order stable as plans are added: a new plan slots in, the
+     rest keep their places. */
+
+  function newSeed(): string {
+    const [n] = crypto.getRandomValues(new Uint32Array(1));
+    return n.toString(36).padStart(7, '0');
+  }
+
+  // cyrb53: small, well-mixed string hash; good enough to rank by.
+  function hashRank(s: string): number {
+    let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+    for (let i = 0; i < s.length; i++) {
+      const c = s.charCodeAt(i);
+      h1 = Math.imul(h1 ^ c, 2654435761);
+      h2 = Math.imul(h2 ^ c, 1597334677);
+    }
+    h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+    h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+    return 4294967296 * (2097151 & h2) + (h1 >>> 0);
+  }
+
+  async function shuffledIds(): Promise<string[] | null> {
+    const index = await loadCorpusIndex();
+    if (!index) return null;
+    return index
+      .filter(matchesFilters)
+      .map(r => ({ id: r.id, rank: hashRank(currentSeed + ':' + r.id) }))
+      .sort((a, b) => a.rank - b.rank)
+      .map(r => r.id);
+  }
+
+  async function loadGallery(seq: number) {
     isHybridSearch = false;
     chunkInfoMap.clear();
     grid.classList.remove('search-mode');
@@ -906,62 +1022,50 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     const from = (currentPage - 1) * getPerPage();
     const to   = from + getPerPage() - 1;
 
-    let query = supabase
+    if (currentSort === 'shuffle') {
+      const ids = await shuffledIds();
+      if (seq !== loadSeq) return;
+      if (!ids) { showError(); return; }
+      const pageIds = ids.slice(from, to + 1);
+      let docs: Document[] = [];
+      if (pageIds.length) {
+        const { data, error } = await supabase
+          .from('documents').select(DOC_COLUMNS).in('id', pageIds);
+        if (seq !== loadSeq) return;
+        if (error || !data) { showError(); return; }
+        const byId = new Map((data as Document[]).map(d => [d.id, d]));
+        docs = pageIds.map(id => byId.get(id)).filter((d): d is Document => !!d);
+      }
+      totalCount = ids.length;
+      renderDocuments(docs);
+      renderStatus();
+      renderPagination();
+      return;
+    }
+
+    let query = applyFilters(supabase
       .from('documents')
       .select(DOC_COLUMNS, { count: 'exact' })
-      .eq('doc_type', 'adaptation_plan');
-
-    if (currentCountry) query = query.filter('metadata->>country_iso3', 'eq', currentCountry);
-    if (currentCity)    query = query.filter('metadata->>city_name',    'eq', currentCity);
-    if (currentLang)    query = query.filter('metadata->>language',     'eq', currentLang);
-    if (currentYear)    query = query.filter('metadata->>year',         'eq', currentYear);
+      .eq('doc_type', 'adaptation_plan'));
 
     if (currentSort === 'title-asc' || currentSort === 'title-desc') {
       query = query.order('title', { ascending: currentSort === 'title-asc' });
-    } else if (currentSort === 'year-asc' || currentSort === 'year-desc') {
+    } else {
       query = query.order('metadata->>year', { ascending: currentSort === 'year-asc', nullsFirst: false });
-    } else {
-      query = query.order('created_at', { ascending: false });
     }
 
-    if (currentSort === 'shuffle') {
-      // First get total count WITH FILTERS, then pick a random offset
-      let countQuery = supabase
-        .from('documents')
-        .select('id', { count: 'exact', head: true })
-        .eq('doc_type', 'adaptation_plan');
-
-      // Apply same filters as main query
-      if (currentCountry) countQuery = countQuery.filter('metadata->>country_iso3', 'eq', currentCountry);
-      if (currentCity)    countQuery = countQuery.filter('metadata->>city_name',    'eq', currentCity);
-      if (currentLang)    countQuery = countQuery.filter('metadata->>language',     'eq', currentLang);
-      if (currentYear)    countQuery = countQuery.filter('metadata->>year',         'eq', currentYear);
-
-      const { count: total } = await countQuery;
-      const maxOffset = Math.max(0, (total || 0) - getPerPage());
-      const randOffset = Math.floor(Math.random() * (maxOffset + 1));
-      query = query.range(randOffset, randOffset + getPerPage() - 1);
-    } else {
-      query = query.range(from, to);
-    }
-
-    const { data, error, count } = await query;
+    const { data, error, count } = await query.range(from, to);
+    if (seq !== loadSeq) return;
     if (error) { showError(); return; }
 
     totalCount = count || 0;
     const docs = (data || []) as Document[];
-    if (currentSort === 'shuffle') {
-      for (let i = docs.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [docs[i], docs[j]] = [docs[j], docs[i]];
-      }
-    }
     renderDocuments(docs);
     renderStatus();
     renderPagination();
   }
 
-  async function loadHybridResults() {
+  async function loadHybridResults(seq: number) {
     // 1. Embed the query via Edge Function
     let embedding: number[] | null = null;
     try {
@@ -970,9 +1074,10 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
       });
       if (!error && data?.embedding) embedding = data.embedding;
     } catch { /* fall through */ }
+    if (seq !== loadSeq) return;
 
     if (!embedding) {
-      await loadKeywordFallback();
+      await loadKeywordFallback(seq);
       return;
     }
 
@@ -983,9 +1088,10 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
       match_count: 80,
       filter_source: 'plan_crawler',
     }) as { data: SearchResult[] | null; error: unknown };
+    if (seq !== loadSeq) return;
 
     if (rpcErr || !chunks?.length) {
-      await loadKeywordFallback();
+      await loadKeywordFallback(seq);
       return;
     }
 
@@ -1028,17 +1134,11 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     const topIds = [...chunkInfoMap.keys()].slice(0, 30);
 
     // 4. Fetch document rows, applying facet filters
-    let docQuery = supabase
+    const { data: docs, error: docErr } = await applyFilters(supabase
       .from('documents')
       .select(DOC_COLUMNS)
-      .in('id', topIds);
-
-    if (currentCountry) docQuery = docQuery.filter('metadata->>country_iso3', 'eq', currentCountry);
-    if (currentCity)    docQuery = docQuery.filter('metadata->>city_name',    'eq', currentCity);
-    if (currentLang)    docQuery = docQuery.filter('metadata->>language',     'eq', currentLang);
-    if (currentYear)    docQuery = docQuery.filter('metadata->>year',         'eq', currentYear);
-
-    const { data: docs, error: docErr } = await docQuery;
+      .in('id', topIds));
+    if (seq !== loadSeq) return;
     if (docErr) { showError(); return; }
 
     // 5. Re-sort: chunk rank order + geo metadata boost
@@ -1074,7 +1174,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     renderPagination();
   }
 
-  async function loadKeywordFallback() {
+  async function loadKeywordFallback(seq: number) {
     isHybridSearch = false;
     chunkInfoMap.clear();
     grid.classList.remove('search-mode');
@@ -1099,14 +1199,10 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
       ].join(',')
     );
 
-    if (currentCountry) query = query.filter('metadata->>country_iso3', 'eq', currentCountry);
-    if (currentCity)    query = query.filter('metadata->>city_name',    'eq', currentCity);
-    if (currentLang)    query = query.filter('metadata->>language',     'eq', currentLang);
-    if (currentYear)    query = query.filter('metadata->>year',         'eq', currentYear);
-
-    query = query.order('created_at', { ascending: false }).range(from, to);
+    query = applyFilters(query).order('created_at', { ascending: false }).range(from, to);
 
     const { data, error, count } = await query;
+    if (seq !== loadSeq) return;
     if (error) { showError(); return; }
 
     totalCount = count || 0;
@@ -1241,7 +1337,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
       : '#';
     const location = [doc.metadata?.city_name, doc.metadata?.country_name].filter(Boolean).join(', ');
     const langCode = doc.metadata?.language as string | undefined;
-    const language = langCode ? (LANG_LABELS[langCode] ?? langCode.toUpperCase()) : undefined;
+    const language = langCode ? cardLangLabel(langCode) : undefined;
     const year = doc.metadata?.year as number | undefined;
     const chunks = chunkInfoMap.get(doc.id) || [];
     const firstPage = chunks[0]?.page || 1;
@@ -1327,13 +1423,31 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
   }
 
   const LANG_LABELS: Record<string, string> = {
-    'ar': 'Arabic', 'ca': 'Catalan', 'cy': 'Welsh', 'de': 'German',
-    'el': 'Greek', 'en': 'English', 'es': 'Spanish', 'fi': 'Finnish',
-    'fr': 'French', 'he': 'Hebrew', 'id': 'Indonesian', 'ja': 'Japanese',
-    'ko': 'Korean', 'nl': 'Dutch', 'no': 'Norwegian', 'pl': 'Polish',
-    'pt': 'Portuguese', 'ro': 'Romanian', 'ru': 'Russian', 'tl': 'Filipino',
-    'tr': 'Turkish', 'uk': 'Ukrainian', 'zh-cn': 'Chinese',
+    'ar': 'Arabic', 'bg': 'Bulgarian', 'ca': 'Catalan', 'cs': 'Czech',
+    'cy': 'Welsh', 'da': 'Danish', 'de': 'German', 'el': 'Greek',
+    'en': 'English', 'es': 'Spanish', 'eu': 'Basque', 'fi': 'Finnish',
+    'fr': 'French', 'he': 'Hebrew', 'hr': 'Croatian', 'hu': 'Hungarian',
+    'id': 'Indonesian', 'it': 'Italian', 'ja': 'Japanese', 'ko': 'Korean',
+    'lv': 'Latvian', 'ms': 'Malay', 'nl': 'Dutch', 'no': 'Norwegian',
+    'pl': 'Polish', 'pt': 'Portuguese', 'ro': 'Romanian', 'ru': 'Russian',
+    'sq': 'Albanian', 'sv': 'Swedish', 'tl': 'Filipino', 'tr': 'Turkish',
+    'uk': 'Ukrainian', 'vi': 'Vietnamese', 'zh': 'Chinese', 'zh-cn': 'Chinese',
   };
+
+  // Language name in `locale` from the browser's CLDR data, for codes the
+  // hand-kept maps don't list (so a new import never surfaces a bare code).
+  function intlLangName(code: string, locale: string): string | undefined {
+    try {
+      const name = new Intl.DisplayNames([locale], { type: 'language' }).of(code);
+      return name && name.toLowerCase() !== code.toLowerCase() ? name : undefined;
+    } catch {
+      return undefined;
+    }
+  }
+
+  function cardLangLabel(code: string): string {
+    return LANG_LABELS[code] ?? intlLangName(code, 'en') ?? code.toUpperCase();
+  }
 
   function cardHtml(doc: Document): string {
     const pdfUrl  = doc.storage_path
@@ -1344,7 +1458,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
       : '';
     const location = [doc.metadata?.city_name, doc.metadata?.country_name].filter(Boolean).join(', ');
     const langCode = doc.metadata?.language as string | undefined;
-    const language = langCode ? (LANG_LABELS[langCode] ?? langCode.toUpperCase()) : undefined;
+    const language = langCode ? cardLangLabel(langCode) : undefined;
     const year     = doc.metadata?.year as number | undefined;
 
     const thumb = thumbUrl
@@ -1497,6 +1611,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
 
   sortSelect.addEventListener('change', async () => {
     currentSort = sortSelect.value;
+    if (currentSort === 'shuffle') currentSeed = newSeed(); // picking Shuffle reshuffles
     currentPage = 1;
     pushUrl();
     await loadDocuments();
@@ -1551,7 +1666,12 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
       if (isHybridSearch) return;
       const newCols = detectColCount();
       if (newCols !== colCount) {
-        currentPage = 1;
+        // Keep the first visible plan on screen: re-derive the page from
+        // its position under the new page size, and record it in the URL
+        // (the old page number no longer points at what is shown).
+        const firstShown = (currentPage - 1) * getPerPage();
+        currentPage = Math.floor(firstShown / (newCols * ROWS)) + 1;
+        window.history.replaceState(window.history.state, '', urlFor());
         loadDocuments();
       }
     }, 200);
