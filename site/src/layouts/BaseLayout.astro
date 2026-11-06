@@ -74,8 +74,11 @@ const { title, description = 'Searchable archive of urban climate adaptation and
       aboutButton?.addEventListener('click', () => {
         if (!modal || modal.classList.contains('active')) return;
         lockScroll();
-        modal?.classList.add('active');
-        modal?.setAttribute('aria-hidden', 'false');
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        // Move focus into the dialog, as the other modals do, so keyboard and
+        // screen-reader users land in it rather than on the page behind.
+        (modalClose as HTMLElement | null)?.focus();
       });
 
       submitPlanButton?.addEventListener('click', () => {
@@ -100,7 +103,8 @@ const { title, description = 'Searchable archive of urban climate adaptation and
         if (!modal?.classList.contains('active')) return;
         unlockScroll();
         modal.classList.remove('active');
-        modal?.setAttribute('aria-hidden', 'true');
+        modal.setAttribute('aria-hidden', 'true');
+        aboutButton?.focus();
       };
 
       modalClose?.addEventListener('click', closeModal);
