@@ -99,11 +99,9 @@
 </div>
 
 <script>
-  import { createClient } from '@supabase/supabase-js';
-
-  const supabaseUrl  = import.meta.env.PUBLIC_SUPABASE_URL as string;
-  const supabaseKey  = import.meta.env.PUBLIC_SUPABASE_ANON_KEY as string;
-  const supabase     = createClient(supabaseUrl, supabaseKey);
+  // The page's one shared client: a second createClient() makes a second
+  // GoTrueClient on the same storage key, which supabase-js warns about.
+  import { supabase } from '../lib/supabase';
 
   const modal          = document.getElementById('feedback-modal')!;
   const overlay        = modal.querySelector('.modal-overlay')!;

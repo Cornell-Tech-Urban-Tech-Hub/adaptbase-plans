@@ -591,7 +591,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     margin: 0;
   }
 
-  :global(.sr-excerpt mark) {
+  :global(mark.hl) {
     background: rgba(215, 38, 61, 0.12);
     color: var(--carnelian-deep);
     border-radius: 2px;
@@ -1145,7 +1145,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
 
   function renderDocuments(docs: Document[]) {
     if (docs.length === 0) {
-      const hasFilter = currentSearch || currentCountry || currentCity || currentLang;
+      const hasFilter = currentSearch || currentCountry || currentCity || currentLang || currentYear;
       grid.innerHTML = `
         <div class="state-message">
           <p>No plans found${currentSearch ? ` matching <strong>"${escapeHtml(currentSearch)}"</strong>` : ''}.</p>
@@ -1192,7 +1192,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
       const firstPage = chunks[0]?.page || 1;
       const thumb = thumbUrl
         ? `<img src="${thumbUrl}" alt="" loading="lazy" class="sr-thumb-img"/>`
-        : `<div class="sr-thumb-placeholder"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>`;
+        : SR_THUMB_PLACEHOLDER;
       return `
         <div class="sr-thumb-card" data-pdf-url="${escapeHtml(pdfUrl)}" data-pdf-page="${firstPage}" data-pdf-title="${escapeHtml(doc.title)}" data-doc-id="${doc.id}">
           ${thumb}
@@ -1326,6 +1326,10 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     return highlightText(excerpt, query);
   }
 
+  const FILE_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>';
+  const DOC_THUMB_PLACEHOLDER = `<div class="doc-thumb-placeholder">${FILE_ICON.replace('<svg ', '<svg width="40" height="40" ')}</div>`;
+  const SR_THUMB_PLACEHOLDER  = `<div class="sr-thumb-placeholder">${FILE_ICON.replace('<svg ', '<svg width="28" height="28" ')}</div>`;
+
   const LANG_LABELS: Record<string, string> = {
     'ar': 'Arabic', 'ca': 'Catalan', 'cy': 'Welsh', 'de': 'German',
     'el': 'Greek', 'en': 'English', 'es': 'Spanish', 'fi': 'Finnish',
@@ -1349,11 +1353,7 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
 
     const thumb = thumbUrl
       ? `<img src="${thumbUrl}" alt="" loading="lazy" class="doc-thumb"/>`
-      : `<div class="doc-thumb-placeholder">
-           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
-           </svg>
-         </div>`;
+      : DOC_THUMB_PLACEHOLDER;
 
     const metaParts = [
       year     ? `<span class="doc-meta-item">${year}</span>` : '',
@@ -1382,7 +1382,9 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
 
 
   function renderPagination() {
-    if (totalCount <= getPerPage()) {
+    // Search returns one ranked set of at most 30 plans, all on one page; a
+    // pager there only reloaded the same results under a new page number.
+    if (isHybridSearch || totalCount <= getPerPage()) {
       paginationEl.innerHTML = '';
       return;
     }
@@ -1415,17 +1417,37 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
     return div.innerHTML;
   }
 
+  // Match every term in one pass over the raw text, then escape each piece.
+  // Replacing term by term on already-escaped HTML matched later terms inside
+  // the <mark> tags and entities written for earlier ones ("heat color" leaked
+  // the mark's style attribute into the page; "amp" broke "&amp;").
   function highlightText(text: string, query: string): string {
-    const words = query.toLowerCase().split(/\s+/).filter(w => w.length > 1);
-    let out = escapeHtml(text);
-    words.forEach(word => {
-      const re = new RegExp(`(${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-      out = out.replace(re, '<mark style="background:rgba(215, 38, 61, 0.12);color:var(--carnelian-deep);border-radius:2px;padding:0 0.15em">$1</mark>');
-    });
-    return out;
+    const words = [...new Set(query.toLowerCase().split(/\s+/).filter(w => w.length > 1))];
+    if (words.length === 0) return escapeHtml(text);
+    const alternation = words
+      .sort((a, b) => b.length - a.length)
+      .map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+      .join('|');
+    // With a capture group, split() puts the matches at the odd indices.
+    return text
+      .split(new RegExp(`(${alternation})`, 'gi'))
+      .map((part, i) => (i % 2 ? `<mark class="hl">${escapeHtml(part)}</mark>` : escapeHtml(part)))
+      .join('');
   }
 
   /* ── Event wiring ───────────────────────────────────────────── */
+
+  // A thumbnail that fails to load (missing or mis-pathed in Storage) falls
+  // back to the same placeholder as a plan with no thumbnail at all. Image
+  // error events don't bubble, so listen in the capture phase.
+  grid.addEventListener('error', (e) => {
+    const img = e.target;
+    if (!(img instanceof HTMLImageElement)) return;
+    const placeholder = img.classList.contains('sr-thumb-img') ? SR_THUMB_PLACEHOLDER
+      : img.classList.contains('doc-thumb') ? DOC_THUMB_PLACEHOLDER
+      : null;
+    if (placeholder) img.outerHTML = placeholder;
+  }, true);
 
   searchInput.addEventListener('keydown', async (e) => {
     if (e.key !== 'Enter') return;
