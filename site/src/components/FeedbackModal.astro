@@ -100,6 +100,7 @@
 
 <script>
   import { createClient } from '@supabase/supabase-js';
+  import { lockScroll, unlockScroll } from '../lib/scrollLock';
 
   const supabaseUrl  = import.meta.env.PUBLIC_SUPABASE_URL as string;
   const supabaseKey  = import.meta.env.PUBLIC_SUPABASE_ANON_KEY as string;
@@ -132,11 +133,14 @@
     ['fb-title','fb-city','fb-country','fb-language','fb-year','fb-meta-reason'].forEach(id => {
       (document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement).value = '';
     });
+    if (!modal.classList.contains('active')) lockScroll();
     modal.classList.add('active');
     modal.setAttribute('aria-hidden', 'false');
   }
 
   function closeModal() {
+    if (!modal.classList.contains('active')) return;
+    unlockScroll();
     modal.classList.remove('active');
     modal.setAttribute('aria-hidden', 'true');
     currentDocId = null;
@@ -251,6 +255,7 @@
     width: min(480px, calc(100vw - var(--sp-6)));
     max-height: 90vh;
     overflow-y: auto;
+    overscroll-behavior: contain;
     box-shadow: var(--shadow-3);
   }
 

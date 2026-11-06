@@ -63,6 +63,8 @@ const { title, description = 'Searchable archive of urban climate adaptation and
     <AboutModal />
 
     <script>
+      import { lockScroll, unlockScroll } from '../lib/scrollLock';
+
       const aboutButton = document.getElementById('about-button');
       const submitPlanButton = document.getElementById('submit-plan-button');
       const modal = document.getElementById('about-modal');
@@ -70,8 +72,13 @@ const { title, description = 'Searchable archive of urban climate adaptation and
       const modalOverlay = modal?.querySelector('.modal-overlay');
 
       aboutButton?.addEventListener('click', () => {
-        modal?.classList.add('active');
-        modal?.setAttribute('aria-hidden', 'false');
+        if (!modal || modal.classList.contains('active')) return;
+        lockScroll();
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        // Move focus into the dialog, as the other modals do, so keyboard and
+        // screen-reader users land in it rather than on the page behind.
+        (modalClose as HTMLElement | null)?.focus();
       });
 
       submitPlanButton?.addEventListener('click', () => {
@@ -93,8 +100,11 @@ const { title, description = 'Searchable archive of urban climate adaptation and
       });
 
       const closeModal = () => {
-        modal?.classList.remove('active');
-        modal?.setAttribute('aria-hidden', 'true');
+        if (!modal?.classList.contains('active')) return;
+        unlockScroll();
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        aboutButton?.focus();
       };
 
       modalClose?.addEventListener('click', closeModal);

@@ -94,6 +94,7 @@
 
 <script>
   import { createClient } from '@supabase/supabase-js';
+  import { lockScroll, unlockScroll } from '../lib/scrollLock';
 
   const supabaseUrl  = import.meta.env.PUBLIC_SUPABASE_URL as string;
   const supabaseKey  = import.meta.env.PUBLIC_SUPABASE_ANON_KEY as string;
@@ -111,6 +112,7 @@
     successEl.hidden = true;
     form.hidden = false;
     form.reset();
+    if (!modal.classList.contains('active')) lockScroll();
     modal.classList.add('active');
     modal.setAttribute('aria-hidden', 'false');
     setTimeout(() => {
@@ -119,6 +121,8 @@
   }
 
   function closeModal() {
+    if (!modal.classList.contains('active')) return;
+    unlockScroll();
     modal.classList.remove('active');
     modal.setAttribute('aria-hidden', 'true');
   }
@@ -205,6 +209,7 @@
     width: min(540px, calc(100vw - var(--sp-6)));
     max-height: 90vh;
     overflow-y: auto;
+    overscroll-behavior: contain;
     box-shadow: var(--shadow-3);
   }
 
