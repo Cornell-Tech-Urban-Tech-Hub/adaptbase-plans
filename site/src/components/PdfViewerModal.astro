@@ -49,6 +49,7 @@
 
 <script>
   import { getDocument, GlobalWorkerOptions, TextLayer } from 'pdfjs-dist';
+  import { lockScroll, unlockScroll } from '../lib/scrollLock';
 
   const PDFJS_VERSION = '5.7.284';
   GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${PDFJS_VERSION}/build/pdf.worker.min.mjs`;
@@ -79,9 +80,9 @@
   let currentDocId: string | null = null;
 
   async function openPdfViewer(pdfUrl: string, pageNumber: number, terms: string[], title?: string, docId?: string | null) {
+    if (!modal.classList.contains('active')) lockScroll();
     modal.classList.add('active');
     modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
 
     currentDocId = docId || null;
     titleEl.textContent = title || 'Document';
@@ -192,9 +193,10 @@
   }
 
   function closeModal() {
+    if (!modal.classList.contains('active')) return;
+    unlockScroll();
     modal.classList.remove('active');
     modal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
     pdfDoc = null;
     canvas.width = 0;
     canvas.height = 0;
@@ -423,6 +425,7 @@
   .pdf-viewport {
     flex: 1;
     overflow: auto;
+    overscroll-behavior: contain;
     display: flex;
     align-items: center;
     justify-content: center;
