@@ -981,7 +981,9 @@ import PdfViewerModal from '../components/PdfViewerModal.astro';
       query_embedding: embedding,
       query_text: currentSearch,
       match_count: 80,
-      filter_source: 'plan_crawler',
+      // Every plan the gallery lists, whatever its source (match_hybrid's
+      // filter_doc_type, adaptbase-core migration 20261124194722).
+      filter_doc_type: 'adaptation_plan',
     }) as { data: SearchResult[] | null; error: unknown };
 
     if (rpcErr || !chunks?.length) {
